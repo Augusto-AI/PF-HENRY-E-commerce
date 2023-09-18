@@ -16,7 +16,6 @@ import * as Yup from 'yup';
 const brandOptions = [
   { value: 'Salt Maalat', label: 'Salt Maalat' },
   { value: 'Betsin Maalat', label: 'Betsin Maalat' },
-  { value: 'Sexbomb', label: 'Sexbomb' },
   { value: 'Black Kibal', label: 'Black Kibal' }
 ];
 
