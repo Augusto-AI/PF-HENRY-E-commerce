@@ -19,7 +19,7 @@ const AdminNavigation = () => {
           style={{ display: "flex", alignItems: "center" }}
         >
           <img alt="Logo" src={logo} />
-          <h3>PANEL ADMIN</h3>
+          <h3>DASHBOARD</h3>
         </Link>
       </div>
       <ul className="navigation-menu">
