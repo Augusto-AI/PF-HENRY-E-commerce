@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setPaymentDetails } from '@/redux/actions/checkoutActions';
 
+
 const Total = ({ isInternational, subtotal }) => {
   const { values, submitForm } = useFormikContext();
   const history = useHistory();
@@ -39,16 +40,6 @@ const Total = ({ isInternational, subtotal }) => {
           <ArrowLeftOutlined />
           &nbsp;
           Go Back
-        </button>
-        <button
-          className="button"
-          disabled={false}
-          onClick={submitForm}
-          type="button"
-        >
-          <CheckOutlined />
-          &nbsp;
-          Confirm
         </button>
       </div>
     </>

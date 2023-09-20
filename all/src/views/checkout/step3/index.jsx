@@ -8,7 +8,6 @@ import { Redirect } from 'react-router-dom';
 import * as Yup from 'yup';
 import { StepTracker } from '../components';
 import withCheckout from '../hoc/withCheckout';
-import CreditPayment from './CreditPayment';
 import PayPalPayment from './PayPalPayment';
 import Total from './Total';
 
@@ -64,10 +63,8 @@ const Payment = ({ shipping, payment, subtotal }) => {
       >
         {() => (
           <Form className="checkout-step-3">
-            <CreditPayment />
-            <PayPalPayment />
+            <PayPalPayment subtotal={subtotal} />
             <Total
-              isInternational={shipping.isInternational}
               subtotal={subtotal}
             />
           </Form>

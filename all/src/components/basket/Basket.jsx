@@ -59,7 +59,7 @@ const Basket = () => {
     <Boundary>
       <Modal isOpen={isOpenModal} onRequestClose={onCloseModal}>
         <p className="text-center">
-          Debes iniciar sesión para continuar pagando
+        You must log in to continue paying
         </p>
         <br />
         <div className="d-flex-center">
@@ -68,7 +68,7 @@ const Basket = () => {
             onClick={onCloseModal}
             type="button"
           >
-            Seguir comprando
+            Keep buying
           </button>
           &nbsp;
           <button
@@ -76,7 +76,7 @@ const Basket = () => {
             onClick={onSignInClick}
             type="button"
           >
-            Inicia sesión para pagar
+            Sign in to for pay
           </button>
         </div>
       </Modal>
@@ -96,7 +96,7 @@ const Basket = () => {
                   onClick={onClickToggle}
                   role="presentation"
                 >
-                  Cerrar
+                  Close
                 </span>
               )}
             </BasketToggle>
@@ -106,7 +106,7 @@ const Basket = () => {
               onClick={onClearBasket}
               type="button"
             >
-              <span>Vaciar Canasta</span>
+              <span>Empty Basket</span>
             </button>
           </div>
           {basket.length <= 0 && (
