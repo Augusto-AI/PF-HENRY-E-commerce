@@ -34,6 +34,13 @@ export const calculateTotal = (arr) => {
 };
 
 export const displayActionMessage = (msg, status = 'info') => {
+  const existingToast = document.querySelector('.toast');
+
+  // Mevcut bir 'toast' öğesi varsa, onu kaldır
+  if (existingToast) {
+    document.body.removeChild(existingToast);
+  }
+
   const div = document.createElement('div');
   const span = document.createElement('span');
 
@@ -42,19 +49,12 @@ export const displayActionMessage = (msg, status = 'info') => {
     : status === 'success'
       ? 'toast-success'
       : 'toast-error'
-    // eslint-disable-next-line indent
     }`;
   span.className = 'toast-msg';
   span.textContent = msg;
   div.appendChild(span);
 
-
-  if (document.querySelector('.toast')) {
-    document.body.removeChild(document.querySelector('.toast'));
-    document.body.appendChild(div);
-  } else {
-    document.body.appendChild(div);
-  }
+  document.body.appendChild(div);
 
   setTimeout(() => {
     try {

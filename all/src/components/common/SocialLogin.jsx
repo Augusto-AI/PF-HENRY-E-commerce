@@ -48,7 +48,7 @@ const SocialLogin = ({ isLoading }) => {
         <GoogleOutlined />
         Continue with Google
       </button>
-      <button
+      {/* <button
         className="button auth-provider-button provider-github"
         disabled={isLoading}
         onClick={onSignInWithGithub}
@@ -56,7 +56,7 @@ const SocialLogin = ({ isLoading }) => {
       >
         <GithubFilled />
         Continue with GitHub
-      </button>
+      </button> */}
     </div>
   );
 };

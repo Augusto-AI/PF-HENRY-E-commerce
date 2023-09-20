@@ -3,5 +3,9 @@
     "@babel/core": "^7.22.20",
     "@babel/preset-env": "^7.22.20",
     "@babel/preset-react": "^7.22.15"
-  }
+  },
+  "name": "PF-HENRY-E-commerce",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
 }

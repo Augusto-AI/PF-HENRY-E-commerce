@@ -9,7 +9,6 @@ const Dashboard = () => {
   return (
     <div className="loader">
       <h2>Administrator</h2>
-      <AddProduct />
     </div>
   );
 };

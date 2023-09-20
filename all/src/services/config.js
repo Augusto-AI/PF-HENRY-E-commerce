@@ -3,6 +3,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyDHCvLVVoxB5p-7uojuH2UYIn2cyAsYgYM",
   authDomain: "pf-gafas.firebaseapp.com",
+  databaseURL: "https://pf-gafas-default-rtdb.firebaseio.com",
   projectId: "pf-gafas",
   storageBucket: "pf-gafas.appspot.com",
   messagingSenderId: "1038196275079",

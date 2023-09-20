@@ -63,12 +63,8 @@ const Payment = ({ shipping, payment, subtotal }) => {
       >
         {() => (
           <Form className="checkout-step-3">
-            <CreditPayment />
-            <PayPalPayment />
-            <Total
-              isInternational={shipping.isInternational}
-              subtotal={subtotal}
-            />
+            <PayPalPayment subtotal={subtotal} />
+            <Total subtotal={subtotal} />
           </Form>
         )}
       </Formik>
