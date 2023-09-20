@@ -30,8 +30,8 @@ const Footer = () => {
       <div className="footer-col-3">
         <strong>
           <span>
-            Fork this project &nbsp;
-            <a href="https://github.com/Augusto-AI">HERE</a>
+            Fork this project on GitHub &nbsp;
+            <a href="https://github.com/Augusto-AI/PF-HENRY-E-commerce">HERE</a>
           </span>
         </strong>
       </div>

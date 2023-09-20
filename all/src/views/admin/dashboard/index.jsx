@@ -1,5 +1,6 @@
 import { useDocumentTitle, useScrollTop } from "@/hooks";
 import React from "react";
+import AddProduct from "../add_product/index";
 
 const Dashboard = () => {
   useDocumentTitle("Welcome | Admin Dashboard");
