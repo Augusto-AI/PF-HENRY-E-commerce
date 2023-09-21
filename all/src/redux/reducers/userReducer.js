@@ -3,14 +3,15 @@ import {
   DELETE_USER,
   EDIT_USER,
   CHANGE_USER_ROLE,
+  GET_USER,
 } from "@/constants/constants";
 
-const initialState = []; // Initialize as an empty array
+const initialState = []; // Inicializamos como un array vacío
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_USER:
-      return [...state, action.payload]; // Append the new user to the existing state
+      return [...state, action.payload]; // Agregamos el nuevo usuario al estado existente
     case EDIT_USER:
       return state.map((user) => {
         if (user.id === action.payload.id) {
@@ -33,6 +34,9 @@ export default (state = initialState, action) => {
         }
         return user;
       });
+    case GET_USER:
+      // Aquí asumimos que action.payload es la información del usuario que recibiste
+      return [...state, action.payload]; // Agregamos el usuario al estado existente
     default:
       return state;
   }

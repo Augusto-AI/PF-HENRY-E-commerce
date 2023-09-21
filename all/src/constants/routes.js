@@ -12,6 +12,7 @@ export const ADD_PRODUCT = "/admin/add";
 export const ADD_USER = "/admin/add_user";
 export const EDIT_PRODUCT = "/admin/edit";
 export const CHANGE_USER_ROLE = "/admin/users-role";
+export const REGISTER_USER = "/admin/register-user";
 
 export const SEARCH = "/search/:searchKey";
 export const SIGNIN = "/signin";
@@ -27,4 +28,6 @@ export const SUCCESS = "/success";
 
 export const ADMIN_ADD_PRODUCT = "/dashboard/add-product";
 export const ADMIN_ORDERS = "/dasboard/orders";
+export const MY_ORDERS = "/my-orders";
+
 // Otras rutas aquí...

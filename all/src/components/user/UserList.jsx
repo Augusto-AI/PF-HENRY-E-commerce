@@ -1,133 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setLoading } from "@/redux/actions/miscActions";
+import { registerUser } from "@/redux/actions/userActions"; // Asegúrate de importar la acción adecuada para obtener usuarios
+import { MessageDisplay, Boundary } from "@/components/common";
 import PropTypes from "prop-types";
-import { CloseCircleOutlined } from "@ant-design/icons";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { applyFilter } from "@/redux/actions/filterActions";
 
-const UserAppliedFilters = ({ filteredUsersCount }) => {
-  const filter = useSelector((state) => state.filter, shallowEqual);
-  const fields = ["role", "minAge", "maxAge", "sortBy", "keyword"]; // Assuming these are your filter fields
-  const isFiltered = fields.some((key) => !!filter[key]);
+const UserList = (props) => {
+  const { users, filteredUsers, isLoading, requestStatus, children } = props;
+  const [isFetching, setFetching] = useState(false);
   const dispatch = useDispatch();
 
-  const onRemoveKeywordFilter = () => {
-    dispatch(applyFilter({ keyword: "" }));
+  const fetchUsers = () => {
+    setFetching(true);
+    dispatch(getUsers(users.lastRefKey)); // Utiliza la acción para obtener usuarios
   };
 
-  const onRemoveAgeRangeFilter = () => {
-    dispatch(applyFilter({ minAge: 0, maxAge: 0 }));
-  };
+  useEffect(() => {
+    if (users.items.length === 0 || !users.lastRefKey) {
+      fetchUsers();
+    }
 
-  const onRemoveRoleFilter = () => {
-    dispatch(applyFilter({ role: "" }));
-  };
+    window.scrollTo(0, 0);
+    return () => dispatch(setLoading(false));
+  }, []);
 
-  const onRemoveSortFilter = () => {
-    dispatch(applyFilter({ sortBy: "" }));
-  };
+  useEffect(() => {
+    setFetching(false);
+  }, [users.lastRefKey]);
 
-  return !isFiltered ? null : (
-    <>
-      <div className="user-list-header">
-        <div className="user-list-header-title">
-          <h5>
-            {filteredUsersCount > 0 &&
-              `Found ${filteredUsersCount} ${
-                filteredUsersCount > 1 ? "users" : "user"
-              }`}
-          </h5>
+  if (filteredUsers.length === 0 && !isLoading) {
+    return (
+      <MessageDisplay
+        message={requestStatus?.message || "No se encontraron usuarios."}
+      />
+    );
+  }
+  if (filteredUsers.length === 0 && requestStatus) {
+    return (
+      <MessageDisplay
+        message={requestStatus?.message || "Algo salió mal :("}
+        action={fetchUsers}
+        buttonLabel="Intentar de nuevo"
+      />
+    );
+  }
+  return (
+    <Boundary>
+      {children}
+      {/* Mostrar el botón 'Mostrar más' si la longitud de usuarios es menor que el total de usuarios */}
+      {users.items.length < users.total && (
+        <div className="d-flex-center padding-l">
+          <button
+            className="button button-small"
+            disabled={isFetching}
+            onClick={fetchUsers}
+            type="button"
+          >
+            {isFetching ? "Obteniendo usuarios..." : "Mostrar más usuarios"}
+          </button>
         </div>
-      </div>
-      <div className="user-applied-filters">
-        {filter.keyword && (
-          <div className="pill-wrapper">
-            <span className="d-block">Keyword</span>
-            <div className="pill padding-right-l">
-              <h5 className="pill-content margin-0">{filter.keyword}</h5>
-              <div
-                className="pill-remove"
-                onClick={onRemoveKeywordFilter}
-                role="presentation"
-              >
-                <h5 className="margin-0 text-subtle">
-                  <CloseCircleOutlined />
-                </h5>
-              </div>
-            </div>
-          </div>
-        )}
-        {filter.role && (
-          <div className="pill-wrapper">
-            <span className="d-block">Role</span>
-            <div className="pill padding-right-l">
-              <h5 className="pill-content margin-0">{filter.role}</h5>
-              <div
-                className="pill-remove"
-                onClick={onRemoveRoleFilter}
-                role="presentation"
-              >
-                <h5 className="margin-0 text-subtle">
-                  <CloseCircleOutlined />
-                </h5>
-              </div>
-            </div>
-          </div>
-        )}
-        {(!!filter.minAge || !!filter.maxAge) && (
-          <div className="pill-wrapper">
-            <span className="d-block">Age Range</span>
-            <div className="pill padding-right-l">
-              <h5 className="pill-content margin-0">
-                {`${filter.minAge} - ${filter.maxAge} years`}
-              </h5>
-              <div
-                className="pill-remove"
-                onClick={onRemoveAgeRangeFilter}
-                role="presentation"
-              >
-                <h5 className="margin-0 text-subtle">
-                  <CloseCircleOutlined />
-                </h5>
-              </div>
-            </div>
-          </div>
-        )}
-        {filter.sortBy && (
-          <div className="pill-wrapper">
-            <span className="d-block">Sort By</span>
-            <div className="pill padding-right-l">
-              <h5 className="pill-content margin-0">
-                {filter.sortBy === "name-asc"
-                  ? "Name A - Z"
-                  : filter.sortBy === "name-desc"
-                  ? "Name Z - A"
-                  : filter.sortBy === "age-asc"
-                  ? "Age Low - High"
-                  : "Age High - Low"}
-              </h5>
-              <div
-                className="pill-remove"
-                onClick={onRemoveSortFilter}
-                role="presentation"
-              >
-                <h5 className="margin-0 text-subtle">
-                  <CloseCircleOutlined />
-                </h5>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </>
+      )}
+    </Boundary>
   );
 };
 
-UserAppliedFilters.defaultProps = {
-  filteredUsersCount: 0,
+UserList.defaultProps = {
+  requestStatus: null,
 };
 
-UserAppliedFilters.propTypes = {
-  filteredUsersCount: PropTypes.number,
+UserList.propTypes = {
+  users: PropTypes.object.isRequired,
+  filteredUsers: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  requestStatus: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
 };
 
-export default UserAppliedFilters;
+export default UserList;
