@@ -2,13 +2,17 @@ export const HOME = "/";
 export const SHOP = "/shop";
 export const FEATURED_PRODUCTS = "/featured";
 export const RECOMMENDED_PRODUCTS = "/recommended";
+
 export const ACCOUNT = "/account";
 export const ACCOUNT_EDIT = "/account/edit";
 export const ADMIN_DASHBOARD = "/admin/dashboard";
 export const ADMIN_PRODUCTS = "/admin/products";
 export const ADMIN_USERS = "/admin/users";
 export const ADD_PRODUCT = "/admin/add";
+export const ADD_USER = "/admin/add_user";
 export const EDIT_PRODUCT = "/admin/edit";
+export const CHANGE_USER_ROLE = "/admin/users-role";
+
 export const SEARCH = "/search/:searchKey";
 export const SIGNIN = "/signin";
 export const SIGNOUT = "/signout";
