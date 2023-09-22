@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 /* eslint-disable react/jsx-props-no-spreading */
 
 var Shop = function Shop() {
-  (0, _hooks.useDocumentTitle)('Shop | Salinaka');
+  (0, _hooks.useDocumentTitle)("Shop | HP HENRY & CO.");
   (0, _hooks.useScrollTop)();
   var store = (0, _reactRedux.useSelector)(function (state) {
     return {

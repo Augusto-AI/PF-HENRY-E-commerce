@@ -23,7 +23,7 @@ var Preloader = function Preloader() {
     cy: "14.93",
     r: "6.58"
   })), /*#__PURE__*/_react["default"].createElement("img", {
-    alt: "Salinaka logo wordmark",
+    alt: "Henry logo wordmark",
     src: _logoWordmark["default"]
   }));
 };

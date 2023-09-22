@@ -17,23 +17,14 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-// const initState = [
-//   {
-//     firstname: 'Gago',
-//     lastname: 'Ka',
-//     email: 'gagoka@mail.com',
-//     password: 'gagooo',
-//     avatar: '',
-//     banner: '',
-//     dateJoined: 0
-//   }
-// ];
+var initialState = []; // Inicializamos como un array vacío
 var _default = function _default() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
   switch (action.type) {
     case _constants.ADD_USER:
       return [].concat(_toConsumableArray(state), [action.payload]);
+    // Agregamos el nuevo usuario al estado existente
     case _constants.EDIT_USER:
       return state.map(function (user) {
         if (user.id === action.payload.id) {
@@ -45,6 +36,19 @@ var _default = function _default() {
       return state.filter(function (user) {
         return user.id !== action.payload;
       });
+    case _constants.CHANGE_USER_ROLE:
+      return state.map(function (user) {
+        if (user.id === action.payload.uid) {
+          return _objectSpread(_objectSpread({}, user), {}, {
+            role: action.payload.newRole
+          });
+        }
+        return user;
+      });
+    case _constants.GET_USER:
+      // Aquí asumimos que action.payload es la información del usuario que recibiste
+      return [].concat(_toConsumableArray(state), [action.payload]);
+    // Agregamos el usuario al estado existente
     default:
       return state;
   }

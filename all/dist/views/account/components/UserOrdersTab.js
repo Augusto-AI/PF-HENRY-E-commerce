@@ -12,11 +12,11 @@ var UserOrdersTab = function UserOrdersTab() {
   return /*#__PURE__*/_react["default"].createElement("div", {
     className: "loader",
     style: {
-      minHeight: '80vh'
+      minHeight: "80vh"
     }
   }, /*#__PURE__*/_react["default"].createElement("h3", null, "My Orders"), /*#__PURE__*/_react["default"].createElement("strong", null, /*#__PURE__*/_react["default"].createElement("span", {
     className: "text-subtle"
   }, "You don't have any orders")));
 };
-var _default = UserOrdersTab;
+var _default = UserOrdersTab; //* Construir la logiaca de las ordenes por cliente
 exports["default"] = _default;

@@ -5,10 +5,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
+var _app = _interopRequireDefault(require("firebase/app"));
 var _basket = require("@/components/basket");
 var _common = require("@/components/common");
 var _routes = require("@/constants/routes");
-var _firebase = _interopRequireDefault(require("firebase/firebase"));
 var _utils = require("@/helpers/utils");
 var _hooks = require("@/hooks");
 var _react = _interopRequireWildcard(require("react"));
@@ -39,8 +39,8 @@ var Basket = function Basket() {
   var dispatch = (0, _reactRedux.useDispatch)();
   var didMount = (0, _hooks.useDidMount)();
   (0, _react.useEffect)(function () {
-    if (didMount && _firebase["default"].auth.currentUser && basket.length !== 0) {
-      _firebase["default"].saveBasketItems(basket, _firebase["default"].auth.currentUser.uid).then(function () {
+    if (didMount && _app["default"].auth.currentUser && basket.length !== 0) {
+      _app["default"].saveBasketItems(basket, _app["default"].auth.currentUser.uid).then(function () {
         console.log("Item saved to basket");
       })["catch"](function (e) {
         console.log(e);

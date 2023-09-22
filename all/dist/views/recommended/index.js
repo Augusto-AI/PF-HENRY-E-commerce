@@ -11,7 +11,7 @@ var _bannerGirl = _interopRequireDefault(require("@/images/banner-girl-1.png"));
 var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 var RecommendedProducts = function RecommendedProducts() {
-  (0, _hooks.useDocumentTitle)('Recommended Products | Salinaka');
+  (0, _hooks.useDocumentTitle)("Recommended Products | HP HENRY & CO.");
   (0, _hooks.useScrollTop)();
   var _useRecommendedProduc = (0, _hooks.useRecommendedProducts)(),
     recommendedProducts = _useRecommendedProduc.recommendedProducts,

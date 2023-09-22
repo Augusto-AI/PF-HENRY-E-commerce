@@ -11,7 +11,7 @@ var _bannerGuy = _interopRequireDefault(require("@/images/banner-guy.png"));
 var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 var FeaturedProducts = function FeaturedProducts() {
-  (0, _hooks.useDocumentTitle)('Featured Products | Salinaka');
+  (0, _hooks.useDocumentTitle)("Featured Products | PF HENRY & CO.");
   (0, _hooks.useScrollTop)();
   var _useFeaturedProducts = (0, _hooks.useFeaturedProducts)(),
     featuredProducts = _useFeaturedProducts.featuredProducts,

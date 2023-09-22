@@ -30,8 +30,8 @@ var Footer = function Footer() {
     src: _logoFull["default"]
   }), /*#__PURE__*/_react["default"].createElement("h5", null, "\xA9\xA0", new Date().getFullYear())), /*#__PURE__*/_react["default"].createElement("div", {
     className: "footer-col-3"
-  }, /*#__PURE__*/_react["default"].createElement("strong", null, /*#__PURE__*/_react["default"].createElement("span", null, "Fork this project \xA0", /*#__PURE__*/_react["default"].createElement("a", {
-    href: "https://github.com/Augusto-AI"
+  }, /*#__PURE__*/_react["default"].createElement("strong", null, /*#__PURE__*/_react["default"].createElement("span", null, "Fork this project on GitHub \xA0", /*#__PURE__*/_react["default"].createElement("a", {
+    href: "https://github.com/Augusto-AI/PF-HENRY-E-commerce"
   }, "HERE")))));
 };
 var _default = Footer;

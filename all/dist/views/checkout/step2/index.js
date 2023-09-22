@@ -27,15 +27,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 /* eslint-disable no-nested-ternary */
 
 var FormSchema = Yup.object().shape({
-  fullname: Yup.string().required('Full name is required.').min(2, 'Full name must be at least 2 characters long.').max(60, 'Full name must only be less than 60 characters.'),
-  email: Yup.string().email('Email is not valid.').required('Email is required.'),
-  address: Yup.string().required('Shipping address is required.'),
+  fullname: Yup.string().required("Full name is required.").min(2, "Full name must be at least 2 characters long.").max(60, "Full name must only be less than 60 characters."),
+  email: Yup.string().email("Email is not valid.").required("Email is required."),
+  address: Yup.string().required("Shipping address is required."),
   mobile: Yup.object().shape({
     country: Yup.string(),
     countryCode: Yup.string(),
-    dialCode: Yup.string().required('Mobile number is required'),
-    value: Yup.string().required('Mobile number is required')
-  }).required('Mobile number is required.'),
+    dialCode: Yup.string().required("Mobile number is required"),
+    value: Yup.string().required("Mobile number is required")
+  }).required("Mobile number is required."),
   isInternational: Yup["boolean"](),
   isDone: Yup["boolean"]()
 });
@@ -43,14 +43,14 @@ var ShippingDetails = function ShippingDetails(_ref) {
   var profile = _ref.profile,
     shipping = _ref.shipping,
     subtotal = _ref.subtotal;
-  (0, _hooks.useDocumentTitle)('Check Out Step 2 | Salinaka');
+  (0, _hooks.useDocumentTitle)("Check Out Step 2 | PF HENRY & CO.");
   (0, _hooks.useScrollTop)();
   var dispatch = (0, _reactRedux.useDispatch)();
   var history = (0, _reactRouterDom.useHistory)();
   var initFormikValues = {
-    fullname: shipping.fullname || profile.fullname || '',
-    email: shipping.email || profile.email || '',
-    address: shipping.address || profile.address || '',
+    fullname: shipping.fullname || profile.fullname || "",
+    email: shipping.email || profile.email || "",
+    address: shipping.address || profile.address || "",
     mobile: shipping.mobile || profile.mobile || {},
     isInternational: shipping.isInternational || false,
     isDone: shipping.isDone || false

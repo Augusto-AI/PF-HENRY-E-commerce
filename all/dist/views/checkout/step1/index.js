@@ -19,12 +19,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var OrderSummary = function OrderSummary(_ref) {
   var basket = _ref.basket,
     subtotal = _ref.subtotal;
-  (0, _hooks.useDocumentTitle)('Check Out Step 1 | Salinaka');
+  (0, _hooks.useDocumentTitle)("Check Out Step 1 | PF HENRY & CO.");
   (0, _hooks.useScrollTop)();
   var dispatch = (0, _reactRedux.useDispatch)();
   var history = (0, _reactRouterDom.useHistory)();
   var onClickPrevious = function onClickPrevious() {
-    return history.push('/');
+    return history.push("/");
   };
   var onClickNext = function onClickNext() {
     return history.push(_routes.CHECKOUT_STEP_2);

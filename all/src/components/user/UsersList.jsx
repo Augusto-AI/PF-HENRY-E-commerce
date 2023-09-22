@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import firebase from "firebase/app"; // Asegúrate de importar Firebase aquí
+import firebase from 'firebase/compat/app';
 import "firebase/firestore"; // Importa los servicios de Firestore que necesitas
 import UserDetail from "./UserDetail"; // Importa el componente UserDetail
 

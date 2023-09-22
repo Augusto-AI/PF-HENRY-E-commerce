@@ -34,12 +34,7 @@ var SocialLogin = function SocialLogin(_ref) {
     disabled: isLoading,
     onClick: onSignInWithGoogle,
     type: "button"
-  }, /*#__PURE__*/_react["default"].createElement(_icons.GoogleOutlined, null), "Continue with Google"), /*#__PURE__*/_react["default"].createElement("button", {
-    className: "button auth-provider-button provider-github",
-    disabled: isLoading,
-    onClick: onSignInWithGithub,
-    type: "button"
-  }, /*#__PURE__*/_react["default"].createElement(_icons.GithubFilled, null), "Continue with GitHub"));
+  }, /*#__PURE__*/_react["default"].createElement(_icons.GoogleOutlined, null), "Continue with Google"));
 };
 SocialLogin.propTypes = {
   isLoading: _propTypes["default"].bool.isRequired

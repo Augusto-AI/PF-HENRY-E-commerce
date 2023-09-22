@@ -14,7 +14,7 @@ var _react = _interopRequireDefault(require("react"));
 var _reactRouterDom = require("react-router-dom");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 var Home = function Home() {
-  (0, _hooks.useDocumentTitle)('Salinaka | Home');
+  (0, _hooks.useDocumentTitle)("PF HENRY & CO. | Home");
   (0, _hooks.useScrollTop)();
   var _useFeaturedProducts = (0, _hooks.useFeaturedProducts)(6),
     featuredProducts = _useFeaturedProducts.featuredProducts,

@@ -57,6 +57,12 @@ Object.defineProperty(exports, "useScrollTop", {
     return _useScrollTop["default"];
   }
 });
+Object.defineProperty(exports, "useUser", {
+  enumerable: true,
+  get: function get() {
+    return _useUser["default"];
+  }
+});
 var _useBasket = _interopRequireDefault(require("./useBasket"));
 var _useDidMount = _interopRequireDefault(require("./useDidMount"));
 var _useDocumentTitle = _interopRequireDefault(require("./useDocumentTitle"));
@@ -66,4 +72,5 @@ var _useModal = _interopRequireDefault(require("./useModal"));
 var _useProduct = _interopRequireDefault(require("./useProduct"));
 var _useRecommendedProducts = _interopRequireDefault(require("./useRecommendedProducts"));
 var _useScrollTop = _interopRequireDefault(require("./useScrollTop"));
+var _useUser = _interopRequireDefault(require("./useUser"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
