@@ -12,7 +12,7 @@ import {
   COMPLETE_PAYPAL_PAYMENT,
   COMPLETE_PAYPAL_PAYMENT_SUCCESS,
   COMPLETE_PAYPAL_PAYMENT_FAILURE,
-} from "./constants"; // Asegúrate de proporcionar la ruta correcta a tus constantes
+} from "@/constants/constants"; // Asegúrate de proporcionar la ruta correcta a tus constantes
 
 // Importa cualquier otra dependencia necesaria aquí
 

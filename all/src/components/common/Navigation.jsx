@@ -52,7 +52,9 @@ const Navigation = () => {
     ROUTE.CHECKOUT_STEP_3,
     ROUTE.SIGNIN,
     ROUTE.SIGNUP,
-    ROUTE.FORGOT_PASSWORD
+    ROUTE.FORGOT_PASSWORD,
+    ROUTE.ABOUT
+
   ];
 
   if (store.user && store.user.role === 'ADMIN') {
@@ -77,15 +79,17 @@ const Navigation = () => {
         <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.SHOP}>Shop</NavLink></li>
         <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.FEATURED_PRODUCTS}>Featured</NavLink></li>
         <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.RECOMMENDED_PRODUCTS}>Recommended</NavLink></li>
-      </ul>
-      {(pathname === ROUTE.SHOP || pathname === ROUTE.SEARCH) && (
+        <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.ABOUT}>About Us</NavLink></li>
+        {(pathname === ROUTE.SHOP || pathname === ROUTE.SEARCH) && (
         <FiltersToggle>
-          <button className="button-muted button-small" type="button">
+          <button className="button-muted button-small" style={{ marginLeft: "12em" }} type="button">
             Filters &nbsp;
             <FilterOutlined />
           </button>
         </FiltersToggle>
       )}
+      </ul>
+      
       <SearchBar />
       <ul className="navigation-menu">
         <li className="navigation-menu-item">

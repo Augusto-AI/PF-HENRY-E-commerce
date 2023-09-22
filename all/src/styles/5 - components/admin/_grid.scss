@@ -28,6 +28,8 @@
   position: relative;
   z-index: map-get($z-index, 'filter');
   margin-right: $s-size;
+  background-color: red;
+
 }
 
 .product-admin-items {

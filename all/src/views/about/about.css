@@ -1,0 +1,72 @@
+/* AboutUs.css */
+
+.about-us {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    flex-wrap: wrap;
+    margin-left: 9em;
+  }
+
+  .profile{
+   margin-bottom: 2em;
+   margin: 0 100px;
+
+}
+  
+  /* AboutUs.css */
+
+.profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    transition: transform 0.2s;
+
+  }
+  
+  .profile img:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+  
+  .profile h2 {
+    font-size: 24px;
+
+  }
+  
+  .social-links {
+    justify-content: center;
+    flex-direction: column;
+  align-items: center;
+  
+
+  }
+  
+  .social-links a {
+    margin: 0 10px;
+  }
+  
+
+  .fullstack{
+
+  margin: 0 50px;
+  margin-top: 5em;
+
+
+}
+  
+  .social-links img {
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 7px;
+  }
+
+  .left {
+
+    margin-left: 18em;
+
+}
+  

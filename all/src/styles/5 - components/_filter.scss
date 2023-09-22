@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   position: relative;
   z-index: map-get($z-index, 'filter');
+  
 }
 
 .filters-field {
@@ -10,6 +11,8 @@
   margin-bottom: $m-size;
   padding-bottom: $m-size;
   border-bottom: 1px solid $border-color;
+  
+  
 
   &:nth-child(1),
   &:nth-child(2) {
@@ -23,11 +26,13 @@
 
 .filters-brand {
   width: 100%;
+  
 }
 
 .filters-action {
   display: flex;
   width: 100%;
+  
 }
 
 .filters-button {
@@ -44,6 +49,7 @@
   background: $white;
   position: relative;
   padding: $m-size;
+  
 
   @include mobile {
     width: 100%;
@@ -52,15 +58,19 @@
 
 .is-open-filters .filters-toggle-sub {
   display: block;
+  
 }
 
 .filters-toggle-caret {
   transform: rotate(-90deg);
+  
+  
 }
 
 .filters-wrapper {
   display: flex;
   align-items: center;
+  
 }
 
 // .is-open-filters .filters-toggle-caret {

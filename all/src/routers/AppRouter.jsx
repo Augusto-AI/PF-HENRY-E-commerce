@@ -19,6 +19,12 @@ const AppRouter = () => (
       <Navigation />
       <Basket />
       <Switch>
+
+      <Route
+          component={view.Shop}
+          exact
+          path={ROUTES.SHOP}
+        />
         <Route
           component={view.Search}
           exact
@@ -29,11 +35,7 @@ const AppRouter = () => (
           exact
           path={ROUTES.HOME}
         />
-        <Route
-          component={view.Shop}
-          exact
-          path={ROUTES.SHOP}
-        />
+    
         <Route
           component={view.FeaturedProducts}
           exact
@@ -78,6 +80,10 @@ const AppRouter = () => (
           <ClientRoute
           component={view.CheckOutSuccess}
           path={ROUTES.SUCCESS}
+        />
+           <Route
+          component={view.AboutUs}
+          path={ROUTES.ABOUT}
         />
         <ClientRoute
           component={view.CheckOutStep2}

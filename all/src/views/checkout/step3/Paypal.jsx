@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { useHistory } from "react-router-dom";
 import { SUCCESS } from "@/constants/routes";
+import { useDispatch } from "react-redux";
+import { setBasketItems } from '../../../redux/actions/basketActions';
 
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
 export default function PaypalPayment({ subtotal }) {
   const [opcion, setOpcion] = useState(5);
   const history = useHistory();
+  const dispatch = useDispatch();
+  const purchasedItems = [];
+ 
+
 
   const createOrder = (data, actions) => {
     return actions.order.create({
@@ -28,9 +34,12 @@ export default function PaypalPayment({ subtotal }) {
   };
 
   function handlePay() {
-    console.log("el pago ha sido exitoso");
+   
+    dispatch(setBasketItems(purchasedItems))
+    console.log(purchasedItems)
     history.push(SUCCESS);
   }
+  
   const handleChange = (e) => {
     setPrice(e.target.value);
   };
