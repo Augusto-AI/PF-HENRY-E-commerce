@@ -2,7 +2,8 @@ import {
   ADD_QTY_ITEM, ADD_TO_BASKET,
   CLEAR_BASKET,
   MINUS_QTY_ITEM, REMOVE_FROM_BASKET,
-  SET_BASKET_ITEMS
+  SET_BASKET_ITEMS,
+  DECREASE_ITEM_QUANTITY
 } from '@/constants/constants';
 
 export const setBasketItems = (items = []) => ({
@@ -13,6 +14,12 @@ export const setBasketItems = (items = []) => ({
 export const addToBasket = (product) => ({
   type: ADD_TO_BASKET,
   payload: product
+});
+
+
+export const decreaseItemQuantity = (id) => ({
+  type: DECREASE_ITEM_QUANTITY,
+  payload: id,
 });
 
 export const removeFromBasket = (id) => ({
@@ -33,3 +40,6 @@ export const minusQtyItem = (id) => ({
   type: MINUS_QTY_ITEM,
   payload: id
 });
+
+
+

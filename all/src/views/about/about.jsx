@@ -57,12 +57,12 @@ const About = () => {
       </div>
       <div className="profile">
         <h2 className="fullstack">Full Stack Web Developer</h2>
-        <img src={engin} alt="Hasan Engin Kubat" />
-        <h2>Hasan Engin Kubat</h2>
-        <a  className="social-links" href="https://github.com/hasanenginkubat" target="_blank" rel="noopener noreferrer">
+        <img src={gabo} alt="Hasan Engin Kubat" />
+        <h2>Gabriel Yopasa Angulo</h2>
+        <a  className="social-links" href="https://github.com/GaboYopasa" target="_blank" rel="noopener noreferrer">
           <img src={githubLogo} alt="GitHub" />
         </a>
-        <a className="social-links"href="https://www.linkedin.com/in/hasan-engin-kubat-621173255/" target="_blank" rel="noopener noreferrer">
+        <a className="social-links"href="https://co.linkedin.com/in/gabriel-yopasa-angulo-208665265" target="_blank" rel="noopener noreferrer">
           <img src={linkedinLogo} alt="LinkedIn" />
         </a>
       </div>

@@ -15,6 +15,7 @@ const Basket = () => {
   const { basket, user } = useSelector((state) => ({
     basket: state.basket,
     user: state.auth,
+
   }));
   const history = useHistory();
   const { pathname } = useLocation();
