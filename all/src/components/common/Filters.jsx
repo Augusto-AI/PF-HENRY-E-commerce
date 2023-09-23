@@ -96,7 +96,6 @@ const Filters = ({ closeModal }) => {
             <option value="salt">Salt Maalat</option>
             <option value="betsin">Betsin Maalat</option>
             <option value="black">Black Kibal</option>
-            <option value="sexbomb">Sexbomb</option>
           </select>
         )}
       </div>

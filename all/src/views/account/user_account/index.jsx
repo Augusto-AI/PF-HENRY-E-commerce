@@ -5,7 +5,6 @@ import React, { lazy, Suspense } from "react";
 import UserTab from "../components/UserTab";
 
 const UserAccountTab = lazy(() => import("../components/UserAccountTab"));
-const UserWishListTab = lazy(() => import("../components/UserWishListTab"));
 const UserOrdersTab = lazy(() => import("../components/UserOrdersTab"));
 
 const Loader = () => (
@@ -26,11 +25,7 @@ const UserAccount = () => {
           <UserAccountTab />
         </Suspense>
       </div>
-      <div index={1} label="My Wish List">
-        <Suspense fallback={<Loader />}>
-          <UserWishListTab />
-        </Suspense>
-      </div>
+
       <div index={2} label="My Orders">
         <Suspense fallback={<Loader />}>
           <UserOrdersTab />

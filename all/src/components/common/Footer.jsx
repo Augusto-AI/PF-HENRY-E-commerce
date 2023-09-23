@@ -10,16 +10,6 @@ const Footer = () => {
 
   return !visibleOnlyPath.includes(pathname) ? null : (
     <footer className="footer">
-      <div className="footer-col-1">
-        <strong>
-          <span>
-            Developed by{" "}
-            <a href="https://www.linkedin.com/in/augusto-herrera-velasquez-36679060/">
-              Augusto Herrera
-            </a>
-          </span>
-        </strong>
-      </div>
       <div className="footer-col-2">
         <img alt="Footer logo" className="footer-logo" src={logo} />
         <h5>

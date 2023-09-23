@@ -142,7 +142,7 @@ const Basket = () => {
             onClick={onCheckOut}
             type="button"
           >
-            Terminar
+            Finish
           </button>
         </div>
       </div>
