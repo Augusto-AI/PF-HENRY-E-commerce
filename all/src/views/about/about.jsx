@@ -7,6 +7,8 @@ import gabo from "./assets/gabo.jpg"
 import agusto from "./assets/agusto.jpg"
 import dany from "./assets/danny.jpg"
 import Jonny from "./assets/jonney.jpg"
+import alejandro from './assets/alejandro.jpg'
+import alan from "./assets/alan.jpg"
 
 const About = () => {
   return (
@@ -68,24 +70,24 @@ const About = () => {
       </div>
       <div className="profile">
         <h2 className="fullstack">Full Stack Web Developer</h2>
-        <img src={engin} alt="Hasan Engin Kubat" />
-        <h2>Hasan Engin Kubat</h2>
-        <a  className="social-links" href="https://github.com/hasanenginkubat" target="_blank" rel="noopener noreferrer">
+        <img src={alejandro} alt="Hasan Engin Kubat" />
+        <h2>Alejandro Garcia</h2>
+        <a  className="social-links" href="https://github.com/sabinux" target="_blank" rel="noopener noreferrer">
           <img src={githubLogo} alt="GitHub" />
         </a>
-        <a className="social-links"href="https://www.linkedin.com/in/hasan-engin-kubat-621173255/" target="_blank" rel="noopener noreferrer">
+        <a className="social-links"href="https://www.linkedin.com/in/alejandro-garcia-6179b9260/" target="_blank" rel="noopener noreferrer">
           <img src={linkedinLogo} alt="LinkedIn" />
         </a>
       </div>
       <div className="left" >
       <div className="profile">
         <h2 className="fullstack">Full Stack Web Developer</h2>
-        <img src={engin} alt="Hasan Engin Kubat" />
-        <h2>Hasan Engin Kubat</h2>
-        <a  className="social-links" href="https://github.com/hasanenginkubat" target="_blank" rel="noopener noreferrer">
+        <img src={alan} alt="Hasan Engin Kubat" />
+        <h2>Alan Zalazar</h2>
+        <a  className="social-links" href="https://github.com/AlanZalazar" target="_blank" rel="noopener noreferrer">
           <img src={githubLogo} alt="GitHub" />
         </a>
-        <a className="social-links"href="https://www.linkedin.com/in/hasan-engin-kubat-621173255/" target="_blank" rel="noopener noreferrer">
+        <a className="social-links"href="https://www.linkedin.com/in/alan-zalazar-36495a258/" target="_blank" rel="noopener noreferrer">
           <img src={linkedinLogo} alt="LinkedIn" />
         </a>
       </div>
