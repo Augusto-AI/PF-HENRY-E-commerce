@@ -29,19 +29,19 @@ const UserDetail = ({ user, onEdit, onDelete, onChangeRole }) => {
     onDelete(user.id);
   };
 
-  const handleRoleChange = () => {
-    // Aquí puedes agregar lógica para cambiar el rol del usuario
-    // Puedes utilizar una función prop que se encargue de actualizar el rol en Firebase
+  const handleRoleChange = async () => {
+    try {
+      await onChangeRole(user.id, editedUser.role);
 
-    // Por ejemplo, supongamos que tienes una función prop llamada onChangeRole
-    // que cambia el rol del usuario en Firebase
-    onChangeRole(user.id, editedUser.role);
-
-    // Mostrar una notificación de éxito
-    toast.success("El rol del usuario se cambió a ADMIN", {
-      position: "top-right",
-      autoClose: 3000, // Duración de la notificación en milisegundos
-    });
+      // Mostrar una notificación de éxito
+      toast.success("Cambio a ADMIN exitoso!", {
+        position: "top-right",
+        autoClose: 3000, // Duración de la notificación en milisegundos
+      });
+    } catch (error) {
+      // Manejar errores si ocurren durante la actualización del rol
+      console.error("Error cambiando el rol del usuario:", error);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -54,13 +54,13 @@ const UserDetail = ({ user, onEdit, onDelete, onChangeRole }) => {
 
   return (
     <div>
-      <h3>{user.role === "ADMIN" ? "ADMIN" : "User"}</h3>
+      <h3>{user.role === "ADMIN" ? "ADMIN" : "USER"}</h3>
       <p>Nombre: {user.name}</p>
       <p>Email: {user.email}</p>
       <button onClick={() => onDelete(user.id)}>DELETE</button>
-      {user.role !== "ADMIN" && (
+      {/* {user.role !== "ADMIN" && (
         <button onClick={handleRoleChange}>Change to ADMIN</button>
-      )}
+      )} */}
     </div>
   );
 };

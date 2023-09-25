@@ -10,6 +10,7 @@ const UserList = () => {
   const [isLoading, setLoading] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
+  const [, forceUpdate] = useState();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -61,6 +62,9 @@ const UserList = () => {
           // Muestra el aviso de cambio de rol
           setShowNotification(true);
           setNotificationMessage(`Rol cambiado a ${newRole}`);
+
+          // Forzar la actualización del componente
+          forceUpdate(Date.now());
         });
       console.log("User role changed:", userId, newRole);
     } catch (error) {
