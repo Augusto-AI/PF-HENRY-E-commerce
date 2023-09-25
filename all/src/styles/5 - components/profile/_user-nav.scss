@@ -7,7 +7,25 @@
   border-bottom: 2px solid transparent;
   display: flex;
   justify-content: center;
+  &.dark-mode {
+    background-color: black;
   
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: gray; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: inherit;  
+      &:hover {
+        color: gray;
+      }
+    }
+  }
   @include mobile {
     width: 100%;
   }
@@ -36,6 +54,25 @@
     bottom: 0;
     margin: auto;
     color: $white;
+    &.dark-mode {
+      background-color: black;
+    
+      *, *::before, *::after {
+        color: black;
+      }
+    
+      *:hover {
+        color: black; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+      }
+    
+      .navigation-action,
+      .navigation-menu-item {
+        color: inherit;    
+        &:hover {
+          color: black;
+        }
+      }
+    }
   }
 }
 
@@ -54,6 +91,25 @@
   right: 0;
   box-shadow: 0 5px 12px rgba(0, 0, 0, .1);
   display: none;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: gray; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: inherit;  
+      &:hover {
+        color:gray;
+      }
+    }
+  }
 }
 
 .user-nav-sub-link {
@@ -63,7 +119,28 @@
   justify-content: space-between;
   padding: $s-size $m-size;
   text-align: left;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      background-color: black;
+      color: black; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: inherit;  
+      &:hover {
+        color: gray;
+        background-color: black;
 
+      }
+    }
+  }
   &:hover {
     background: $background-color;
     text-decoration: none;
@@ -76,6 +153,25 @@
 
 .user-sub-open {
   border-bottom: 2px solid $black;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: gray; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: inherit;  
+      &:hover {
+        color: gray;
+      }
+    }
+  }
 }
 
 .user-sub-open .user-caret {

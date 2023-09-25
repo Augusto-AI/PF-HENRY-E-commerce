@@ -21,6 +21,10 @@ const Basket = () => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const didMount = useDidMount();
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
 
   useEffect(() => {
     if (didMount && firebase.auth.currentUser && basket.length !== 0) {
@@ -81,9 +85,9 @@ const Basket = () => {
           </button>
         </div>
       </Modal>
-      <div className="basket">
-        <div className="basket-list">
-          <div className="basket-header">
+      <div className={`basket ${darkModelo ? 'dark-mode' : ''}`}>
+        <div className={`basket-list ${darkModelo ? 'dark-mode' : ''}`}>
+          <div className={`basket-header ${darkModelo ? 'dark-mode' : ''}`}>
             <h3 className="basket-header-title">
               My Basket &nbsp;
               <span>
@@ -96,6 +100,7 @@ const Basket = () => {
                   className="basket-toggle button button-border button-border-gray button-small"
                   onClick={onClickToggle}
                   role="presentation"
+                  style={darkModelo ? { backgroundColor: 'black' } : {}}
                 >
                   Close
                 </span>
@@ -106,13 +111,15 @@ const Basket = () => {
               disabled={basket.length === 0}
               onClick={onClearBasket}
               type="button"
+              style={darkModelo ? { backgroundColor: 'black' } : {}}
+
             >
               <span>Empty Basket</span>
             </button>
           </div>
           {basket.length <= 0 && (
-            <div className="basket-empty">
-              <h5 className="basket-empty-msg">Su canasta está vacia</h5>
+            <div className="basket-empty" style={darkModelo ? { backgroundColor: 'black', color: "white" } : {}}>
+              <h5 className="basket-empty-msg" style={darkModelo ? { backgroundColor: 'black', color: "white" } : {}}>Su canasta está vacia</h5>
             </div>
           )}
           {basket.map((product, i) => (
@@ -125,9 +132,12 @@ const Basket = () => {
             />
           ))}
         </div>
-        <div className="basket-checkout">
+        <div className={`basket-checkout ${darkModelo ? 'dark-mode' : ''}`}>
           <div className="basket-total">
-            <p className="basket-total-title">Subtotal :</p>
+            <p className="basket-total-title"   
+  
+           >Subtotal :
+           </p>
             <h2 className="basket-total-amount">
               {displayMoney(
                 calculateTotal(
@@ -141,6 +151,7 @@ const Basket = () => {
             disabled={basket.length === 0 || pathname === "/checkout"}
             onClick={onCheckOut}
             type="button"
+            
           >
             Finish
           </button>

@@ -1,11 +1,15 @@
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import PropType from 'prop-types';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addQtyItem, minusQtyItem } from '@/redux/actions/basketActions';
 
 const BasketItemControl = ({ product }) => {
   const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
 
   const onAddQty = () => {
     if (product.quantity < product.maxQuantity) {
@@ -20,7 +24,7 @@ const BasketItemControl = ({ product }) => {
   };
 
   return (
-    <div className="basket-item-control">
+    <div className={`basket-item-control ${darkModelo ? 'dark-mode' : ''}`}>
       <button
         className="button button-border button-border-gray button-small basket-control basket-control-add"
         disabled={product.maxQuantity === product.quantity}

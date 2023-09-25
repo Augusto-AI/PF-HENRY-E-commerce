@@ -38,6 +38,30 @@
     object-fit: contain;
   }
 
+
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
+  
+  
+
   .logo a {
     display: block;
     height: 100%;
@@ -83,11 +107,12 @@
       
 
       &:hover {
-        background: $background-color-01;
       }
     }
   }
 }
+
+
 
 .navigation-menu-item {
   display: inline-block;

@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   return (
     <div className="loader">
-      <h2>Administrator</h2>
+      <h2>Admin</h2>
       <Products />
       <UsersList />
     </div>
