@@ -6,6 +6,7 @@ import {
   ADMIN_USERS,
   ADMIN_ORDERS,
   ADD_PRODUCT,
+  GET_USER,
 } from "@/constants/routes";
 
 const SideNavigation = () => (
@@ -33,7 +34,7 @@ const SideNavigation = () => (
         <NavLink
           activeClassName="sidenavigation-menu-active"
           className="sidenavigation-menu"
-          to={ADMIN_USERS}
+          to={GET_USER}
         >
           Users
         </NavLink>
@@ -43,9 +44,7 @@ const SideNavigation = () => (
           activeClassName="sidenavigation-menu-active"
           className="sidenavigation-menu"
           to={ADMIN_ORDERS}
-        >
-          Órders
-        </NavLink>
+        ></NavLink>
       </div>
     </div>
   </aside>
