@@ -8,8 +8,9 @@ export const ACCOUNT_EDIT = "/account/edit";
 export const ADMIN_DASHBOARD = "/admin/dashboard";
 export const ADMIN_PRODUCTS = "/admin/products";
 export const ADMIN_USERS = "/admin/users";
-export const ADD_PRODUCT = "/admin/add";
 export const ADD_USER = "/admin/add_user";
+export const GET_USER = "/admin/get_user";
+export const ADD_PRODUCT = "/admin/add";
 export const EDIT_PRODUCT = "/admin/edit";
 export const CHANGE_USER_ROLE = "/admin/users-role";
 export const REGISTER_USER = "/admin/register-user";
@@ -25,7 +26,6 @@ export const CHECKOUT_STEP_3 = "/checkout/step3";
 export const VIEW_PRODUCT = `/product/:id`;
 export const SUCCESS = "/success";
 export const ABOUT = "/about";
-
 
 // routes.js
 
