@@ -1,11 +1,15 @@
+// UserList.js
 import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/firestore";
 import UserDetail from "./UserDetail";
+import "../../styles/5 - components/admin/UserList.scss";
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -27,19 +31,6 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
-  const handleEditUser = (userId, updatedUserData) => {
-    try {
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(userId)
-        .update(updatedUserData);
-      console.log("User updated:", userId);
-    } catch (error) {
-      console.error("Error editing user:", error);
-    }
-  };
-
   const handleDeleteUser = async (userId) => {
     try {
       await firebase.firestore().collection("users").doc(userId).delete();
@@ -58,7 +49,19 @@ const UserList = () => {
         .firestore()
         .collection("users")
         .doc(userId)
-        .update({ role: newRole });
+        .update({ role: newRole })
+        .then(() => {
+          // Actualiza la lista de usuarios después de cambiar el rol
+          setUsers((prevUsers) =>
+            prevUsers.map((user) =>
+              user.id === userId ? { ...user, role: newRole } : user
+            )
+          );
+
+          // Muestra el aviso de cambio de rol
+          setShowNotification(true);
+          setNotificationMessage(`Rol cambiado a ${newRole}`);
+        });
       console.log("User role changed:", userId, newRole);
     } catch (error) {
       console.error("Error changing user role:", error);
@@ -66,7 +69,9 @@ const UserList = () => {
   };
 
   return (
-    <div>
+    <div className="user-list-container">
+      {" "}
+      {/* Aplica una clase para el contenedor principal */}
       <h2>Users</h2>
       {isLoading ? (
         <p>Loading users...</p>
@@ -76,9 +81,6 @@ const UserList = () => {
             <li key={user.id}>
               <UserDetail
                 user={user}
-                onEdit={(updatedUserData) =>
-                  handleEditUser(user.id, updatedUserData)
-                }
                 onDelete={() => handleDeleteUser(user.id)}
                 onChangeRole={(newRole) =>
                   handleChangeUserRole(user.id, newRole)
