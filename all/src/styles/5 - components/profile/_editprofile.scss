@@ -5,6 +5,25 @@
   margin: auto;
   display: flex;
   flex-direction: column;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: gray; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: inherit;  
+      &:hover {
+        color: gray;
+      }
+    }
+  }
 
   @include mobile {
     width: 100%;
@@ -52,6 +71,25 @@
   border: none !important;
   background: $black !important;
   color: $white;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: gray; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: inherit;  
+      &:hover {
+        color: gray;
+      }
+    }
+  }
 }
 
 .edit-avatar-button {
@@ -66,6 +104,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: gray; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: inherit;  
+      &:hover {
+        color: gray;
+      }
+    }
+  }
 
   @include mobile {
    button {

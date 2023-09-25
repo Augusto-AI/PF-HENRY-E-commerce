@@ -5,13 +5,18 @@ import { Field, useFormikContext } from 'formik';
 import PropType from 'prop-types';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const EditForm = ({ isLoading, authProvider }) => {
   const history = useHistory();
   const { values, submitForm } = useFormikContext();
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
 
   return (
-    <div className="user-profile-details">
+    <div className={`user-profile-details ${darkModelo ? 'dark-mode' : ''}`}>
       <Field
         disabled={isLoading}
         name="fullname"

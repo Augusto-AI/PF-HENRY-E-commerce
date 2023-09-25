@@ -4,12 +4,18 @@ import React from 'react';
 import Filters from './Filters';
 import Modal from './Modal';
 
+import { useSelector } from 'react-redux';
+
 const FiltersToggle = ({ children }) => {
   const { isOpenModal, onOpenModal, onCloseModal } = useModal();
-
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
   return (
     <>
       <div
+      style={darkModelo ? { backgroundColor: "black", color: "black" } : {}}
         className="filters-toggle"
         onClick={onOpenModal}
         role="presentation"
@@ -20,7 +26,7 @@ const FiltersToggle = ({ children }) => {
         isOpen={isOpenModal}
         onRequestClose={onCloseModal}
       >
-        <div className="filters-toggle-sub">
+        <div className="filters-toggle-sub" style={darkModelo ? { backgroundColor: "gray", color: "gray", width: "100%" } : {}}>
           <Filters closeModal={onCloseModal} />
         </div>
         <button

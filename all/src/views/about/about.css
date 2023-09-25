@@ -9,10 +9,28 @@
     margin-left: 9em;
   }
 
+  .dark-mode-about-us {
+  
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    flex-wrap: wrap;
+    margin-left: 0em;
+    background-color: black;
+    color: white;
+  
+  }
+
   .profile{
    margin-bottom: 2em;
    margin: 0 100px;
 
+}
+.dark-mode-profile {
+  margin-bottom: 2em;
+  margin: 0 100px;
+  color: white
 }
   
   /* AboutUs.css */
@@ -34,6 +52,7 @@
     font-size: 24px;
 
   }
+ 
   
   .social-links {
     justify-content: center;

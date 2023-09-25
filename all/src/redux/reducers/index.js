@@ -7,6 +7,8 @@ import productReducer from './productReducer';
 import profileReducer from './profileReducer';
 import userReducer from './userReducer';
 import paypalReducer from './paypalReducer';
+import darkModeReducer from './darkModeReducer';
+
 
 const rootReducer = {
   products: productReducer,
@@ -17,7 +19,9 @@ const rootReducer = {
   users: userReducer,
   checkout: checkoutReducer,
   app: miscReducer,
-  purchasedItems: paypalReducer
+  purchasedItems: paypalReducer,
+  darkMode: darkModeReducer,
+
 };
 
 export default rootReducer;

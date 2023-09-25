@@ -7,23 +7,30 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeFromBasket } from "@/redux/actions/basketActions";
+import { useSelector } from "react-redux";
 
 const BasketItem = ({ product }) => {
   const dispatch = useDispatch();
   const onRemoveFromBasket = () => dispatch(removeFromBasket(product.id));
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
+
 
   return (
-    <div className="basket-item">
+    <div className={`basket-item ${darkModelo ? 'dark-mode' : ''}`}>
       <BasketItemControl product={product} />
-      <div className="basket-item-wrapper">
-        <div className="basket-item-img-wrapper">
+      <div className="basket-item-wrapper" style={darkModelo ? { backgroundColor: 'black'} : {}}>
+        <div className="basket-item-img-wrapper" style={darkModelo ? { backgroundColor: 'black', borderRadius: "2em"} : {}}>
           <ImageLoader
+          style={darkModelo ? { backgroundColor: 'black', borderRadius: "2em"} : {}}
             alt={product.name}
             className="basket-item-img"
             src={product.image}
           />
         </div>
-        <div className="basket-item-details">
+        <div className="basket-item-details" >
           <Link
             to={`/product/${product.id}`}
             onClick={() => document.body.classList.remove("is-basket-open")}

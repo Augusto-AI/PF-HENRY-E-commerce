@@ -20,6 +20,9 @@ const Filters = ({ closeModal }) => {
     maxPrice: filter.maxPrice,
     sortBy: filter.sortBy
   });
+  const darkMode = useSelector((state) => state.darkMode);
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
   const dispatch = useDispatch();
   const history = useHistory();
   const didMount = useDidMount();
@@ -78,17 +81,18 @@ const Filters = ({ closeModal }) => {
   };
 
   return (
-    <div className="filters">
-      <div className="filters-field">
-        <span>Brand</span>
+    <div style={darkModelo ? { backgroundColor: "gray"} : {}} className={`filters ${darkModelo ? 'dark-mode' : ''}`}>
+      <div className={`filters-filed ${darkModelo ? 'dark-mode' : ''}`} style={darkModelo ? { backgroundColor: "gray"} : {}} >
+        <span style={darkModelo ? { backgroundColor: "gray"} : {}}>Brand</span>
         <br />
         <br />
         {products.length === 0 && isLoading ? (
-          <h5 className="text-subtle">Loading Filter</h5>
+          <h5   style={darkModelo ? { backgroundColor: 'gray'} : {}} className="text-subtle">Loading Filter</h5>
         ) : (
           <select
             className="filters-brand"
             value={field.brand}
+            style={darkModelo ? { backgroundColor: 'gray'} : {}}
             disabled={isLoading || products.length === 0}
             onChange={onBrandFilterChange}
           >
@@ -99,7 +103,7 @@ const Filters = ({ closeModal }) => {
           </select>
         )}
       </div>
-      <div className="filters-field">
+      <div style={darkModelo ? { backgroundColor: 'gray'} : {}} className={`filters-filed ${darkModelo ? 'dark-mode' : ''}`}>
         <span>Sort By</span>
         <br />
         <br />
@@ -136,7 +140,7 @@ const Filters = ({ closeModal }) => {
           />
         )}
       </div>
-      <div className="filters-action">
+      <div className={`filters-action ${darkModelo ? 'dark-mode' : ''}`}>
         <button
           className="filters-button button button-small"
           disabled={isLoading || products.length === 0}
