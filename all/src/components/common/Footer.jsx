@@ -1,5 +1,6 @@
 import * as Route from "@/constants/routes";
 import logo from "@/images/logo-full.png";
+import logoBlanco from '@/images/logo-full-blanco.png';
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,8 +17,8 @@ const Footer = () => {
     <footer className={`footer ${darkModelo ? 'dark-mode' : ''}`}>
       
       <div className={`footer-col-2 ${darkModelo ? 'dark-mode' : ''}`}>
-        <img alt="Footer logo" className={`footer-logo ${darkModelo ? 'dark-mode' : ''}`}  style={darkModelo ? { backgroundColor: 'gray', borderRadius: "50em", width: "300px", height: "300px" } : {}}
-        src={logo} />
+        <img alt="Footer logo" className={`footer-logo ${darkModelo ? 'dark-mode' : ''}`}
+        src={darkModelo ? logoBlanco : logo} />
         <h5>
           &copy;&nbsp;
           {new Date().getFullYear()}
