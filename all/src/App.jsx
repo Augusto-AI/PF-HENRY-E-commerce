@@ -5,10 +5,12 @@ import React, { StrictMode } from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import AppRouter from "@/routers/AppRouter";
+import MyChatBot from "./Chat";
 
 const App = ({ store, persistor }) => (
   <StrictMode>
     <Provider store={store}>
+      <MyChatBot />
       <PersistGate loading={<Preloader />} persistor={persistor}>
         <AppRouter />
       </PersistGate>
