@@ -2,6 +2,7 @@
 import { FilterOutlined, ShoppingOutlined } from '@ant-design/icons';
 import * as ROUTE from '@/constants/routes';
 import logo from '@/images/logo-full.png';
+import logoBlanco from '@/images/logo-full-blanco.png';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -88,7 +89,7 @@ const Navigation = () => {
 <DarkMode />
 
           <div className="logo">
-<Link style={darkModelo ? { backgroundColor: 'gray', borderRadius: "50em", width: "300px", height: "80px" } : {}} onClick={onClickLink} to="/"><img alt="Logo" src={logo} /></Link>
+<Link onClick={onClickLink} to="/"><img alt="Logo" src={darkModelo ? logoBlanco : logo} /></Link>
 
       </div>
 
