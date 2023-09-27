@@ -1,16 +1,30 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { UilBars } from "@iconscout/react-unicons";
+import { motion } from "framer-motion";
+
 import {
   ADMIN_PRODUCTS,
   ADMIN_ADD_PRODUCT,
   ADMIN_USERS,
   ADMIN_ORDERS,
   ADD_PRODUCT,
+  GET_USER,
+  ADMIN_DASHBOARD,
 } from "@/constants/routes";
 
 const SideNavigation = () => (
   <aside className="sidenavigation">
     <div className="sidenavigation-wrapper">
+      <div className="sidenavigation-item">
+        <NavLink
+          activeClassName="sidenavigation-menu-active"
+          className="sidenavigation-menu"
+          to={ADMIN_DASHBOARD}
+        >
+          Dashboard
+        </NavLink>
+      </div>
       <div className="sidenavigation-item">
         <NavLink
           activeClassName="sidenavigation-menu-active"
@@ -33,18 +47,9 @@ const SideNavigation = () => (
         <NavLink
           activeClassName="sidenavigation-menu-active"
           className="sidenavigation-menu"
-          to={ADMIN_USERS}
+          to={GET_USER}
         >
-          Users
-        </NavLink>
-      </div>
-      <div className="sidenavigation-item">
-        <NavLink
-          activeClassName="sidenavigation-menu-active"
-          className="sidenavigation-menu"
-          to={ADMIN_ORDERS}
-        >
-          Órders
+          {/* Users */}
         </NavLink>
       </div>
     </div>

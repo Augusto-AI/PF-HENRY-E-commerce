@@ -3,26 +3,30 @@ import { ProductShowcaseGrid } from "@/components/product";
 import { useDocumentTitle, useFeaturedProducts, useScrollTop } from "@/hooks";
 import bannerImg from "@/images/banner-guy.png";
 import React from "react";
-
+import { useSelector } from "react-redux";
 const FeaturedProducts = () => {
   useDocumentTitle("Featured Products | PF HENRY & CO.");
   useScrollTop();
 
   const { featuredProducts, fetchFeaturedProducts, isLoading, error } =
     useFeaturedProducts();
+    const darkMode = useSelector((state) => state.darkMode);
+  
+    const array = Object.values(darkMode)
+    const darkModelo = array[0]
 
   return (
-    <main className="content">
-      <div className="featured">
-        <div className="banner">
-          <div className="banner-desc">
-            <h1>Featured Products</h1>
+    <main className={`content ${darkModelo ? 'dark-mode' : ''}`}>
+      <div className={`home ${darkModelo ? 'darkMode' : ''}`}>
+        <div className={`banner ${darkModelo ? 'darkMode' : ''}`}>
+          <div className={`banner-desc ${darkModelo ? 'text-thin-darkmode' : ''}`}>
+            <h1 style={darkModelo ? { color: "white" } : {}}>Featured Products</h1>
           </div>
           <div className="banner-img">
             <img src={bannerImg} alt="" />
           </div>
         </div>
-        <div className="display">
+        <div className={`display ${darkModelo ? 'darkMode' : ''}`}>
           <div className="product-display-grid">
             {error && !isLoading ? (
               <MessageDisplay

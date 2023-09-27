@@ -21,6 +21,10 @@ const SearchBar = () => {
     const val = e.target.value.trimStart();
     setSearchInput(val);
   };
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
 
   const onKeyUp = (e) => {
     if (e.keyCode === 13) {
@@ -66,9 +70,15 @@ const SearchBar = () => {
 
   return (
     <>
-      <div className="searchbar" ref={searchbarRef}>
-        <SearchOutlined className="searchbar-icon" />
+      <div className="searchbar" ref={searchbarRef} style={darkModelo ? { backgroundColor: 'black' } : {}}>
+        <SearchOutlined className="searchbar-icon"    style={{
+    backgroundColor: darkModelo ? 'black' : 'white',
+    marginTop: "0px",
+    borderTop: darkModelo ? '1px solid white' : '1px solid white',
+    borderBottom: darkModelo ? '1px solid white' : '1px solid white',
+  }} />
         <input
+        style={darkModelo ? { backgroundColor: 'black', color: "white" } : {}}
           className="search-input searchbar-input"
           onChange={onSearchChange}
           onKeyUp={onKeyUp}

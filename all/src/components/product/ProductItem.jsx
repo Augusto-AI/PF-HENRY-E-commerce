@@ -5,9 +5,14 @@ import PropType from 'prop-types';
 import React from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useHistory } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
   const history = useHistory();
+  
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
 
   const onClickItem = () => {
     if (!product) return;
@@ -34,24 +39,24 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
       >
         {itemOnBasket && <CheckOutlined className="fa fa-check product-card-check" />}
         <div
-          className="product-card-content"
+          className={`product-card-content ${darkModelo ? 'dark-mode' : ''}`}
           onClick={onClickItem}
           role="presentation"
         >
-          <div className="product-card-img-wrapper">
+          <div className={`product-card-img-wrapper ${darkModelo ? 'dark-mode' : ''}`}>
             {product.image ? (
               <ImageLoader
                 alt={product.name}
-                className="product-card-img"
+                className={`product-card-img ${darkModelo ? 'dark-mode' : ''}`}
                 src={product.image}
               />
             ) : <Skeleton width="100%" height="90%" />}
           </div>
-          <div className="product-details">
+          <div className={`product-details ${darkModelo ? 'dark-mode' : ''}`}>
             <h5 className="product-card-name text-overflow-ellipsis margin-auto">
               {product.name || <Skeleton width={80} />}
             </h5>
-            <p className="product-card-brand">
+            <p className={`product-card-brand ${darkModelo ? 'dark-mode' : ''}`}>
               {product.brand || <Skeleton width={60} />}
             </p>
             <h4 className="product-card-price">

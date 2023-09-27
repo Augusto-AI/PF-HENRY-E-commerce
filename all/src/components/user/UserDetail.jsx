@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify"; // Importa la función toast de react-toastify
 
 const UserDetail = ({ user, onEdit, onDelete, onChangeRole }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -28,13 +29,19 @@ const UserDetail = ({ user, onEdit, onDelete, onChangeRole }) => {
     onDelete(user.id);
   };
 
-  const handleRoleChange = () => {
-    // Aquí puedes agregar lógica para cambiar el rol del usuario
-    // Puedes utilizar una función prop que se encargue de actualizar el rol en Firebase
+  const handleRoleChange = async () => {
+    try {
+      await onChangeRole(user.id, editedUser.role);
 
-    // Por ejemplo, supongamos que tienes una función prop llamada onChangeRole
-    // que cambia el rol del usuario en Firebase
-    onChangeRole(user.id, editedUser.role);
+      // Mostrar una notificación de éxito
+      toast.success("Cambio a ADMIN exitoso!", {
+        position: "top-right",
+        autoClose: 3000, // Duración de la notificación en milisegundos
+      });
+    } catch (error) {
+      // Manejar errores si ocurren durante la actualización del rol
+      console.error("Error cambiando el rol del usuario:", error);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -47,44 +54,13 @@ const UserDetail = ({ user, onEdit, onDelete, onChangeRole }) => {
 
   return (
     <div>
-      {isEditing ? (
-        <div>
-          <input
-            type="text"
-            name="name"
-            value={editedUser.name}
-            onChange={handleInputChange}
-          />
-          <input
-            type="email"
-            name="email"
-            value={editedUser.email}
-            onChange={handleInputChange}
-          />
-          <input
-            type="text"
-            name="role"
-            value={editedUser.role}
-            onChange={handleInputChange}
-          />
-          <button onClick={handleSaveClick}>Guardar</button>
-        </div>
-      ) : (
-        <div>
-          <p>
-            <strong>Nombre:</strong> {user.name}
-          </p>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
-          <p>
-            <strong>Rol:</strong> {user.role}
-          </p>
-          <button onClick={handleEditClick}>Editar</button>
-          <button onClick={handleDeleteClick}>Borrar</button>
-          <button onClick={handleRoleChange}>Cambiar Rol</button>
-        </div>
-      )}
+      <h3>{user.role === "ADMIN" ? "ADMIN" : "USER"}</h3>
+      <p>Nombre: {user.name}</p>
+      <p>Email: {user.email}</p>
+      <button onClick={() => onDelete(user.id)}>DELETE</button>
+      {/* {user.role !== "ADMIN" && (
+        <button onClick={handleRoleChange}>Change to ADMIN</button>
+      )} */}
     </div>
   );
 };

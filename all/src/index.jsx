@@ -9,6 +9,7 @@ import '@/styles/style.scss';
 import WebFont from 'webfontloader';
 import App from './App';
 import firebase from '@/services/firebase';
+import { toggleDarkMode } from "./redux/actions/darkModeActions"
 
 WebFont.load({
   google: {
@@ -17,8 +18,11 @@ WebFont.load({
 });
 
 const { store, persistor } = configureStore();
+const darkMode = store.getState().darkMode;
 const root = document.getElementById('app');
-
+  
+const array = Object.values(darkMode);
+const darkModelo = array[0];
 // Render the preloader on initial load
 render(<Preloader />, root);
 
@@ -28,8 +32,11 @@ firebase.auth.onAuthStateChanged((user) => {
   } else {
     store.dispatch(onAuthStateFail('Failed to authenticate'));
   }
+  const handleToggleDarkMode = () => {
+    store.dispatch(toggleDarkMode());
+  };
   // then render the app after checking the auth state
-  render(<App store={store} persistor={persistor} />, root);
+  render(<App store={store} persistor={persistor} darkModelo={darkModelo} handleToggleDarkMode={handleToggleDarkMode} />, root);
 });
 
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {

@@ -9,11 +9,15 @@ import { withRouter } from 'react-router-dom';
 
 const UserProfile = (props) => {
   const profile = useSelector((state) => state.profile);
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
 
   return (
-    <div className="user-profile">
-      <div className="user-profile-block">
-        <div className="user-profile-banner">
+    <div className={`user-profile ${darkModelo ? 'dark-mode' : ''}`}>
+      <div className={`user-profile-block ${darkModelo ? 'dark-mode' : ''}`}>
+        <div className={`user-profile-banner ${darkModelo ? 'dark-mode' : ''}`}>
           <div className="user-profile-banner-wrapper">
             <ImageLoader
               alt="Banner"
@@ -36,8 +40,8 @@ const UserProfile = (props) => {
             Edit Account
           </button>
         </div>
-        <div className="user-profile-details">
-          <h2 className="user-profile-name">{profile.fullname}</h2>
+        <div className={`user-profile-details ${darkModelo ? 'dark-mode' : ''}`}>
+          <h2 className={`user-profile-name ${darkModelo ? 'dark-mode' : ''}`}>{profile.fullname}</h2>
           <span>Email</span>
           <br />
           <h5>{profile.email}</h5>

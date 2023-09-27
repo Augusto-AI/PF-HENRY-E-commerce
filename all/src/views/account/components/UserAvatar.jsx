@@ -17,6 +17,10 @@ const UserNav = () => {
     profile: state.profile,
     isAuthenticating: state.app.isAuthenticating,
   }));
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
   const userNav = useRef(null);
   const dispatch = useDispatch();
 
@@ -45,7 +49,8 @@ const UserNav = () => {
 
   return (
     <button
-      className={`user-nav ${isUserSubOpen ? "user-sub-open" : ""}`}
+    className={`user-nav ${isUserSubOpen ? "user-sub-open" : ""} ${darkModelo ? 'dark-mode' : ''} user-profile`}
+
       onClick={onClickNav}
       onKeyDown={() => {}}
       ref={userNav}
@@ -68,9 +73,9 @@ const UserNav = () => {
             <img alt="" className="user-nav-img" src={profile.avatar} />
           </div>
           <DownOutlined style={{ fontSize: "1.2rem", marginLeft: "1rem" }} />
-          <div className="user-nav-sub">
+          <div className={`user-nav-sub ${darkModelo ? 'dark-mode' : ''}`} style={darkModelo ? {hover: ""} : {}}>
             {profile.role !== "ADMIN" && (
-              <Link to={ACCOUNT} className="user-nav-sub-link">
+              <Link to={ACCOUNT} className={`user-nav-sub-link ${darkModelo ? 'dark-mode' : ''}`}>
                 View Account
                 <UserOutlined />
               </Link>

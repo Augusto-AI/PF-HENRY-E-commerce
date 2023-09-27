@@ -1,23 +1,30 @@
 import * as Route from "@/constants/routes";
 import logo from "@/images/logo-full.png";
+import logoBlanco from '@/images/logo-full-blanco.png';
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
   const { pathname } = useLocation();
+  const darkMode = useSelector((state) => state.darkMode);
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
 
   const visibleOnlyPath = [Route.HOME, Route.SHOP];
 
   return !visibleOnlyPath.includes(pathname) ? null : (
-    <footer className="footer">
-      <div className="footer-col-2">
-        <img alt="Footer logo" className="footer-logo" src={logo} />
+    <footer className={`footer ${darkModelo ? 'dark-mode' : ''}`}>
+      
+      <div className={`footer-col-2 ${darkModelo ? 'dark-mode' : ''}`}>
+        <img alt="Footer logo" className={`footer-logo ${darkModelo ? 'dark-mode' : ''}`}
+        src={darkModelo ? logoBlanco : logo} />
         <h5>
           &copy;&nbsp;
           {new Date().getFullYear()}
         </h5>
       </div>
-      <div className="footer-col-3">
+      <div className={`footer-col-3 ${darkModelo ? 'dark-mode' : ''}`}>
         <strong>
           <span>
             Fork this project on GitHub &nbsp;

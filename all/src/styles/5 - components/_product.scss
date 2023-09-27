@@ -3,6 +3,28 @@
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   grid-gap: $s-size;
   justify-content: center;
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 
   @include mobile {
     grid-template-columns: repeat(2, 1fr) !important;
@@ -12,30 +34,162 @@
 .product-list-header {
   width: 100%;
   margin-bottom: $line-height;
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
 
 .product-list-header-title {
   text-align: center;
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
 
 .product-list-header-actions {
   display: flex;
   align-items: center;
   justify-content: center;
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 
   @include mobile {
     display: none;
+    &.dark-mode {
+      background-color: black;
+      color: white;
+  
+    
+      *, *::before, *::after {
+        color: gray;
+      }
+    
+      *:hover {
+        color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+      }
+    
+      .navigation-action,
+      .navigation-menu-item {
+        color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+    
+        &:hover {
+          color: black;
+        }
+      }
+    }
   }
 }
 
 .product-list-search {
   @include mobile {
     margin-top: 7rem !important;
+    &.dark-mode {
+      background-color: black;
+      color: white;
+  
+    
+      *, *::before, *::after {
+        color: gray;
+      }
+    
+      *:hover {
+        color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+      }
+    
+      .navigation-action,
+      .navigation-menu-item {
+        color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+    
+        &:hover {
+          color: black;
+        }
+      }
+    }
   }
 }
 
 .product-list-title {
   flex-grow: 1;
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
 
 .product-list-wrapper {
@@ -44,6 +198,28 @@
 
   @include mobile {
     margin-top: 5rem;
+    &.dark-mode {
+      background-color: black;
+      color: white;
+  
+    
+      *, *::before, *::after {
+        color: gray;
+      }
+    
+      *:hover {
+        color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+      }
+    
+      .navigation-action,
+      .navigation-menu-item {
+        color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+    
+        &:hover {
+          color: black;
+        }
+      }
+    }
   }
 }
 
@@ -61,6 +237,28 @@
 
   &:hover {
     cursor: pointer;
+  }
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
   }
 
   @include mobile {
@@ -87,6 +285,28 @@
   right: 1rem;
   color: $green;
   z-index: 1;
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
 
 .product-loading {
@@ -120,6 +340,28 @@
   background: #f6f6f6;
   transition: all .4s ease-in-out;
 
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
   @include mobile {
     height: 8rem;
   }
@@ -147,6 +389,28 @@
   font-size: $font-small;
   color: $gray-20;
   font-style: italic;
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 
   @include mobile {
     margin-bottom: 0;
@@ -159,6 +423,28 @@
   bottom: -100%;
   font-size: $font-small;
   transition: all .4s ease-in-out;
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 
   @include mobile {
     bottom: 0;
@@ -226,6 +512,28 @@
     height: 20rem;
     margin: auto;
   }
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 
   input[type="color"] {
     position: absolute;
@@ -254,6 +562,28 @@
     overflow-x: scroll;
     overflow-y: unset;
     flex-direction: row;
+    &.dark-mode {
+      background-color: black;
+      color: white;
+  
+    
+      *, *::before, *::after {
+        color: gray;
+      }
+    
+      *:hover {
+        color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+      }
+    
+      .navigation-action,
+      .navigation-menu-item {
+        color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+    
+        &:hover {
+          color: black;
+        }
+      }
+    }
   }
 }
 
@@ -286,12 +616,56 @@
     order: 1;
     width: 100px;
   }
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
 
 .product-modal-image-collection-img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  &.dark-mode {
+    background-color: black;
+    color: white;
+
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
 
 .product-modal-image {
@@ -497,6 +871,26 @@
 
   @include mobile {
     margin: 0;
+    &.dark-mode {
+      background-color: black;
+    
+      *, *::before, *::after {
+        color: gray;
+      }
+    
+      *:hover {
+        color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+      }
+    
+      .navigation-action,
+      .navigation-menu-item {
+        color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+    
+        &:hover {
+          color: black;
+        }
+      }
+    }
   }
 }
 
@@ -517,12 +911,52 @@
   display: grid;
   grid-template-columns: repeat( auto-fit, minmax(30rem, 1fr) );
   grid-gap: 2rem;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 }
 
 .product-display {
   width: 100%;
   max-height: 30rem;
   border: 1px solid $border-color;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 
   &:hover {
     cursor: pointer;
@@ -539,6 +973,26 @@
   background: #f1f1f1;
   position: relative;
   overflow: hidden;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: gray;
+    }
+  
+    *:hover {
+      color: #897C88; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 
   img {
     width: 100%;

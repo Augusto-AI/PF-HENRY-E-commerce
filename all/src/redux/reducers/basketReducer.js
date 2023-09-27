@@ -3,7 +3,7 @@ import {
   CLEAR_BASKET,
   MINUS_QTY_ITEM, REMOVE_FROM_BASKET,
   SET_BASKET_ITEMS,
-  DECREASE_ITEM_QUANTITY
+
 } from '@/constants/constants';
 
 export default (state = [], action) => {

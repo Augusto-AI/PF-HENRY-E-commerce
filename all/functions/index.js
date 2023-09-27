@@ -23,23 +23,23 @@ exports.lowercaseProductName = functions.firestore.document('/products/{document
 
 
 
-    sgMail.setApiKey('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');
+    // sgMail.setApiKey('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');
 
-    exports.sendConfirmationEmail = functions.https.onCall(async (data, context) => {
-      const { userEmail } = data;
+    // exports.sendConfirmationEmail = functions.https.onCall(async (data, context) => {
+    //   const { userEmail } = data;
     
-      const msg = {
-        to: userEmail,
-        from:  'startvideogame11@gmail.com',
-        subject: "Confirmación de Pago Exitoso",
-        text: "Tu pago ha sido procesado con éxito. Gracias por tu compra.",
-      };
+    //   const msg = {
+    //     to: userEmail,
+    //     from:  'startvideogame11@gmail.com',
+    //     subject: "Confirmación de Pago Exitoso",
+    //     text: "Tu pago ha sido procesado con éxito. Gracias por tu compra.",
+    //   };
     
-      try {
-        await sgMail.send(msg);
-        return { success: true };
-      } catch (error) {
-        console.error("Error al enviar el correo electrónico de confirmación:", error);
-        return { success: false, error: error.message };
-      }
-    });
+    //   try {
+    //     await sgMail.send(msg);
+    //     return { success: true };
+    //   } catch (error) {
+    //     console.error("Error al enviar el correo electrónico de confirmación:", error);
+    //     return { success: false, error: error.message };
+    //   }
+    // });

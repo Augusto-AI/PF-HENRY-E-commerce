@@ -21,9 +21,6 @@ How to add products or perform CRUD operations for Admin
 Navigate to your site to /signup
 Create an account for yourself
 
-Go to your firestore collection users collection and edit the account you've just created. Change the role from USER to ADMIN.
-Reload or sigin again to see the changes.
-Firebase Admin to be integrated soon
 
 Features
 Admin CRUD operations
