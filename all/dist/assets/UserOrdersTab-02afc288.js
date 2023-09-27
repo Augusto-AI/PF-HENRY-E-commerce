@@ -1,4 +1,4 @@
-import{R as n,u as c,a as d,j as e}from"./index-efdf8e89.js";const l=()=>{const i=c(r=>r.purchasedItems),s=Object.values(i);let o=[];if(s&&s[0])for(let r=0;r<s.length;r++){const t=s[r];for(let a=0;a<t.length;a++)Array.isArray(t[a])&&(o=[...o,...t[a]],console.log(o))}return d("div",{className:"user-orders-tab",children:[e("style",{children:`
+import{R as n,u as c,a as d,j as e}from"./index-805c07da.js";const l=()=>{const i=c(r=>r.purchasedItems),s=Object.values(i);let o=[];if(s&&s[0])for(let r=0;r<s.length;r++){const t=s[r];for(let a=0;a<t.length;a++)Array.isArray(t[a])&&(o=[...o,...t[a]],console.log(o))}return d("div",{className:"user-orders-tab",children:[e("style",{children:`
           .user-orders-tab {
             margin: 20px;
             padding: 20px;

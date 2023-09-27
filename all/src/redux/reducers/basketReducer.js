@@ -1,9 +1,8 @@
 import {
   ADD_QTY_ITEM, ADD_TO_BASKET,
   CLEAR_BASKET,
-  MINUS_QTY_ITEM, REMOVE_FROM_BASKET,
+  REMOVE_FROM_BASKET,
   SET_BASKET_ITEMS,
-  DECREASE_ITEM_QUANTITY
 } from '@/constants/constants';
 
 export default (state = [], action) => {
@@ -29,16 +28,7 @@ export default (state = [], action) => {
         return product;
       });
 
-    case MINUS_QTY_ITEM:
-      return state.map((product) => {
-        if (product.id === action.payload) {
-          return {
-            ...product,
-            quantity: product.quantity - 1
-          };
-        }
-        return product;
-      });
+
     default:
       return state;
   }

@@ -3,9 +3,11 @@ import ReactDOM from "react-dom";
 import { useHistory } from "react-router-dom";
 import { SUCCESS } from "@/constants/routes";
 import { useDispatch, useSelector } from "react-redux";
-import { decreaseItemQuantity, setBasketItems } from '../../../redux/actions/basketActions';
-import { setPurchasedItems } from '../../../redux/actions/paypalActions';
+import { setPurchasedItems, setBasketItems } from '../../../redux/actions/paypalActions';
+import { minusQtyItem } from "../../../redux/actions/productActions"
 import { BasketItem } from "@/components/basket";
+import firebase from '@/services/firebase';
+
 
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
@@ -13,13 +15,16 @@ export default function PaypalPayment({ subtotal }) {
   const [opcion, setOpcion] = useState(5);
   const history = useHistory();
   const dispatch = useDispatch();
-  const { basket, purchasedItems } = useSelector((state) => ({
+  const { basket, purchasedItems, profile, auth } = useSelector((state) => ({
     basket: state.basket,
     purchasedItems: state.purchasedItems,
+    profile: state.profile,
+    auth: state.auth
   }));
 
 
-console.log(purchasedItems)
+
+
 
  
   const createOrder = (data, actions) => {
@@ -42,8 +47,20 @@ console.log(purchasedItems)
   const onApprove = (data, actions) => {
     return actions.order.capture(handlePay());
   };
-  function handlePay() {
+
+  async function handlePay() {
+
+    const userId = auth.id;
+    const dataPayment = {
+      isActive: true,
+      UserId: userId,
+      product: basket,
+      total: subtotal,
+      date: new Date(),
+    };
+    dispatch(setBasketItems([]))
     dispatch(setPurchasedItems([basket]));
+    await firebase.addOrder(userId, dataPayment);
     history.push(SUCCESS);
 }
   
