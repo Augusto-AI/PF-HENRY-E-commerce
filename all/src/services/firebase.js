@@ -1,7 +1,7 @@
-import app from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-import 'firebase/compat/storage';
+import app from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import "firebase/compat/storage";
 import firebaseConfig from "./config";
 
 class Firebase {
@@ -94,32 +94,32 @@ class Firebase {
       });
     });
 
-    addOrder = async (userId, dataPayment) => {
-      try {
-        const orderId = this.db.collection("orders").doc().id;
-        const orderRef = this.db.collection("orders").doc(orderId);
-        
- 
-        await orderRef.set({ ...dataPayment, userId });
-        
-  
-        const userOrdersRef = this.db.collection("users").doc(userId).collection("userOrders");
-        await userOrdersRef.add({ orderId });
-        
-        return orderId;
-      } catch (error) {
-        console.error(error);
-        throw error;
-      }
-    };
-    
-    softDeleteOrder = (orderId) => {
-      return this.db.collection("orders").doc(orderId).update({
-        isActive: false
-      });
+  addOrder = async (userId, dataPayment) => {
+    try {
+      const orderId = this.db.collection("orders").doc().id;
+      const orderRef = this.db.collection("orders").doc(orderId);
+
+      await orderRef.set({ ...dataPayment, userId });
+
+      const userOrdersRef = this.db
+        .collection("users")
+        .doc(userId)
+        .collection("userOrders");
+      await userOrdersRef.add({ orderId });
+
+      return orderId;
+    } catch (error) {
+      console.error(error);
+      throw error;
     }
-    
-    
+  };
+
+  softDeleteOrder = (orderId) => {
+    return this.db.collection("orders").doc(orderId).update({
+      isActive: false,
+    });
+  };
+
   saveBasketItems = (items, userId) =>
     this.db.collection("users").doc(userId).update({ basket: items });
 
@@ -191,15 +191,18 @@ class Firebase {
     const productRef = this.db.collection("products").doc(productId);
     try {
       const productDoc = await productRef.get();
-  
+
       if (productDoc.exists) {
         const currentMaxQuantity = productDoc.data().maxQuantity;
-        const updatedMaxQuantity = Math.max(currentMaxQuantity - 1, newMaxQuantity);
-  
+        const updatedMaxQuantity = Math.max(
+          currentMaxQuantity - 1,
+          newMaxQuantity
+        );
+
         await productRef.update({
-          maxQuantity: updatedMaxQuantity
+          maxQuantity: updatedMaxQuantity,
         });
-  
+
         return true;
       } else {
         console.error("Ürün bulunamadı.");
@@ -210,8 +213,7 @@ class Firebase {
       return false;
     }
   };
-  
-    
+
   searchProducts = (searchKey) => {
     let didTimeout = false;
 
@@ -312,6 +314,19 @@ class Firebase {
     this.db.collection("products").doc(id).update(updates);
 
   removeProduct = (id) => this.db.collection("products").doc(id).delete();
+
+  //*---ORDERS FUNCTIONS
+
+  getOrders = () => this.db.collection("orders").get();
+
+  getSingleReview = (reviewId) =>
+    this.db.collection("reviews").doc(reviewId).get();
+
+  getReviews = () => this.db.collection("reviews").get();
+
+  addReview = (reviewData) => this.db.collection("reviews").add(reviewData);
+
+  getSingleOrder = (orderId) => this.db.collection("orders").doc(orderId).get();
 }
 
 const firebaseInstance = new Firebase();
