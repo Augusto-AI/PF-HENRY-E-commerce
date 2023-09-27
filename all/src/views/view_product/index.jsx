@@ -14,6 +14,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Select from "react-select";
 
+import ReviewForm from "./ReviewForm";
+import firebaseInstance from "@/services/firebase";
+import ReviewProduct from "./ReviewProduct";
+import "./Review.css";
+
 const ViewProduct = () => {
   const { id } = useParams();
   const { product, isLoading, error } = useProduct(id);
@@ -24,6 +29,8 @@ const ViewProduct = () => {
   const [selectedImage, setSelectedImage] = useState(product?.image || "");
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+  const [user, setUser] = useState(null);
+  const [reviews, setReviews] = useState([]);
 
   const {
     recommendedProducts,
@@ -36,6 +43,22 @@ const ViewProduct = () => {
   useEffect(() => {
     setSelectedImage(product?.image);
   }, [product]);
+
+  useEffect(() => {
+    // Verifica si hay un usuario autenticado
+    const unsubscribe = firebaseInstance.auth.onAuthStateChanged((user) => {
+      if (user) {
+        // Usuario autenticado, establece el usuario en el estado
+        setUser(user);
+      } else {
+        // No hay usuario autenticado, establece el usuario en null
+        setUser(null);
+      }
+    });
+
+    // Limpia el observador cuando el componente se desmonta
+    return () => unsubscribe();
+  }, []);
 
   const onSelectedSizeChange = (newValue) => {
     setSelectedSize(newValue.value);
@@ -159,6 +182,22 @@ const ViewProduct = () => {
               </div>
             </div>
           </div>
+          <div className="app-container">
+          <div>
+        {/* Renderiza el formulario de revisión */}
+        
+        <ReviewForm
+          productId={product.id}
+          userEmail={user.email}
+          userName={user.displayName || user.email}
+        />
+      </div>
+      {/* Renderiza el componente ReviewProduct y pasa las reseñas y el email del usuario */}
+      <ReviewProduct productId={product.id} currentUserEmail={user.email} />
+      <div style={{ marginTop: "10rem" }}>
+        {/* ... (otro código de tu componente) */}
+      </div>
+      </div>
           <div style={{ marginTop: "10rem" }}>
             <div className="display-header">
               <h1>Recommended</h1>

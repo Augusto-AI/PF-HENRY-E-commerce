@@ -57,6 +57,30 @@ const SignUp = ({ history }) => {
     );
   };
 
+    // const onFormSubmit = async (form) => {
+
+    
+  //   try {
+  //     const { fullname, email, password } = form;
+
+  //     // Registra al usuario en Firebase
+  //     const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+
+  //     // Envía un correo de confirmación al usuario registrado
+  //     const user = userCredential.user;
+  //     await user.sendEmailVerification();
+
+  //     // Después de enviar el correo de confirmación, puedes mostrar un mensaje o redirigir al usuario
+  //     console.log('Correo de confirmación enviado');
+
+  //     // Luego, puedes hacer cualquier otra lógica necesaria, como redirigir al usuario a otra página
+  //   } catch (error) {
+  //     console.error('Error al registrar al usuario:', error);
+  //     // Maneja el error según tus necesidades, muestra un mensaje de error, etc.
+  //   }
+  // };
+
+
   return (
     <div className="auth-content">
       {authStatus?.success && (
