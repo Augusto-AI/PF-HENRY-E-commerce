@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import { useHistory } from "react-router-dom";
 import { SUCCESS } from "@/constants/routes";
 import { useDispatch, useSelector } from "react-redux";
-import { setPurchasedItems, setBasketItems } from '../../../redux/actions/paypalActions';
-import { minusQtyItem } from "../../../redux/actions/productActions"
+import { setPurchasedItems } from '../../../redux/actions/paypalActions';
+import { setBasketItems } from "../../../redux/actions/basketActions"
 import { BasketItem } from "@/components/basket";
 import firebase from '@/services/firebase';
 

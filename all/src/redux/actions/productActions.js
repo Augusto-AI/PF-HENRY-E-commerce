@@ -10,8 +10,7 @@ import {
   REMOVE_PRODUCT,
   REMOVE_PRODUCT_SUCCESS,
   SEARCH_PRODUCT,
-  SEARCH_PRODUCT_SUCCESS,
-  MINUS_QTY_ITEM
+  SEARCH_PRODUCT_SUCCESS
 } from '@/constants/constants';
 
 export const getProducts = (lastRef) => ({
@@ -75,10 +74,4 @@ export const editProduct = (id, updates) => ({
 export const editProductSuccess = (updates) => ({
   type: EDIT_PRODUCT_SUCCESS,
   payload: updates
-});
-
-
-export const minusQtyItem = (id) => ({
-  type: MINUS_QTY_ITEM,
-  payload: id
 });

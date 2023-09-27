@@ -1,6 +1,7 @@
 import {
   ADD_QTY_ITEM, ADD_TO_BASKET,
   CLEAR_BASKET,
+  MINUS_QTY_ITEM, 
   REMOVE_FROM_BASKET,
   SET_BASKET_ITEMS,
   DECREASE_ITEM_QUANTITY
@@ -37,7 +38,10 @@ export const addQtyItem = (id) => ({
 });
 
 
-
+export const minusQtyItem = (id) => ({
+  type: MINUS_QTY_ITEM,
+  payload: id
+});
 
 
 

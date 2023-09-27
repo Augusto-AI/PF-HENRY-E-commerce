@@ -94,11 +94,25 @@ class Firebase {
       });
     });
 
-    addOrder = (userId, dataPayment) => {
-      const orderId = this.db.collection("orders").doc().id;
-      return this.db.collection("orders").doc(orderId).set({ ...dataPayment, userId });
-    }
-
+    addOrder = async (userId, dataPayment) => {
+      try {
+        const orderId = this.db.collection("orders").doc().id;
+        const orderRef = this.db.collection("orders").doc(orderId);
+        
+ 
+        await orderRef.set({ ...dataPayment, userId });
+        
+  
+        const userOrdersRef = this.db.collection("users").doc(userId).collection("userOrders");
+        await userOrdersRef.add({ orderId });
+        
+        return orderId;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    };
+    
     softDeleteOrder = (orderId) => {
       return this.db.collection("orders").doc(orderId).update({
         isActive: false

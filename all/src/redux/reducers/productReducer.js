@@ -2,8 +2,7 @@ import {
   ADD_PRODUCT_SUCCESS,
   CLEAR_SEARCH_STATE, EDIT_PRODUCT_SUCCESS,
   GET_PRODUCTS_SUCCESS, REMOVE_PRODUCT_SUCCESS,
-  SEARCH_PRODUCT_SUCCESS,
-  MINUS_QTY_ITEM
+  SEARCH_PRODUCT_SUCCESS
 } from '@/constants/constants';
 
 const initState = {
@@ -50,20 +49,6 @@ export default (state = {
         ...state,
         items: state.items.filter((product) => product.id !== action.payload)
       };
-      case MINUS_QTY_ITEM:
-        return {
-          ...state,
-          items: state.items.map((product) => {
-            console.log("action", action.payload)
-            if (product.id === action.payload) {
-              return {
-                ...product,
-                quantity: product.maxQuantity - 1
-              };
-            }
-            return product;
-          })
-        };
     case EDIT_PRODUCT_SUCCESS:
       return {
         ...state,
@@ -76,7 +61,6 @@ export default (state = {
           }
           return product;
         })
-    
       };
     default:
       return state;
