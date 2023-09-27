@@ -18,10 +18,14 @@ const Shop = () => {
     }),
     shallowEqual
   );
+  const darkMode = useSelector((state) => state.darkMode);
+  
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
 
   return (
-    <main className="content">
-      <section className="product-list-wrapper">
+    <main className={`content ${darkModelo ? 'dark-mode' : ''}`}>
+      <section className={`product-list-wrapper ${darkModelo ? 'dark-mode' : ''}`}>
         <AppliedFilters filteredProductsCount={store.filteredProducts.length} />
         <ProductList {...store}>
           <ProductGrid products={store.filteredProducts} />

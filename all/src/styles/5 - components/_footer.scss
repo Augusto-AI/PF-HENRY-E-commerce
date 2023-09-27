@@ -13,6 +13,27 @@
     flex-direction: column;
     text-align: center;
   }
+  &.dark-mode {
+    background-color: black;
+    color: white;
+  
+    *, *::before, *::after {
+      color: white;
+    }
+  
+    *:hover {
+      color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: black;
+      }
+    }
+  }
 
   a {
     text-decoration: underline;

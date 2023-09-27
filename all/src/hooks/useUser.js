@@ -3,11 +3,10 @@ import { useSelector } from "react-redux";
 import firebase from "@/services/firebase";
 
 const useUser = () => {
-  // Quita el argumento 'user' aquí
   // Obtener y verificar si el usuario existe en el almacenamiento global
   const storeUser = useSelector((state) => state.auth.user);
 
-  const [userData, setUserData] = useState(storeUser); // Cambia el nombre de 'user' a 'userData'
+  const [userData, setUserData] = useState(storeUser);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -17,15 +16,14 @@ const useUser = () => {
       try {
         // Comprueba si ya existe una instancia de usuario en el estado local
         if (!userData || userData.id !== storeUser.id) {
-          // Cambia 'user' a 'userData' y compara con 'storeUser.id'
           setLoading(true);
 
           // Llama a tu servicio para obtener los datos del usuario
-          const userData = await firebase.getUserData(userId);
+          const userData = await firebase.getUserData(storeUser.id);
 
           if (userData) {
             // Actualiza el estado local con los datos del usuario
-            setUserData(userData); // Cambia 'setUser' a 'setUserData'
+            setUserData(userData);
             setLoading(false);
           } else {
             setError("Usuario no encontrado.");
@@ -40,9 +38,9 @@ const useUser = () => {
 
     // Llama a la función para obtener los datos del usuario
     fetchUser();
-  }, [userData, storeUser.id]); // Cambia 'user' a 'userData' y usa 'storeUser.id' como dependencia
+  }, [userData, storeUser.id]);
 
-  return { userData, isLoading, error }; // Cambia 'user' a 'userData'
+  return { userData, isLoading, error };
 };
 
 export default useUser;

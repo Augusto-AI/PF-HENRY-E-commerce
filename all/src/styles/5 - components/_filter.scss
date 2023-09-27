@@ -3,6 +3,28 @@
   flex-wrap: wrap;
   position: relative;
   z-index: map-get($z-index, 'filter');
+  &.dark-mode {
+    background-color: gray;
+    color: black;
+
+  
+    *, *::before, *::after {
+      color: white;
+    }
+  
+    *:hover {
+      color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: gray;
+      }
+    }
+  }
   
 }
 
@@ -11,6 +33,29 @@
   margin-bottom: $m-size;
   padding-bottom: $m-size;
   border-bottom: 1px solid $border-color;
+
+  &.dark-mode {
+    background-color: gray;
+    color: black;
+
+  
+    *, *::before, *::after {
+      color: white;
+    }
+  
+    *:hover {
+      color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: white;
+      }
+    }
+  }
   
   
 

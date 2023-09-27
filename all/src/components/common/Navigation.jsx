@@ -2,6 +2,7 @@
 import { FilterOutlined, ShoppingOutlined } from '@ant-design/icons';
 import * as ROUTE from '@/constants/routes';
 import logo from '@/images/logo-full.png';
+import logoBlanco from '@/images/logo-full-blanco.png';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -13,6 +14,10 @@ import Badge from './Badge';
 import FiltersToggle from './FiltersToggle';
 import MobileNavigation from './MobileNavigation';
 import SearchBar from './SearchBar';
+import "../../App.css"
+import { object } from 'prop-types';
+import DarkMode from "../../darkMode"
+
 
 const Navigation = () => {
   const navbar = useRef(null);
@@ -23,7 +28,14 @@ const Navigation = () => {
     user: state.auth,
     isAuthenticating: state.app.isAuthenticating,
     isLoading: state.app.loading
+
   }));
+  const darkMode = useSelector((state) => state.darkMode);
+
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
+  console.log(darkModelo)
+
 
   const scrollHandler = () => {
     if (navbar.current && window.screen.width > 480) {
@@ -69,34 +81,45 @@ const Navigation = () => {
       />
     );
   }
+  //  //
+
   return (
-    <nav className="navigation" ref={navbar}>
+
+    <nav className={`navigation ${darkModelo ? 'dark-mode' : ''}`} ref={navbar}>
+      <DarkMode />
+
       <div className="logo">
-        <Link onClick={onClickLink} to="/"><img alt="Logo" src={logo} /></Link>
+        <Link onClick={onClickLink} to="/"><img alt="Logo" src={darkModelo ? logoBlanco : logo} /></Link>
+
       </div>
-      <ul className="navigation-menu-main">
-        <li><NavLink activeClassName="navigation-menu-active" exact to={ROUTE.HOME}>Home</NavLink></li>
-        <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.SHOP}>Shop</NavLink></li>
-        <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.FEATURED_PRODUCTS}>Featured</NavLink></li>
-        <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.RECOMMENDED_PRODUCTS}>Recommended</NavLink></li>
-        <li><NavLink activeClassName="navigation-menu-active" to={ROUTE.ABOUT}>About Us</NavLink></li>
+
+      <ul className={`navigation-menu-main ${darkModelo ? 'dark-mode' : ''}`}>
+        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} exact to={ROUTE.HOME}>Home</NavLink></li>
+        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.SHOP}>Shop</NavLink></li>
+        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.FEATURED_PRODUCTS}>Featured</NavLink></li>
+        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.RECOMMENDED_PRODUCTS}>Recommended</NavLink></li>
+        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.ABOUT}>About Us</NavLink></li>
         {(pathname === ROUTE.SHOP || pathname === ROUTE.SEARCH) && (
-        <FiltersToggle>
-          <button className="button-muted button-small" style={{ marginLeft: "12em" }} type="button">
-            Filters &nbsp;
-            <FilterOutlined />
-          </button>
-        </FiltersToggle>
-      )}
+          <FiltersToggle>
+            <button className={`button-muted button-small ${darkModelo ? 'dark-mode' : ''}`} style={{ marginLeft: "17em", bottom: "34px"}} type="button">
+              Filters &nbsp;
+              <FilterOutlined />
+            </button>
+          </FiltersToggle>
+        )}
+
       </ul>
-      
-      <SearchBar />
+      <div className={` ${darkModelo ? 'dark-mode' : ''}`}>
+
+        <SearchBar />
+      </div>
+
       <ul className="navigation-menu">
-        <li className="navigation-menu-item">
+        <li className={`navigation-menu-item ${darkModelo ? 'dark-mode' : ''}`}>
           <BasketToggle>
             {({ onClickToggle }) => (
               <button
-                className="button-link navigation-menu-link basket-toggle"
+                className={`button-link navigation-menu-link basket-toggle ${darkModelo ? 'dark-mode' : ''}`}
                 disabled={basketDisabledpathnames.includes(pathname)}
                 onClick={onClickToggle}
                 type="button"
@@ -108,16 +131,17 @@ const Navigation = () => {
               </button>
             )}
           </BasketToggle>
+
         </li>
         {store.user ? (
-          <li className="navigation-menu-item">
+          <li className={"navigation-menu-itemdark-mode"}>
             <UserAvatar />
           </li>
         ) : (
-          <li className="navigation-action">
+          <li className={`navigation-action ${darkModelo ? 'dark-mode' : ''}`} >
             {pathname !== ROUTE.SIGNUP && (
               <Link
-                className="button button-small"
+                className={`button button-small ${darkModelo ? 'dark-mode' : ''}`}
                 onClick={onClickLink}
                 to={ROUTE.SIGNUP}
               >
@@ -126,7 +150,7 @@ const Navigation = () => {
             )}
             {pathname !== ROUTE.SIGNIN && (
               <Link
-                className="button button-small button-muted margin-left-s"
+                className={`button button-small button-muted margin-left-s ${darkModelo ? 'dark-mode' : ''}`}
                 onClick={onClickLink}
                 to={ROUTE.SIGNIN}
               >

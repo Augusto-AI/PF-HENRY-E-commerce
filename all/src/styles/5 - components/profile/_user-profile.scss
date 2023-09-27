@@ -5,6 +5,26 @@
   @include mobile {
     width: 100%;
   }
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: white;
+    }
+  
+    *:hover {
+      color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }
 
 .user-profile-block {
@@ -16,6 +36,26 @@
   // @include mobile {
   //   padding: 0;
   // }
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: white;
+    }
+  
+    *:hover {
+      color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }
 
 .user-profile-banner-wrapper {
@@ -24,6 +64,26 @@
   position: relative;
   background: lighten($border-color, 3%);
   overflow: hidden;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: white;
+    }
+  
+    *:hover {
+      color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: white;
+      }
+    }
+  }
   // display: flex;
   // justify-content: center;
   // align-items: center;
@@ -36,6 +96,26 @@
 
   @include mobile {
     height: 100px;
+    &.dark-mode {
+      background-color: black;
+    
+      *, *::before, *::after {
+        color: white;
+      }
+    
+      *:hover {
+        color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+      }
+    
+      .navigation-action,
+      .navigation-menu-item {
+        color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+    
+        &:hover {
+          color: white;
+        }
+      }
+    }
   }
 }
 
@@ -46,6 +126,26 @@
   position: absolute;
   left: 0;
   top: 0;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: white;
+    }
+  
+    *:hover {
+      color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }
 
 .user-profile-avatar-wrapper {
@@ -75,6 +175,26 @@
   position: absolute;
   right: $s-size;
   bottom: -12%;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: white;
+    }
+  
+    *:hover {
+      color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }
 
 .user-profile-details {
@@ -82,9 +202,49 @@
 
   & > div {
     margin-bottom: $s-size;
+    &.dark-mode {
+      background-color: black;
+    
+      *, *::before, *::after {
+        color: white;
+      }
+    
+      *:hover {
+        color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+      }
+    
+      .navigation-action,
+      .navigation-menu-item {
+        color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+    
+        &:hover {
+          color: white;
+        }
+      }
+    }
   }
 }
 
 .user-profile-name {
   text-transform: capitalize;
+  &.dark-mode {
+    background-color: black;
+  
+    *, *::before, *::after {
+      color: white;
+    }
+  
+    *:hover {
+      color: white; /* Bu, hover durumunda tüm etiketlerin rengini mor yapar */
+    }
+  
+    .navigation-action,
+    .navigation-menu-item {
+      color: white; /* Bu, .navigation-menu-item ve .navigation-action etiketlerinin rengini beyaz yapar */
+  
+      &:hover {
+        color: white;
+      }
+    }
+  }
 }

@@ -7,20 +7,25 @@ import {
 } from "@/hooks";
 import bannerImg from "@/images/banner-girl-1.png";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const RecommendedProducts = () => {
   useDocumentTitle("Recommended Products | HP HENRY & CO.");
   useScrollTop();
+  const darkMode = useSelector((state) => state.darkMode);
+  
+    const array = Object.values(darkMode)
+    const darkModelo = array[0]
 
   const { recommendedProducts, fetchRecommendedProducts, isLoading, error } =
     useRecommendedProducts();
 
   return (
-    <main className="content">
-      <div className="featured">
-        <div className="banner">
-          <div className="banner-desc">
-            <h1>Recommended Products</h1>
+    <main className={`content ${darkModelo ? 'dark-mode' : ''}`}>
+      <div className={`home ${darkModelo ? 'darkMode' : ''}`}>
+        <div className={`banner ${darkModelo ? 'darkMode' : ''}`}>
+          <div className={`banner-desc ${darkModelo ? 'text-thin-darkmode' : ''}`}>
+            <h1 style={darkModelo ? { color: "white" } : {}}>Recommended Products</h1>
           </div>
           <div className="banner-img">
             <img src={bannerImg} alt="" />
