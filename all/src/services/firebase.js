@@ -94,6 +94,32 @@ class Firebase {
       });
     });
 
+    addOrder = async (userId, dataPayment) => {
+      try {
+        const orderId = this.db.collection("orders").doc().id;
+        const orderRef = this.db.collection("orders").doc(orderId);
+        
+ 
+        await orderRef.set({ ...dataPayment, userId });
+        
+  
+        const userOrdersRef = this.db.collection("users").doc(userId).collection("userOrders");
+        await userOrdersRef.add({ orderId });
+        
+        return orderId;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    };
+    
+    softDeleteOrder = (orderId) => {
+      return this.db.collection("orders").doc(orderId).update({
+        isActive: false
+      });
+    }
+    
+    
   saveBasketItems = (items, userId) =>
     this.db.collection("users").doc(userId).update({ basket: items });
 
@@ -161,7 +187,31 @@ class Firebase {
       })();
     });
   };
-
+  decreaseMaxQuantity = async (productId, newMaxQuantity) => {
+    const productRef = this.db.collection("products").doc(productId);
+    try {
+      const productDoc = await productRef.get();
+  
+      if (productDoc.exists) {
+        const currentMaxQuantity = productDoc.data().maxQuantity;
+        const updatedMaxQuantity = Math.max(currentMaxQuantity - 1, newMaxQuantity);
+  
+        await productRef.update({
+          maxQuantity: updatedMaxQuantity
+        });
+  
+        return true;
+      } else {
+        console.error("Ürün bulunamadı.");
+        return false;
+      }
+    } catch (error) {
+      console.error("maxQuantity güncelleme hatası:", error);
+      return false;
+    }
+  };
+  
+    
   searchProducts = (searchKey) => {
     let didTimeout = false;
 
