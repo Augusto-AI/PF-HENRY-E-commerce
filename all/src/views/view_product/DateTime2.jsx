@@ -120,7 +120,7 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
             className="review-modal-button"
             onClick={() => handleEditReview(review.id)}
           >
-            Enviar
+            Send
           </button>
           <button
             className="review-modal-button"
@@ -152,8 +152,8 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
               </div>
               {currentUserEmail === review.userId && (
                 <div className="review-buttons">
-                  <button onClick={() => setEditingReviewId(review.id)}>Editar</button>
-                  <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
+                  <button onClick={() => setEditingReviewId(review.id)}>Edit</button>
+                  <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
                 </div>
               )}
             </div>
