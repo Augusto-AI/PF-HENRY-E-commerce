@@ -1,0 +1,143 @@
+/* Estilo para el formulario de revisión */
+.tittle {
+  text-align: center;
+  color: #007bff;
+  font-weight: 700;
+  font-family: 'Arial', sans-serif;
+}
+
+.review-form {
+  width: 100%;
+  max-width: 400px; /* Ajusta el ancho máximo según tu preferencia */
+  margin: 30 auto; /* Centra el formulario horizontalmente */
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+/* Estilo para las etiquetas */
+.review-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Estilo para el cuadro de texto del comentario */
+.review-textarea {
+  width: 100%;
+  height: 100px; /* Ajusta la altura según tu preferencia */
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Estilo para el selector de calificación */
+.review-rating-select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Estilo para el botón de enviar */
+.review-submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilo para el contenedor de estrellas */
+.star-rating {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo para la estrella individual */
+.star {
+  font-size: 24px; /* Ajusta el tamaño de la estrella según tu preferencia */
+  margin-right: 5px;
+  cursor: pointer;
+  color: #888886; /* Color de estrella inactiva */
+}
+
+/* Estilo para la estrella activa */
+.star.active {
+  color: #f39c12; /* Color de estrella activa */
+}
+
+
+
+
+.review-product-container {
+  width: 100%;
+  max-width: 400px; /* Ajusta el ancho máximo según tu preferencia */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
+}
+
+/* Estilo para cada elemento de revisión */
+.review-item {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+/* Estilo para el nombre del revisor */
+.review-username {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Estilo para la calificación y estrellas */
+.review-rating {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+/* Estilo para el texto de revisión */
+.review-text {
+  background-color: #eee;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+/* Estilo para la fecha y "Editado" */
+.review-info {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/* Estilo para los botones de editar y eliminar */
+.review-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-edit-button,
+.review-delete-button {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+/* Estilo para el botón de cancelar edición */
+.review-cancel-button {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+
+.app-container {
+  display: flex;
+  justify-content: space-between; /* Espacio entre los componentes */
+  align-items: flex-start; /* Alinea los componentes en la parte superior */
+  padding: 20px; /* Agrega espacio alrededor del contenido */
+}

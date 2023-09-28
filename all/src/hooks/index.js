@@ -8,3 +8,5 @@ export { default as useProduct } from "./useProduct";
 export { default as useRecommendedProducts } from "./useRecommendedProducts";
 export { default as useScrollTop } from "./useScrollTop";
 export { default as useUser } from "./useUser";
+export { default as useReviews } from "./useReviews";
+export { default as useOrders } from "./useOrders";

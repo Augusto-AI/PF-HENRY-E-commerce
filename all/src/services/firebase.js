@@ -2,18 +2,24 @@ import app from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import 'firebase/compat/functions';
+
 import firebaseConfig from "./config";
 
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
-
+     
     this.storage = app.storage();
     this.db = app.firestore();
     this.auth = app.auth();
+    this.functions = app.functions();
+
   }
 
   // AUTH ACTIONS ------------
+
+  
 
   createAccount = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
@@ -94,6 +100,25 @@ class Firebase {
       });
     });
 
+    sendMail = async (email, subject, text) => {
+      try {
+        const functions = app.functions();
+        const result = await this.functions.httpsCallable('sendMail')({
+          email,
+          subject,
+          text,
+        });
+    
+        console.log('Email sent:', result.data);
+        return result.data;
+      } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+      }
+    };
+    
+    
+
     addOrder = async (userId, dataPayment) => {
       try {
         const orderId = this.db.collection("orders").doc().id;
@@ -115,11 +140,16 @@ class Firebase {
     
     softDeleteOrder = (orderId) => {
       return this.db.collection("orders").doc(orderId).update({
-        isActive: false
+        isActive: false,
       });
-    }
-    
-    
+    };
+
+  softDeleteOrder = (orderId) => {
+    return this.db.collection("orders").doc(orderId).update({
+      isActive: false,
+    });
+  };
+
   saveBasketItems = (items, userId) =>
     this.db.collection("users").doc(userId).update({ basket: items });
 
@@ -191,27 +221,28 @@ class Firebase {
     const productRef = this.db.collection("products").doc(productId);
     try {
       const productDoc = await productRef.get();
-  
+
       if (productDoc.exists) {
         const currentMaxQuantity = productDoc.data().maxQuantity;
-        const updatedMaxQuantity = Math.max(currentMaxQuantity - 1, newMaxQuantity);
-  
+        const updatedMaxQuantity = Math.max(
+          currentMaxQuantity - 1,
+          newMaxQuantity
+        );
+
         await productRef.update({
-          maxQuantity: updatedMaxQuantity
+          maxQuantity: updatedMaxQuantity,
         });
-  
+
         return true;
       } else {
-        console.error("Ürün bulunamadı.");
         return false;
       }
     } catch (error) {
-      console.error("maxQuantity güncelleme hatası:", error);
+      console.error(error);
       return false;
     }
   };
-  
-    
+
   searchProducts = (searchKey) => {
     let didTimeout = false;
 
@@ -312,7 +343,21 @@ class Firebase {
     this.db.collection("products").doc(id).update(updates);
 
   removeProduct = (id) => this.db.collection("products").doc(id).delete();
+
+  //*---ORDERS FUNCTIONS
+
+  getOrders = () => this.db.collection("orders").get();
+
+  getSingleReview = (reviewId) =>
+    this.db.collection("reviews").doc(reviewId).get();
+
+  getReviews = () => this.db.collection("reviews").get();
+
+  addReview = (reviewData) => this.db.collection("reviews").add(reviewData);
+
+  getSingleOrder = (orderId) => this.db.collection("orders").doc(orderId).get();
 }
+
 
 const firebaseInstance = new Firebase();
 

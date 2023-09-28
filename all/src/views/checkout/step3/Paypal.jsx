@@ -1,32 +1,67 @@
-import React, { useEffect, useState } from "react";
+import React, {useState} from "react";
 import ReactDOM from "react-dom";
 import { useHistory } from "react-router-dom";
 import { SUCCESS } from "@/constants/routes";
 import { useDispatch, useSelector } from "react-redux";
-import { decreaseItemQuantity, setBasketItems } from '../../../redux/actions/basketActions';
 import { setPurchasedItems } from '../../../redux/actions/paypalActions';
+import { setBasketItems } from "../../../redux/actions/basketActions"
 import { BasketItem } from "@/components/basket";
 import { useFormikContext } from 'formik';
+import firebase from '@/services/firebase';
+import 'firebase/compat/functions';
 
 
-
-
-const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
-
-export default function PaypalPayment({ subtotal }) {
-  const [opcion, setOpcion] = useState(5);
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const { basket, purchasedItems } = useSelector((state) => ({
-    basket: state.basket,
-    purchasedItems: state.purchasedItems,
-  }));
   // const [currentUserEmail, setCurrentUserEmail] = useState(""); // Estado para el correo electrónico del usuario
 
 
-console.log(purchasedItems)
-
  
+
+  // const handleEmailChange = (email) => {
+  //   setCurrentUserEmail(email);
+  // };
+
+  // const onApprove = (data, actions) => {
+  //  return actions.order.capture(() => {
+  //     dispatch(setPurchasedItems([basket]));
+  //     sendConfirmationEmail(currentUserEmail);
+  //   });
+  // };
+  
+  // const sendConfirmationEmail = async (email) => {
+  //   const sendConfirmationEmailFunction = firebase.functions().httpsCallable("sendConfirmationEmail");
+  
+  //   try {
+  //     const result = await sendConfirmationEmailFunction({ userEmail: email }); // Utiliza currentUserEmail
+  //     if (result.data.success) {
+  //       console.log("Correo electrónico de confirmación enviado con éxito");
+  //     } else {
+  //       console.error("Error al enviar el correo electrónico de confirmación:", result.data.error);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al llamar a la Cloud Function:", error);
+  //   }
+  // };
+  
+  
+const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
+
+export default function PaypalPayment({ subtotal }) {
+
+
+  //const [opcion, setOpcion] = useState(5);
+  //const history = useHistory();
+  //const dispatch = useDispatch();
+
+  const { basket, purchasedItems, profile, auth } = useSelector((state) => ({
+    basket: state.basket,
+    purchasedItems: state.purchasedItems,
+    profile: state.profile,
+    auth: state.auth
+  }));
+  
+  const dispatch = useDispatch();
+  const history = useHistory()
+
   const createOrder = (data, actions) => {
     return actions.order.create({
       purchase_units: [
@@ -49,40 +84,6 @@ console.log(purchasedItems)
     return actions.order.capture(handlePay());
   };
 
-  // const handleEmailChange = (email) => {
-  //   setCurrentUserEmail(email);
-  // };
-
-  // const onApprove = (data, actions) => {
-  //   return actions.order.capture(() => {
-  //     dispatch(setPurchasedItems([basket]));
-  //     sendConfirmationEmail(currentUserEmail);
-  //   });
-  // };
-  
-  // const sendConfirmationEmail = async (email) => {
-  //   const sendConfirmationEmailFunction = firebase.functions().httpsCallable("sendConfirmationEmail");
-  
-  //   try {
-  //     const result = await sendConfirmationEmailFunction({ userEmail: email }); // Utiliza currentUserEmail
-  //     if (result.data.success) {
-  //       console.log("Correo electrónico de confirmación enviado con éxito");
-  //     } else {
-  //       console.error("Error al enviar el correo electrónico de confirmación:", result.data.error);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error al llamar a la Cloud Function:", error);
-  //   }
-  // };
-  
-  
-
-  function handlePay() {
-    dispatch(setPurchasedItems([basket]));
-    history.push(SUCCESS);
-}
-
-  
 
   const handleChange = (e) => {
     setPrice(e.target.value);
@@ -90,6 +91,27 @@ console.log(purchasedItems)
   const handleCambio = (e) => {
     setOpcion(e.target.value);
   };
+
+  //const subject = "holla";
+  //const text = "paymentt"
+
+  async function handlePay() {
+    const userId = auth.id;
+    const dataPayment = {
+      isActive: true,
+      UserId: userId,
+      product: basket,
+      total: subtotal,
+      date: new Date(),
+    };
+    dispatch(setBasketItems([]))
+    dispatch(setPurchasedItems([basket]));
+    await firebase.addOrder(userId, dataPayment);
+    //await firebase.sendMail(profile.email, subject, text)
+
+    history.push(SUCCESS);
+  }
+
 
   return (
     <center>
@@ -115,8 +137,15 @@ console.log(purchasedItems)
         />
       </div>
     </center>
-  );
+ );
 }
+
+
+
+  
+
+  
+  
 
 
 

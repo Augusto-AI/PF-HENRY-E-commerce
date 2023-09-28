@@ -1,6 +1,7 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
+
 const sgMail = require('@sendgrid/mail');
 
 
@@ -8,37 +9,47 @@ const sgMail = require('@sendgrid/mail');
 
 admin.initializeApp();
 
+const app = express();
 
-exports.lowercaseProductName = functions.firestore.document('/products/{documentId}')
-    .onCreate((snap, context) => {
-        const name = snap.data().name;
+app.use(cors({ origin: true }));
 
-        functions.logger.log('Lowercasing product name', context.params.documentId, name);
+app.post('/sendMail', async (req, res) => {
+  try {
+    const { email, subject, text } = req.body;
 
-        const lowercaseName = name.toLowerCase();
+    if (!email || !subject || !text) {
+      return res.status(400).json({ error });
+    }
 
-        return snap.ref.update({ name_lower: lowercaseName });
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'startvideogame11@gmail.com',
+        pass: 'zstv spcv pzco rqff',
+      },
     });
 
+    const htmlContent = `
+      <div style="background-color: purple; padding: 20px; text-align: center; border-radius: 15px;">
+        <p style="color: white; font-size: 20px; margin: 0;">${text}</p>
+      </div>
+    `;
 
+    const mailOptions = {
+      from: 'startvideogame11@gmail.com',
+      to: email,
+      subject,
+      html: htmlContent,
+    };
 
-    // sgMail.setApiKey('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');
+    const info = await transporter.sendMail(mailOptions);
 
-    // exports.sendConfirmationEmail = functions.https.onCall(async (data, context) => {
-    //   const { userEmail } = data;
-    
-    //   const msg = {
-    //     to: userEmail,
-    //     from:  'startvideogame11@gmail.com',
-    //     subject: "Confirmación de Pago Exitoso",
-    //     text: "Tu pago ha sido procesado con éxito. Gracias por tu compra.",
-    //   };
-    
-    //   try {
-    //     await sgMail.send(msg);
-    //     return { success: true };
-    //   } catch (error) {
-    //     console.error("Error al enviar el correo electrónico de confirmación:", error);
-    //     return { success: false, error: error.message };
-    //   }
-    // });
+    console.log('Email sent:', info.response);
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+exports.api = functions.https.onRequest(app);
