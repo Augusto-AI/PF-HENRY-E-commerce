@@ -140,10 +140,9 @@ class Firebase {
     
     softDeleteOrder = (orderId) => {
       return this.db.collection("orders").doc(orderId).update({
-        isActive: false
+        isActive: false,
       });
-    }
-  };
+    };
 
   softDeleteOrder = (orderId) => {
     return this.db.collection("orders").doc(orderId).update({
@@ -358,6 +357,7 @@ class Firebase {
 
   getSingleOrder = (orderId) => this.db.collection("orders").doc(orderId).get();
 }
+
 
 const firebaseInstance = new Firebase();
 
