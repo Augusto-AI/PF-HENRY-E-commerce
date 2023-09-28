@@ -2309,7 +2309,7 @@
 
 "@iconscout/react-unicons@^2.0.2":
   version "2.0.2"
-  resolved "https://registry.npmjs.org/@iconscout/react-unicons/-/react-unicons-2.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/@iconscout/react-unicons/-/react-unicons-2.0.2.tgz#65c25dc6c6f4dbb841037632966b3eed4a870846"
   integrity sha512-0HRi/sZaSQf9OMjlKypWfkyh7R4fknxJeKmDpRdtfjnTM21qzzmmYYZ7p1qzw+VmEyqNdFoQP89oLmW5pcyIoA==
   dependencies:
     react ">=15.0.0 <17.0.0"
@@ -3068,7 +3068,11 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-<<<<<<< HEAD
+"@rushstack/eslint-patch@^1.1.0":
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.5.0.tgz"
+  integrity sha512-EF3948ckf3f5uPgYbQ6GhyA56Dmv8yg0+ir+BroRjwdxyZJsekhZzawOecC2rOTPCz173t7ZcR1HHZu0dZgOCw==
+
 "@sendgrid/client@^7.7.0":
   version "7.7.0"
   resolved "https://registry.yarnpkg.com/@sendgrid/client/-/client-7.7.0.tgz#f8f67abd604205a0d0b1af091b61517ef465fdbf"
@@ -3091,11 +3095,6 @@
   dependencies:
     "@sendgrid/client" "^7.7.0"
     "@sendgrid/helpers" "^7.7.0"
-=======
-"@rushstack/eslint-patch@^1.1.0":
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.5.0.tgz"
-  integrity sha512-EF3948ckf3f5uPgYbQ6GhyA56Dmv8yg0+ir+BroRjwdxyZJsekhZzawOecC2rOTPCz173t7ZcR1HHZu0dZgOCw==
 
 "@sinclair/typebox@^0.24.1":
   version "0.24.51"
@@ -3106,7 +3105,6 @@
   version "0.27.8"
   resolved "https://registry.npmjs.org/@sinclair/typebox/-/typebox-0.27.8.tgz"
   integrity sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==
->>>>>>> 7be5fb4a8cb4e46a2dcdd8ad732ce8404145e9aa
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.3"
@@ -11878,12 +11876,6 @@ node-releases@^2.0.13:
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.13.tgz"
   integrity sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==
 
-<<<<<<< HEAD
-nodemailer@^6.9.5:
-  version "6.9.5"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.5.tgz#eaeae949c62ec84ef1e9128df89fc146a1017aca"
-  integrity sha512-/dmdWo62XjumuLc5+AYQZeiRj+PRR8y8qKtFCOyuOl1k/hckZd8durUUHs/ucKx6/8kN+wFxqKJlQ/LK/qR5FA==
-=======
 node-rsa@0.4.2:
   version "0.4.2"
   resolved "https://registry.npmjs.org/node-rsa/-/node-rsa-0.4.2.tgz"
@@ -11895,7 +11887,11 @@ node-statsd@0.1.1:
   version "0.1.1"
   resolved "https://registry.npmjs.org/node-statsd/-/node-statsd-0.1.1.tgz"
   integrity sha512-QDf6R8VXF56QVe1boek8an/Rb3rSNaxoFWb7Elpsv2m1+Noua1yy0F1FpKpK5VluF8oymWM4w764A4KsYL4pDg==
->>>>>>> 7be5fb4a8cb4e46a2dcdd8ad732ce8404145e9aa
+
+nodemailer@^6.9.5:
+  version "6.9.5"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.9.5.tgz#eaeae949c62ec84ef1e9128df89fc146a1017aca"
+  integrity sha512-/dmdWo62XjumuLc5+AYQZeiRj+PRR8y8qKtFCOyuOl1k/hckZd8durUUHs/ucKx6/8kN+wFxqKJlQ/LK/qR5FA==
 
 normalize-package-data@^2.3.2, normalize-package-data@^2.5.0:
   version "2.5.0"
