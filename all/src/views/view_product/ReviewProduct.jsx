@@ -42,7 +42,7 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
     <div>
       <h2 className="title">REVIEWS FOR PRODUCT</h2>
       {reviews.length === 0 ? (
-        <p>No hay revisiones disponibles para este producto.</p>
+        <p>There are no reviews available for this product.</p>
       ) : (
         <ul className="review-list">
           {reviews.map((review, index) => (
@@ -58,14 +58,14 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
                       </span>
                     ))}
                   </div>
-              <h3>{review.username} dijo:</h3>
+              <h3>{review.username} say:</h3>
               <p>{review.text}</p>
               <p>{review.date}</p>
               {review.edited && <span>editado</span>}
               {currentUserEmail === review.userId && (
                 <div className="review-buttons">
-                  <button onClick={() => setEditingReviewId(review.id)}>Editar</button>
-                  <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
+                  <button onClick={() => setEditingReviewId(review.id)}>Edit</button>
+                  <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
                 </div>
               )}
     

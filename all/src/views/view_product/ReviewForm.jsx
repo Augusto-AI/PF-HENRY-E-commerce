@@ -9,7 +9,6 @@ import "./Review.css"; // Importa tu archivo CSS
 const ReviewForm = ({ productId, userEmail, userName }) => {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(1);
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +64,7 @@ const ReviewForm = ({ productId, userEmail, userName }) => {
         <StarRating rating={rating} onRatingChange={setRating} />
       </div>
       <button type="submit" className="review-submit-button">
-        Enviar
+        Send
       </button>
     </form>
     </div>

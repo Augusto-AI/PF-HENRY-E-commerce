@@ -83,14 +83,14 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
       {reviews.map((review) => (
   <div key={review.id} className="review-item">
   <div className="review-header">
-    <strong>{review.username}</strong> dijo:
+    <strong>{review.username}</strong> say:
   </div>
     {editingReviewId === review.id ? (
   <div className="review-modal">
     <div className="review-modal-content">
-      <h3 className="review-modal-title">Editar reseña</h3>
+      <h3 className="review-modal-title">Edit review</h3>
       <div className="review-modal-form">
-        <div className="review-modal-label">Calificación:</div>
+        <div className="review-modal-label">Qualification:</div>
         <div className="review-modal-rating">
           <select
             className="review-modal-select"
@@ -104,7 +104,7 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
             ))}
           </select>
         </div>
-        <div className="review-modal-label">Texto de la revisión:</div>
+        <div className="review-modal-label">Review text:</div>
         <textarea
           className="review-modal-textarea"
           value={editedReview.text || review.text}
@@ -135,7 +135,7 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
 ) : (
             <div>
               <div className="review-rating">
-  Calificación:
+    Qualification:
   {Array.from({ length: 5 }).map((_, index) => (
     <span
       key={index}
@@ -148,7 +148,7 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
               <div className="review-text">{review.text}</div>
               <div className="review-info">
                 {review.date}
-                {review.edited && <span>editado</span>}
+                {review.edited && <span>edited</span>}
               </div>
               {currentUserEmail === review.userId && (
                 <div className="review-buttons">
