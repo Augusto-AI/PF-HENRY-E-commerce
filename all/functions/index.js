@@ -1,15 +1,52 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const express = require('express');
+const cors = require('cors');
+const nodemailer = require('nodemailer');
 
 admin.initializeApp();
 
-exports.lowercaseProductName = functions.firestore.document('/products/{documentId}')
-    .onCreate((snap, context) => {
-        const name = snap.data().name;
+const app = express();
 
-        functions.logger.log('Lowercasing product name', context.params.documentId, name);
+app.use(cors({ origin: true }));
 
-        const lowercaseName = name.toLowerCase();
+app.post('/sendMail', async (req, res) => {
+  try {
+    const { email, subject, text } = req.body;
 
-        return snap.ref.update({ name_lower: lowercaseName });
+    if (!email || !subject || !text) {
+      return res.status(400).json({ error });
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'startvideogame11@gmail.com',
+        pass: 'zstv spcv pzco rqff',
+      },
     });
+
+    const htmlContent = `
+      <div style="background-color: purple; padding: 20px; text-align: center; border-radius: 15px;">
+        <p style="color: white; font-size: 20px; margin: 0;">${text}</p>
+      </div>
+    `;
+
+    const mailOptions = {
+      from: 'startvideogame11@gmail.com',
+      to: email,
+      subject,
+      html: htmlContent,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+
+    console.log('Email sent:', info.response);
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+exports.api = functions.https.onRequest(app);

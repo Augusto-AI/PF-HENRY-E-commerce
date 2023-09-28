@@ -47,7 +47,8 @@ export default function PaypalPayment({ subtotal }) {
   const onApprove = (data, actions) => {
     return actions.order.capture(handlePay());
   };
-
+const subject = "hello"; 
+const text = "payment"
   async function handlePay() {
 
     const userId = auth.id;
@@ -61,6 +62,8 @@ export default function PaypalPayment({ subtotal }) {
     dispatch(setBasketItems([]))
     dispatch(setPurchasedItems([basket]));
     await firebase.addOrder(userId, dataPayment);
+    console.log(profile.email, subject, text)
+    await firebase.sendMail(profile.email, subject, text)
     history.push(SUCCESS);
 }
   

@@ -2,18 +2,24 @@ import app from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
+import 'firebase/compat/functions';
+
 import firebaseConfig from "./config";
 
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
-
+     
     this.storage = app.storage();
     this.db = app.firestore();
     this.auth = app.auth();
+    this.functions = app.functions();
+
   }
 
   // AUTH ACTIONS ------------
+
+  
 
   createAccount = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
@@ -93,6 +99,25 @@ class Firebase {
         }
       });
     });
+
+    sendMail = async (email, subject, text) => {
+      try {
+        const functions = app.functions();
+        const result = await this.functions.httpsCallable('sendMail')({
+          email,
+          subject,
+          text,
+        });
+    
+        console.log('Email sent:', result.data);
+        return result.data;
+      } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+      }
+    };
+    
+    
 
     addOrder = async (userId, dataPayment) => {
       try {
@@ -202,11 +227,10 @@ class Firebase {
   
         return true;
       } else {
-        console.error("Ürün bulunamadı.");
         return false;
       }
     } catch (error) {
-      console.error("maxQuantity güncelleme hatası:", error);
+      console.error(error);
       return false;
     }
   };
