@@ -1,6 +1,6 @@
 import { BasketToggle } from "@/components/basket";
 import { HOME, SIGNIN } from "@/constants/routes";
-import PropType from "prop-types";
+import PropTypes from "prop-types";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import UserNav from "@/views/account/components/UserAvatar";
@@ -45,7 +45,7 @@ const Navigation = (props) => {
         <ul className="mobile-navigation-menu">
           {user ? (
             <li className="mobile-navigation-item">
-              <UserNav />
+              <UserNav profile={profile} />
             </li>
           ) : (
             <>
@@ -77,10 +77,10 @@ const Navigation = (props) => {
 };
 
 Navigation.propTypes = {
-  isAuthenticating: PropType.bool.isRequired,
-  basketLength: PropType.number.isRequired,
-  disabledPaths: PropType.arrayOf(PropType.string).isRequired,
-  user: PropType.oneOfType([PropType.bool, PropType.object]).isRequired,
+  isAuthenticating: PropTypes.bool.isRequired,
+  basketLength: PropTypes.number.isRequired,
+  disabledPaths: PropTypes.arrayOf(PropTypes.string).isRequired,
+  user: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]).isRequired,
 };
 
 export default Navigation;
