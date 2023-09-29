@@ -67,7 +67,11 @@ const ReviewProduct = ({ productId }) => {
     <div>
       <h2 className="title">REVIEWS FOR PRODUCT</h2>
       {reviews.length === 0 ? (
+<<<<<<< HEAD
         <p>There are no reviews for this product 😥</p>
+=======
+        <p>There are no reviews available for this product.</p>
+>>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
       ) : (
         <ul className="review-list">
           {reviews.map((review, index) => (
@@ -84,12 +88,21 @@ const ReviewProduct = ({ productId }) => {
                     ))}
                   </div>
               <h3>{review.username} say:</h3>
+<<<<<<< HEAD
               <div className="review-text2"><p>{review.text}</p></div>
               <p>{review.date}{review.edited && <span className="edit">Edited.</span>}</p>
               
               {auth.id === review.userId && (
                 <div className="review-buttons">
                   <button onClick={() => handleEditReviewClick(review.id)}>Edit</button>
+=======
+              <p>{review.text}</p>
+              <p>{review.date}</p>
+              {review.edited && <span>editado</span>}
+              {currentUserEmail === review.userId && (
+                <div className="review-buttons">
+                  <button onClick={() => setEditingReviewId(review.id)}>Edit</button>
+>>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
                   <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
                 </div>
               )}

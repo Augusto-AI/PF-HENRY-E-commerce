@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import app from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -5,7 +6,16 @@ import 'firebase/compat/storage';
 import 'firebase/compat/functions';
 
 import firebaseConfig from "./config";
+=======
+import app from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import "firebase/compat/storage";
+import "firebase/compat/functions";
+>>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
 
+import firebaseConfig from "./config";
+//push
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
@@ -14,10 +24,13 @@ class Firebase {
     this.db = app.firestore();
     this.auth = app.auth();
     this.functions = app.functions();
+<<<<<<< HEAD
 
+=======
+>>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
   }
 
-  // AUTH ACTIONS ------------
+  //*---------------------------------------------------------AUTH FUNCTIONS
 
   
 
@@ -39,10 +52,6 @@ class Firebase {
   signOut = () => this.auth.signOut();
 
   passwordReset = (email) => this.auth.sendPasswordResetEmail(email);
-
-  addUser = (id, user) => this.db.collection("users").doc(id).set(user);
-
-  getUser = (id) => this.db.collection("users").doc(id).get();
 
   passwordUpdate = (password) => this.auth.currentUser.updatePassword(password);
 
@@ -100,6 +109,7 @@ class Firebase {
       });
     });
 
+<<<<<<< HEAD
     sendMail = async (email, subject, text) => {
       try {
         const functions = app.functions();
@@ -143,20 +153,26 @@ class Firebase {
         isActive: false,
       });
     };
+=======
+  sendMail = async (email, subject, text) => {
+    try {
+      const functions = app.functions();
+      const result = await this.functions.httpsCallable("sendMail")({
+        email,
+        subject,
+        text,
+      });
 
-  softDeleteOrder = (orderId) => {
-    return this.db.collection("orders").doc(orderId).update({
-      isActive: false,
-    });
+      console.log("Email sent:", result.data);
+      return result.data;
+    } catch (error) {
+      console.error("Error sending email:", error);
+      throw error;
+    }
   };
+>>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
 
-  saveBasketItems = (items, userId) =>
-    this.db.collection("users").doc(userId).update({ basket: items });
-
-  setAuthPersistence = () =>
-    this.auth.setPersistence(app.auth.Auth.Persistence.LOCAL);
-
-  // // PRODUCT ACTIONS --------------
+  //*---------------------------------------------------------PRODCUTO FUNCTIONS
 
   getSingleProduct = (id) => this.db.collection("products").doc(id).get();
 
@@ -344,18 +360,109 @@ class Firebase {
 
   removeProduct = (id) => this.db.collection("products").doc(id).delete();
 
-  //*---ORDERS FUNCTIONS
+  //*------------------------------------------------------------ORDERS FUNCTIONS
 
   getOrders = () => this.db.collection("orders").get();
+
+  addOrder = async (userId, dataPayment) => {
+    try {
+      const orderId = this.db.collection("orders").doc().id;
+      const orderRef = this.db.collection("orders").doc(orderId);
+
+      await orderRef.set({ ...dataPayment, userId });
+
+      const userOrdersRef = this.db
+        .collection("users")
+        .doc(userId)
+        .collection("userOrders");
+      await userOrdersRef.add({ orderId });
+
+      return orderId;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  softDeleteOrder = (orderId) => {
+    return this.db.collection("orders").doc(orderId).update({
+      isActive: false,
+    });
+  };
+
+  saveBasketItems = (items, userId) =>
+    this.db.collection("users").doc(userId).update({ basket: items });
+
+  setAuthPersistence = () =>
+    this.auth.setPersistence(app.auth.Auth.Persistence.LOCAL);
+  getOrders = () => this.db.collection("orders").get();
+
+  getSingleOrder = (orderId) => this.db.collection("orders").doc(orderId).get();
+
+  //*-------------------------------------------------------REVIEWS FUNCTIONS
+
+  getReviews = () => this.db.collection("reviews").get();
 
   getSingleReview = (reviewId) =>
     this.db.collection("reviews").doc(reviewId).get();
 
-  getReviews = () => this.db.collection("reviews").get();
+  addReview = async (reviewData) => {
+    try {
+      const docRef = await this.db.collection("reviews").add(reviewData);
+      return docRef.id;
+    } catch (error) {
+      throw error; // Propagar cualquier error que ocurra al agregar la reseña
+    }
+  };
 
-  addReview = (reviewData) => this.db.collection("reviews").add(reviewData);
+  deleteReview = async (reviewId) => {
+    const reviewRef = this.db.collection("reviews").doc(reviewId);
+    try {
+      await reviewRef.delete();
+    } catch (error) {
+      throw error; // Propagar cualquier error que ocurra al eliminar la reseña
+    }
+  };
 
-  getSingleOrder = (orderId) => this.db.collection("orders").doc(orderId).get();
+  //*----------------------------------------------------------USER FUNCTIONS
+
+  addUser = (id, user) => this.db.collection("users").doc(id).set(user);
+
+  getUser = (id) => this.db.collection("users").doc(id).get();
+
+  editUser = (id, updates) =>
+    this.db.collection("users").doc(id).update(updates);
+
+  removeUser = (id) => this.db.collection("users").doc(id).delete();
+
+  softDeleteUser = (userId) => {
+    return this.db.collection("users").doc(userId).update({
+      isActive: false, // Marcar al usuario como inactivo
+    });
+  };
+
+  promoteUserToAdmin = (userId) => {
+    return this.db.collection("users").doc(userId).update({
+      isAdmin: true, // Marcar al usuario como administrador
+    });
+  };
+
+  getUsers = async () => {
+    try {
+      const querySnapshot = await this.db.collection("users").get();
+      const usersData = [];
+      querySnapshot.forEach((doc) => {
+        // Agregar los datos del usuario al arreglo
+        usersData.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      return usersData;
+    } catch (error) {
+      throw error; // Propagar cualquier error que ocurra al obtener usuarios
+    }
+  };
 }
 
 

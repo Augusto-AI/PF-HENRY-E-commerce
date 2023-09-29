@@ -1,5 +1,9 @@
 {
   "projects": {
-    "default": "pf-gafas"
-  }
+    "default": "pf-gafas",
+    "functions": "pf-gafas",
+    "yes": "pf-gafas"
+  },
+  "targets": {},
+  "etags": {}
 }

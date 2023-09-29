@@ -6,7 +6,7 @@ const useUser = () => {
   // Obtener y verificar si el usuario existe en el almacenamiento global
   const storeUser = useSelector((state) => state.auth.user);
 
-  const [userData, setUserData] = useState(storeUser);
+  const [Users, setUsers] = useState(storeUser);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -15,15 +15,15 @@ const useUser = () => {
     const fetchUser = async () => {
       try {
         // Comprueba si ya existe una instancia de usuario en el estado local
-        if (!userData || userData.id !== storeUser.id) {
+        if (!Users || Users.id !== storeUser.id) {
           setLoading(true);
 
           // Llama a tu servicio para obtener los datos del usuario
-          const userData = await firebase.getUserData(storeUser.id);
+          const Users = await firebase.getUsers(storeUser.id);
 
-          if (userData) {
+          if (Users) {
             // Actualiza el estado local con los datos del usuario
-            setUserData(userData);
+            setUsers(Users);
             setLoading(false);
           } else {
             setError("Usuario no encontrado.");
@@ -38,9 +38,9 @@ const useUser = () => {
 
     // Llama a la función para obtener los datos del usuario
     fetchUser();
-  }, [userData, storeUser.id]);
+  }, [Users, storeUser.id]);
 
-  return { userData, isLoading, error };
+  return { Users, isLoading, error };
 };
 
 export default useUser;

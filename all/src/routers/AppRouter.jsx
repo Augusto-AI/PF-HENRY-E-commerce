@@ -1,13 +1,13 @@
-import { Basket } from '@/components/basket';
-import { Footer, Navigation } from '@/components/common';
-import * as ROUTES from '@/constants/routes';
-import { createBrowserHistory } from 'history';
-import React from 'react';
-import { Route, Router, Switch } from 'react-router-dom';
-import * as view from '@/views';
-import AdminRoute from './AdminRoute';
-import ClientRoute from './ClientRoute';
-import PublicRoute from './PublicRoute';
+import { Basket } from "@/components/basket";
+import { Footer, Navigation } from "@/components/common";
+import * as ROUTES from "@/constants/routes";
+import { createBrowserHistory } from "history";
+import React from "react";
+import { Route, Router, Switch } from "react-router-dom";
+import * as view from "@/views";
+import AdminRoute from "./AdminRoute";
+import ClientRoute from "./ClientRoute";
+import PublicRoute from "./PublicRoute";
 
 // Revert back to history v4.10.0 because
 // v5.0 breaks navigation
@@ -19,23 +19,10 @@ const AppRouter = () => (
       <Navigation />
       <Basket />
       <Switch>
+        <Route component={view.Shop} exact path={ROUTES.SHOP} />
+        <Route component={view.Search} exact path={ROUTES.SEARCH} />
+        <Route component={view.Home} exact path={ROUTES.HOME} />
 
-      <Route
-          component={view.Shop}
-          exact
-          path={ROUTES.SHOP}
-        />
-        <Route
-          component={view.Search}
-          exact
-          path={ROUTES.SEARCH}
-        />
-        <Route
-          component={view.Home}
-          exact
-          path={ROUTES.HOME}
-        />
-    
         <Route
           component={view.FeaturedProducts}
           exact
@@ -46,28 +33,14 @@ const AppRouter = () => (
           exact
           path={ROUTES.RECOMMENDED_PRODUCTS}
         />
-        <PublicRoute
-          component={view.SignUp}
-          path={ROUTES.SIGNUP}
-        />
-        <PublicRoute
-          component={view.SignIn}
-          exact
-          path={ROUTES.SIGNIN}
-        />
+        <PublicRoute component={view.SignUp} path={ROUTES.SIGNUP} />
+        <PublicRoute component={view.SignIn} exact path={ROUTES.SIGNIN} />
         <PublicRoute
           component={view.ForgotPassword}
           path={ROUTES.FORGOT_PASSWORD}
         />
-        <Route
-          component={view.ViewProduct}
-          path={ROUTES.VIEW_PRODUCT}
-        />
-        <ClientRoute
-          component={view.UserAccount}
-          exact
-          path={ROUTES.ACCOUNT}
-        />
+        <Route component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT} />
+        <ClientRoute component={view.UserAccount} exact path={ROUTES.ACCOUNT} />
         <ClientRoute
           component={view.EditAccount}
           exact
@@ -77,14 +50,8 @@ const AppRouter = () => (
           component={view.CheckOutStep1}
           path={ROUTES.CHECKOUT_STEP_1}
         />
-          <ClientRoute
-          component={view.CheckOutSuccess}
-          path={ROUTES.SUCCESS}
-        />
-           <Route
-          component={view.AboutUs}
-          path={ROUTES.ABOUT}
-        />
+        <ClientRoute component={view.CheckOutSuccess} path={ROUTES.SUCCESS} />
+        <Route component={view.AboutUs} path={ROUTES.ABOUT} />
         <ClientRoute
           component={view.CheckOutStep2}
           path={ROUTES.CHECKOUT_STEP_2}
@@ -98,18 +65,15 @@ const AppRouter = () => (
           exact
           path={ROUTES.ADMIN_DASHBOARD}
         />
-        <AdminRoute
-          component={view.Products}
-          path={ROUTES.ADMIN_PRODUCTS}
-        />
-        <AdminRoute
-          component={view.AddProduct}
-          path={ROUTES.ADD_PRODUCT}
-        />
+
+        <AdminRoute component={view.Users} path={ROUTES.ADMIN_USERS} />
+        <AdminRoute component={view.Products} path={ROUTES.ADMIN_PRODUCTS} />
+        <AdminRoute component={view.AddProduct} path={ROUTES.ADD_PRODUCT} />
         <AdminRoute
           component={view.EditProduct}
           path={`${ROUTES.EDIT_PRODUCT}/:id`}
         />
+
         <PublicRoute component={view.PageNotFound} />
       </Switch>
       <Footer />

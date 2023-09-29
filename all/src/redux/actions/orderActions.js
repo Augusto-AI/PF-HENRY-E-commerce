@@ -12,11 +12,49 @@ import {
   COMPLETE_PAYPAL_PAYMENT,
   COMPLETE_PAYPAL_PAYMENT_SUCCESS,
   COMPLETE_PAYPAL_PAYMENT_FAILURE,
-} from "@/constants/constants"; // Asegúrate de proporcionar la ruta correcta a tus constantes
+  GET_ORDERS,
+  CANCEL_ORDER,
+  EDIT_ORDER,
+  ADD_ORDER,
+} from "@/constants/constants";
 
-// Importa cualquier otra dependencia necesaria aquí
+//*---------------------------------ORDERS ACTIONS
+// Define las funciones de acción relacionadas con Orders
 
+export const getOrdersSuccess = (ordersData) => {
+  return {
+    type: GET_ORDERS,
+    payload: ordersData,
+  };
+};
+
+// Define la acción para cancelar una orden exitosamente
+export const cancelOrderSuccess = (orderId) => {
+  return {
+    type: CANCEL_ORDER,
+    payload: orderId,
+  };
+};
+
+// Define la acción para editar una orden exitosamente
+export const editOrderSuccess = (orderData) => {
+  return {
+    type: EDIT_ORDER,
+    payload: orderData,
+  };
+};
+
+// Define la acción para agregar una orden exitosamente
+export const addOrderSuccess = (orderData) => {
+  return {
+    type: ADD_ORDER,
+    payload: orderData,
+  };
+};
+
+//*--------------------------------------------------PAYPÀL ACTIONS
 // Define las funciones de acción relacionadas con PayPal
+
 export const initiatePaypalPayment = (data) => {
   return {
     type: INITIATE_PAYPAL_PAYMENT,

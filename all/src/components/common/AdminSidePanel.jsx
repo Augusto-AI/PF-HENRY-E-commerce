@@ -11,6 +11,8 @@ import {
   ADD_PRODUCT,
   GET_USER,
   ADMIN_DASHBOARD,
+  GET_USERS,
+  ADD_USER,
 } from "@/constants/routes";
 
 const SideNavigation = () => (
@@ -47,9 +49,9 @@ const SideNavigation = () => (
         <NavLink
           activeClassName="sidenavigation-menu-active"
           className="sidenavigation-menu"
-          to={GET_USER}
+          to={ADMIN_USERS}
         >
-          {/* Users */}
+          Users
         </NavLink>
       </div>
     </div>

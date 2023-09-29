@@ -44,6 +44,9 @@ const ViewProduct = () => {
     setSelectedImage(product?.image);
   }, [product]);
 
+
+
+
   useEffect(() => {
     // Verifica si hay un usuario autenticado
     const unsubscribe = firebaseInstance.auth.onAuthStateChanged((user) => {
