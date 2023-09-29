@@ -102,8 +102,6 @@ class Firebase {
         text,
       });
 
-<<<<<<< Updated upstream
-=======
       console.log("Email sent:", result.data);
       return result.data;
     } catch (error) {
@@ -111,7 +109,6 @@ class Firebase {
       throw error;
     }
   };
->>>>>>> Stashed changes
 
   //*---------------------------------------------------------PRODCUTO FUNCTIONS
 
