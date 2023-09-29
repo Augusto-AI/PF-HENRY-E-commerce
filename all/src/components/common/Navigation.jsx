@@ -16,7 +16,6 @@ import MobileNavigation from './MobileNavigation';
 import SearchBar from './SearchBar';
 import "../../App.css"
 import { object } from 'prop-types';
-import DarkMode from "../../darkMode"
 
 
 const Navigation = () => {
@@ -86,7 +85,6 @@ const Navigation = () => {
   return (
 
     <nav className={`navigation ${darkModelo ? 'dark-mode' : ''}`} ref={navbar}>
-      <DarkMode />
 
       <div className="logo">
         <Link onClick={onClickLink} to="/"><img alt="Logo" src={darkModelo ? logoBlanco : logo} /></Link>
