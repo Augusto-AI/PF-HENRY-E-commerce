@@ -4,7 +4,7 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/storage';
 import 'firebase/compat/functions';
 
-import firebaseConfig from "./config";
+
 
 import firebaseConfig from "./config";
 //push
