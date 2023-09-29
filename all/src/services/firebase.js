@@ -1,19 +1,25 @@
-import app from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/compat/storage";
+import app from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import 'firebase/compat/storage';
+import 'firebase/compat/functions';
+
 import firebaseConfig from "./config";
 
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
-
+     
     this.storage = app.storage();
     this.db = app.firestore();
     this.auth = app.auth();
+    this.functions = app.functions();
+
   }
 
   // AUTH ACTIONS ------------
+
+  
 
   createAccount = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
@@ -94,25 +100,49 @@ class Firebase {
       });
     });
 
-  addOrder = async (userId, dataPayment) => {
-    try {
-      const orderId = this.db.collection("orders").doc().id;
-      const orderRef = this.db.collection("orders").doc(orderId);
+    sendMail = async (email, subject, text) => {
+      try {
+        const functions = app.functions();
+        const result = await this.functions.httpsCallable('sendMail')({
+          email,
+          subject,
+          text,
+        });
+    
+        console.log('Email sent:', result.data);
+        return result.data;
+      } catch (error) {
+        console.error('Error sending email:', error);
+        throw error;
+      }
+    };
+    
+    
 
-      await orderRef.set({ ...dataPayment, userId });
-
-      const userOrdersRef = this.db
-        .collection("users")
-        .doc(userId)
-        .collection("userOrders");
-      await userOrdersRef.add({ orderId });
-
-      return orderId;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  };
+    addOrder = async (userId, dataPayment) => {
+      try {
+        const orderId = this.db.collection("orders").doc().id;
+        const orderRef = this.db.collection("orders").doc(orderId);
+        
+ 
+        await orderRef.set({ ...dataPayment, userId });
+        
+  
+        const userOrdersRef = this.db.collection("users").doc(userId).collection("userOrders");
+        await userOrdersRef.add({ orderId });
+        
+        return orderId;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    };
+    
+    softDeleteOrder = (orderId) => {
+      return this.db.collection("orders").doc(orderId).update({
+        isActive: false,
+      });
+    };
 
   softDeleteOrder = (orderId) => {
     return this.db.collection("orders").doc(orderId).update({
@@ -205,11 +235,10 @@ class Firebase {
 
         return true;
       } else {
-        console.error("Ürün bulunamadı.");
         return false;
       }
     } catch (error) {
-      console.error("maxQuantity güncelleme hatası:", error);
+      console.error(error);
       return false;
     }
   };
@@ -328,6 +357,7 @@ class Firebase {
 
   getSingleOrder = (orderId) => this.db.collection("orders").doc(orderId).get();
 }
+
 
 const firebaseInstance = new Firebase();
 

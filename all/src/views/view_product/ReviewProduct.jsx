@@ -1,9 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import firebaseInstance from "@/services/firebase";
 import "./ReviewProduct.css"; // Importa tu archivo CSS
+import ReviewEditForm from "./ReviewEditForm";
 
-const ReviewProduct = ({ productId, currentUserEmail }) => {
+const ReviewProduct = ({ productId }) => {
   const [reviews, setReviews] = useState([]);
+  const [shouldReload, setShouldReload] = useState(false);
+  const [editingReviewId, setEditingReviewId] = useState(null); // Estado para controlar la edición
+  
+
+  const { profile, auth } = useSelector((state) => ({
+   
+    profile: state.profile,
+    auth: state.auth,
+   
+  }));
 
   useEffect(() => {
     // Consulta las revisiones para el producto específico utilizando Firebase
@@ -27,22 +39,35 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
     };
 
     fetchReviews();
-  }, [productId]);
+  }, [productId, shouldReload]);
 
   const handleDeleteReview = async (reviewId) => {
     try {
       // Elimina la revisión de la colección "reviews"
       await firebaseInstance.db.collection("reviews").doc(reviewId).delete();
+      // Establece shouldReload en true para volver a cargar las revisiones
+      setShouldReload(true);
     } catch (error) {
       console.error("Error al eliminar la revisión:", error);
     }
+  };
+
+  const handleEditReviewClick = (reviewId) => {
+    // Establece el ID de la revisión que se está editando
+    setEditingReviewId(reviewId); 
+  };
+
+  const handleReviewEdited = () => {
+    setShouldReload(false);
+    // Activa la recarga de revisiones
+    setShouldReload(true);
   };
 
   return (
     <div>
       <h2 className="title">REVIEWS FOR PRODUCT</h2>
       {reviews.length === 0 ? (
-        <p>No hay revisiones disponibles para este producto.</p>
+        <p>There are no reviews for this product 😥</p>
       ) : (
         <ul className="review-list">
           {reviews.map((review, index) => (
@@ -58,15 +83,22 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
                       </span>
                     ))}
                   </div>
-              <h3>{review.username} dijo:</h3>
-              <p>{review.text}</p>
-              <p>{review.date}</p>
-              {review.edited && <span>editado</span>}
-              {currentUserEmail === review.userId && (
+              <h3>{review.username} say:</h3>
+              <div className="review-text2"><p>{review.text}</p></div>
+              <p>{review.date}{review.edited && <span className="edit">Edited.</span>}</p>
+              
+              {auth.id === review.userId && (
                 <div className="review-buttons">
-                  <button onClick={() => setEditingReviewId(review.id)}>Editar</button>
-                  <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
+                  <button onClick={() => handleEditReviewClick(review.id)}>Edit</button>
+                  <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
                 </div>
+              )}
+              {editingReviewId === review.id && (
+                <ReviewEditForm
+                  review={review}
+                  onClose={() => setEditingReviewId(null)} // Cerrar el formulario de edición
+                  onReviewEdited={handleReviewEdited} // Pasar la función de devolución de llamada
+                />
               )}
     
               {/* Puedes mostrar otros detalles de la revisión aquí */}

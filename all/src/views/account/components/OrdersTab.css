@@ -1,0 +1,22 @@
+.review-submit-button {
+    display: flex;
+    margin-right: 10px; /* Margen a la derecha */
+    margin-bottom: 10px; /* Margen hacia abajo */
+    border-radius: 15px;
+    text-align: center;
+    justify-content: center;
+    width: 25%;
+
+  }
+
+.review-successful {
+    color: red;
+  }
+  
+  .review-successful p {
+    margin: 0;
+  }
+  
+  .review-successful div {
+    text-align: right;
+  }

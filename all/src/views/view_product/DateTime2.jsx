@@ -116,10 +116,7 @@ const ReviewProduct = ({ productId, currentUserEmail }) => {
           }
         />
         <div className="review-modal-buttons">
-          <button
-            className="review-modal-button"
-            onClick={() => handleEditReview(review.id)}
-          >
+          <button type="submit" className="review-submit-button" onClick={() => handleEditReview(review.id)}>
             Enviar
           </button>
           <button
