@@ -2,9 +2,9 @@ import {
   ADD_USER,
   DELETE_USER,
   EDIT_USER,
-  GET_USER,
+  GET_USERS,
   REGISTER_USER,
-  CHANGE_USER_ROLE,
+  PROMOTE_TO_ADMIN,
 } from "@/constants/constants";
 
 // insert in profile array
@@ -14,7 +14,7 @@ export const registerUser = (user) => ({
 });
 
 export const getUser = (uid) => ({
-  type: GET_USER,
+  type: GET_USERS,
   payload: uid,
 });
 
@@ -42,7 +42,7 @@ export const changeUserRole = (uid) => {
 
       // Dispatch an action to update your Redux store
       dispatch({
-        type: CHANGE_USER_ROLE,
+        type: PROMOTE_TO_ADMIN,
         payload: { uid, newRole: "ADMIN" },
       });
 

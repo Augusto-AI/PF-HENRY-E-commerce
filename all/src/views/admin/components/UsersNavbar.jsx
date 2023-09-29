@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { FilterOutlined, PlusOutlined } from "@ant-design/icons";
 import { FiltersToggle, SearchBar } from "@/components/common";
-import { REGISTER_USER } from "@/constants/routes"; // Update route constant to ADD_USER
+import { ADD_USER } from "@/constants/routes"; // Update route constant to ADD_USER
 
 const UsersNavbar = ({ usersCount, totalUsersCount }) => {
   const history = useHistory();
@@ -23,7 +23,7 @@ const UsersNavbar = ({ usersCount, totalUsersCount }) => {
       </FiltersToggle>
       <button
         className="button button-small"
-        onClick={() => history.push(REGISTER_USER)}
+        onClick={() => history.push(ADD_USER)}
         type="button"
       >
         <PlusOutlined />

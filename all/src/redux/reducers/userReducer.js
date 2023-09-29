@@ -2,7 +2,7 @@ import {
   ADD_USER,
   DELETE_USER,
   EDIT_USER,
-  CHANGE_USER_ROLE,
+  PROMOTE_TO_ADMIN,
   GET_USER,
 } from "@/constants/constants";
 
@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
       });
     case DELETE_USER:
       return state.filter((user) => user.id !== action.payload);
-    case CHANGE_USER_ROLE:
+    case PROMOTE_TO_ADMIN:
       return state.map((user) => {
         if (user.id === action.payload.uid) {
           return {
