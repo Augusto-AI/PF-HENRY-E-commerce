@@ -41,47 +41,10 @@ import 'firebase/compat/functions';
   //     console.error("Error al llamar a la Cloud Function:", error);
   //   }
   // };
-  //push
-  
-const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
-
-export default function PaypalPayment({ subtotal }) {
-
-
-  //const [opcion, setOpcion] = useState(5);
-  //const history = useHistory();
-  //const dispatch = useDispatch();
-
-  const { basket, purchasedItems, profile, auth } = useSelector((state) => ({
-    basket: state.basket,
-    purchasedItems: state.purchasedItems,
-    profile: state.profile,
-    auth: state.auth
-  }));
-  
-  const dispatch = useDispatch();
-  const history = useHistory()
-
-  const createOrder = (data, actions) => {
-    return actions.order.create({
-      purchase_units: [
-        {
-          amount: {
-            currency_code: "USD",
-            value: `${subtotal}`,
-          },
-        },
-      ],
-      description: "Gafas",
-    });
-  };
-  
-
   
   
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 
-<<<<<<< HEAD
 export default function PaypalPayment({ subtotal }) {
 
 
@@ -121,12 +84,6 @@ export default function PaypalPayment({ subtotal }) {
     return actions.order.capture(handlePay());
   };
 
-=======
-  const onApprove = (data, actions) => {
-    return actions.order.capture(handlePay());
-  };
-
->>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
 
   const handleChange = (e) => {
     setPrice(e.target.value);

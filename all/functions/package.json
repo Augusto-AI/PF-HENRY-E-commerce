@@ -13,10 +13,7 @@
   },
   "main": "index.js",
   "dependencies": {
-<<<<<<< HEAD
     "@sendgrid/mail": "^7.7.0",
-=======
->>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
     "firebase-admin": "^11.10.1",
     "firebase-functions": "^4.4.1"
   },

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import app from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
@@ -6,13 +5,6 @@ import 'firebase/compat/storage';
 import 'firebase/compat/functions';
 
 import firebaseConfig from "./config";
-=======
-import app from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
-import "firebase/compat/storage";
-import "firebase/compat/functions";
->>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
 
 import firebaseConfig from "./config";
 //push
@@ -24,10 +16,6 @@ class Firebase {
     this.db = app.firestore();
     this.auth = app.auth();
     this.functions = app.functions();
-<<<<<<< HEAD
-
-=======
->>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
   }
 
   //*---------------------------------------------------------AUTH FUNCTIONS
@@ -109,7 +97,6 @@ class Firebase {
       });
     });
 
-<<<<<<< HEAD
     sendMail = async (email, subject, text) => {
       try {
         const functions = app.functions();
@@ -153,24 +140,6 @@ class Firebase {
         isActive: false,
       });
     };
-=======
-  sendMail = async (email, subject, text) => {
-    try {
-      const functions = app.functions();
-      const result = await this.functions.httpsCallable("sendMail")({
-        email,
-        subject,
-        text,
-      });
-
-      console.log("Email sent:", result.data);
-      return result.data;
-    } catch (error) {
-      console.error("Error sending email:", error);
-      throw error;
-    }
-  };
->>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
 
   //*---------------------------------------------------------PRODCUTO FUNCTIONS
 
