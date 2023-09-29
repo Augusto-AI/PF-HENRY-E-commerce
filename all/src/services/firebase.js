@@ -5,7 +5,7 @@ import 'firebase/compat/storage';
 import 'firebase/compat/functions';
 
 import firebaseConfig from "./config";
-
+//push
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
@@ -144,11 +144,6 @@ class Firebase {
       });
     };
 
-  softDeleteOrder = (orderId) => {
-    return this.db.collection("orders").doc(orderId).update({
-      isActive: false,
-    });
-  };
 
   saveBasketItems = (items, userId) =>
     this.db.collection("users").doc(userId).update({ basket: items });

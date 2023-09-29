@@ -4,7 +4,7 @@ export const selectFilter = (products, filter) => {
   if (!products || products.length === 0) return [];
 
   const keyword = filter.keyword.toLowerCase();
-
+//push
   return products.filter((product) => {
     const isInRange = filter.maxPrice
       ? (product.price >= filter.minPrice && product.price <= filter.maxPrice)
