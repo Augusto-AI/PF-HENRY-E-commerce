@@ -11,7 +11,6 @@ import "./Review.css"; // Importa tu archivo CSS
 const ReviewForm = ({ productId, onClose }) => {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(1);
-<<<<<<< HEAD
   const [reviewSent, setReviewSent] = useState(false);
 
   const { profile } = useSelector((state) => ({
@@ -25,8 +24,6 @@ const ReviewForm = ({ productId, onClose }) => {
     auth: state.auth,
 
   }));
-=======
->>>>>>> d5a239fbb69513f0b45e5e5690abc08a0c9b5671
 
   const handleSubmit = async (e) => {
     e.preventDefault();
