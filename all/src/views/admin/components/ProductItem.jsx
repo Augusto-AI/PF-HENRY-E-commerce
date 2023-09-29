@@ -44,6 +44,7 @@ const ProductItem = ({ product }) => {
           <div className="grid-col item-img-wrapper">
             {product.image ? (
               <ImageLoader
+              key={product.id}
                 alt={product.name}
                 className="item-img"
                 src={product.image}
