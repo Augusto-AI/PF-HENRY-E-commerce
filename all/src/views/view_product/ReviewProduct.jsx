@@ -8,13 +8,10 @@ const ReviewProduct = ({ productId }) => {
   const [reviews, setReviews] = useState([]);
   const [shouldReload, setShouldReload] = useState(false);
   const [editingReviewId, setEditingReviewId] = useState(null); // Estado para controlar la edición
-  
 
   const { profile, auth } = useSelector((state) => ({
-   
     profile: state.profile,
     auth: state.auth,
-   
   }));
 
   useEffect(() => {
@@ -26,12 +23,12 @@ const ReviewProduct = ({ productId }) => {
           .where("productId", "==", productId)
           .get();
 
-          const reviewData = reviewsSnapshot.docs.map((doc) => ({
-            id: doc.id, // Agrega el ID del documento a cada revisión
-            ...doc.data(),
-          }));
-      
-          setReviews(reviewData);
+        const reviewData = reviewsSnapshot.docs.map((doc) => ({
+          id: doc.id, // Agrega el ID del documento a cada revisión
+          ...doc.data(),
+        }));
+
+        setReviews(reviewData);
       } catch (error) {
         console.error("Error al obtener las revisiones:", error);
         // Maneja el error según tus necesidades
@@ -54,7 +51,7 @@ const ReviewProduct = ({ productId }) => {
 
   const handleEditReviewClick = (reviewId) => {
     // Establece el ID de la revisión que se está editando
-    setEditingReviewId(reviewId); 
+    setEditingReviewId(reviewId);
   };
 
   const handleReviewEdited = () => {
@@ -73,24 +70,35 @@ const ReviewProduct = ({ productId }) => {
           {reviews.map((review, index) => (
             <div key={index} className="review-item">
               <div className="review-rating">
-                    Rating:
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <span
-                        key={index}
-                        className={`stare ${index >= review.rating ? 'inactive' : ''}`}
-                      >
-                        &#9733;
-                      </span>
-                    ))}
-                  </div>
+                Rating:
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <span
+                    key={index}
+                    className={`stare ${
+                      index >= review.rating ? "inactive" : ""
+                    }`}
+                  >
+                    &#9733;
+                  </span>
+                ))}
+              </div>
               <h3>{review.username} say:</h3>
-              <div className="review-text2"><p>{review.text}</p></div>
-              <p>{review.date}{review.edited && <span className="edit">Edited.</span>}</p>
-              
-              {auth.id === review.userId && (
+              <div className="review-text2">
+                <p>{review.text}</p>
+              </div>
+              <p>
+                {review.date}
+                {review.edited && <span className="edit">Edited.</span>}
+              </p>
+
+              {auth && auth.id && auth.id === review.userId && (
                 <div className="review-buttons">
-                  <button onClick={() => handleEditReviewClick(review.id)}>Edit</button>
-                  <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
+                  <button onClick={() => handleEditReviewClick(review.id)}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDeleteReview(review.id)}>
+                    Delete
+                  </button>
                 </div>
               )}
               {editingReviewId === review.id && (
@@ -100,10 +108,9 @@ const ReviewProduct = ({ productId }) => {
                   onReviewEdited={handleReviewEdited} // Pasar la función de devolución de llamada
                 />
               )}
-    
+
               {/* Puedes mostrar otros detalles de la revisión aquí */}
             </div>
-            
           ))}
         </ul>
       )}

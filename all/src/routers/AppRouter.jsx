@@ -39,12 +39,14 @@ const AppRouter = () => (
           component={view.ForgotPassword}
           path={ROUTES.FORGOT_PASSWORD}
         />
-        <Route component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT} />
         <ClientRoute component={view.UserAccount} exact path={ROUTES.ACCOUNT} />
         <ClientRoute
           component={view.EditAccount}
           exact
           path={ROUTES.ACCOUNT_EDIT}
+        />
+           <ClientRoute
+       component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT}
         />
         <ClientRoute
           component={view.CheckOutStep1}
