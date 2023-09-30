@@ -187,16 +187,11 @@ const ViewProduct = () => {
           </div>
           <div className="app-container">
           <div>
-        {/* Renderiza el formulario de revisión */}
+        {/* < ReviewForm productId={product.id} /> */}
         
-        <ReviewForm
-          productId={product.id}
-          userEmail={user.email}
-          userName={user.displayName || user.email}
-        />
       </div>
       {/* Renderiza el componente ReviewProduct y pasa las reseñas y el email del usuario */}
-      <ReviewProduct productId={product.id} currentUserEmail={user.email} />
+      <ReviewProduct productId={product.id}/>
       <div style={{ marginTop: "10rem" }}>
         {/* ... (otro código de tu componente) */}
       </div>

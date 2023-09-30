@@ -1,3 +1,24 @@
+.review-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscurecido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Asegura que el modal esté en la parte superior */
+}
+
+.review-modal-content {
+  background-color: #fff; /* Fondo blanco del modal */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra del modal */
+  max-width: 80%;
+}
+
 /* Estilo para el formulario de revisión */
 .tittle {
   text-align: center;
@@ -37,6 +58,18 @@
 }
 
 /* Estilo para el botón de enviar */
+.review-submit-button2 {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 15px;
+  margin-left: 120px;
+  
+}
+
 .review-submit-button {
   width: 100%;
   padding: 10px;
@@ -80,6 +113,7 @@
   padding: 10px;
   border: 1px solid #ccc;
   background-color: #f9f9f9;
+  width: 500px;
 }
 
 /* Estilo para el nombre del revisor */
@@ -101,6 +135,16 @@
   padding: 10px;
   border: 1px solid #ccc;
   margin-bottom: 10px;
+}
+
+.review-text2 {
+  background-color: #eee;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  max-height: 150px; /* Establece la altura máxima deseada */
+  
+  overflow-wrap: break-word; /* Permite que las palabras se rompan y se ajusten dentro del contenedor */
 }
 
 /* Estilo para la fecha y "Editado" */
@@ -140,4 +184,22 @@
   justify-content: space-between; /* Espacio entre los componentes */
   align-items: flex-start; /* Alinea los componentes en la parte superior */
   padding: 20px; /* Agrega espacio alrededor del contenido */
+}
+
+.review-modal-button2 {
+  padding: 10px 20px;
+  background-color: #dc3545; /* Color del botón cancelar */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 20px auto; /* Agrega márgenes superior e inferior automáticos y centrar horizontalmente */
+  display: block; /* Convierte el botón en un bloque para centrarlo horizontalmente */
+  text-align: center; /* Centra el texto horizontalmente */
+}
+
+.edit {
+  color: #dc3545;
+  margin: 5px;
+  font-size: medium;
 }

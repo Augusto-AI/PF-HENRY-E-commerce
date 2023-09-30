@@ -1,17 +1,33 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import firebaseInstance from "@/services/firebase";
 import { getCurrentDateTime } from "./DateTime";
+import { Link } from 'react-router-dom';
 import StarRating from "./StarRating"; // Asegúrate de importar StarRating
 import "./Review.css"; // Importa tu archivo CSS
 
 
 
-const ReviewForm = ({ productId, userEmail, userName }) => {
+const ReviewForm = ({ productId, onClose }) => {
   const [text, setText] = useState("");
   const [rating, setRating] = useState(1);
+  const [reviewSent, setReviewSent] = useState(false);
+
+  const { profile } = useSelector((state) => ({
+   
+    profile: state.profile,
+   
+  }));
+
+  const { auth} = useSelector((state) => ({
+   
+    auth: state.auth,
+
+  }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+   
 
     try {
       // Obtén la fecha y hora actuales en formato inglés
@@ -19,8 +35,9 @@ const ReviewForm = ({ productId, userEmail, userName }) => {
       // Agrega una nueva revisión a la colección "reviews" en Firebase
       await firebaseInstance.db.collection("reviews").add({
         productId,
-        userId: userEmail,
-        username: userName,
+        userId: auth.id,
+        username: profile.fullname,
+        email: profile.email,
         text,
         rating,
         date,
@@ -29,8 +46,9 @@ const ReviewForm = ({ productId, userEmail, userName }) => {
       });
 
       // Limpia los campos del formulario después de enviar la revisión
-      setText("");
-      setRating(1);
+      setReviewSent(true);
+
+      
 
 
       // Puedes realizar alguna acción adicional después de enviar la revisión si es necesario
@@ -42,7 +60,16 @@ const ReviewForm = ({ productId, userEmail, userName }) => {
 
   return (
     <div >
-      <h2 className="tittle">LEAVE A REVIEW</h2>
+      <h2 className="tittle">
+        {reviewSent ? "Send review successfully!" : "LEAVE A REVIEW"}
+      </h2>
+      {reviewSent ? (
+        <div>
+          <Link to={`/product/${productId}`} className="review-submit-button">
+            Close
+          </Link>
+        </div>
+      ) : (
     <form className="review-form" onSubmit={handleSubmit}>
       <div>
         Comment:
@@ -67,6 +94,7 @@ const ReviewForm = ({ productId, userEmail, userName }) => {
         Send
       </button>
     </form>
+    )}
     </div>
   );
 };
