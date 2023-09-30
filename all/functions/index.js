@@ -110,21 +110,28 @@
                const orderId = context.params.orderId;
                const orderData = snap.data();
                const htmlTemplate = `
-<html>
-  <body>
-    <h1>Detalles de la orden</h1>
-    <p>Fecha: ${new Date(orderData.date._seconds * 1000).toLocaleString()}</p>
-    <p>Activo: ${orderData.isActive ? 'Sí' : 'No'}</p>
-    <p>Marca del producto: ${orderData.product[0].brand}</p>
-    <p>Descripción del producto: ${orderData.product[0].description}</p>
-    <img src="${orderData.product[0].image}" alt="Producto" />
-    <p>Tamaño seleccionado: ${orderData.product[0].selectedSize}</p>
-    <p>Cantidad: ${orderData.product[0].quantity}</p>
-    <p>Precio: $${orderData.product[0].price}</p>
-    <p>Total: $${orderData.total}</p>
-  </body>
-</html>
-`;
+               <html>
+                 <body>
+                   <h1>Detalles de la Orden</h1>
+                   <p>Fecha: ${new Date(orderData.date._seconds * 1000).toLocaleString()}</p>
+                   <p>Activo: ${orderData.isActive ? 'Sí' : 'No'}</p>
+                   <h2>Productos:</h2>
+                   <ul>
+                     ${orderData.product.map((product) => `
+                       <li>
+                         <img src="${product.image}" alt="${product.name}" />
+                         <p>Marca: ${product.brand}</p>
+                         <p>Descripción: ${product.description}</p>
+                         <p>Precio: $${product.price}</p>
+                         <p>Cantidad: ${product.quantity}</p>
+                       </li>
+                     `).join('')}
+                   </ul>
+                   <p>Total: $${orderData.total}</p>
+                 </body>
+               </html>
+               `;
+               
        
                // Verifica si el documento de la orden tiene el campo "userId"
                if (orderData.userId) {
