@@ -1,60 +1,45 @@
-import React from "react";
 import PropTypes from "prop-types";
-import { UserItem } from ".";
-import { useDispatch } from "react-redux";
-import { deleteUser, changeUserRole } from "@/redux/actions/userActions";
-import { displayActionMessage } from "@/helpers/utils";
+import React from "react";
+import { UserItem } from "."; // Asegúrate de importar el componente correcto para los elementos de usuario
 
-const UsersTable = ({ users }) => {
-  const dispatch = useDispatch();
-
-  const onDeleteUser = (userId) => {
-    dispatch(removeUser(userId));
-    displayActionMessage("User successfully deleted");
-  };
-
-  const onChangeRoleToAdmin = (userId) => {
-    dispatch(changeUserRole(userId));
-    displayActionMessage("User role changed to ADMIN");
-  };
-
-  return (
-    <div>
-      {users.length > 0 && (
-        <div className="grid grid-user grid-count-6">
-          <div className="grid-col" />
-          <div className="grid-col">
-            <h5>Name</h5>
-          </div>
-          <div className="grid-col">
-            <h5>Email</h5>
-          </div>
-          {/* Add more headers for other user attributes */}
+const UsersTable = ({ filteredUsers }) => (
+  <div>
+    {filteredUsers.length > 0 && (
+      <div className="grid grid-user grid-count-6">
+        {" "}
+        {/* Asegúrate de ajustar las clases CSS según tus necesidades */}
+        <div className="grid-col" />
+        <div className="grid-col">
+          <h5>Name</h5>
         </div>
-      )}
-      {users.length === 0
-        ? new Array(10).fill({}).map((user, index) => (
-            <UserItem
-              key={`user-skeleton-${index}`} // Provide a unique key
-              user={user}
-              onDeleteUser={() => onDeleteUser(user.id)}
-              onChangeRoleToAdmin={() => onChangeRoleToAdmin(user.id)}
-            />
+        <div className="grid-col">
+          <h5>Email</h5>{" "}
+          {/* Agrega las columnas necesarias para mostrar los datos de usuario */}
+        </div>
+        <div className="grid-col">
+          <h5>Role</h5>{" "}
+          {/* Por ejemplo, aquí se agrega la columna "Role" para mostrar el rol de usuario */}
+        </div>
+        <div className="grid-col">
+          <h5>Join Date</h5> {/* Ajusta las columnas según tus necesidades */}
+        </div>
+        <div className="grid-col">
+          <h5>Status</h5> {/* Añade más columnas si es necesario */}
+        </div>
+      </div>
+    )}
+    {filteredUsers.length === 0
+      ? new Array(10)
+          .fill({})
+          .map((user, index) => (
+            <UserItem key={`user-skeleton-${index}`} user={user} />
           ))
-        : users.map((user) => (
-            <UserItem
-              key={user.id} // Use a unique attribute as the key
-              user={user}
-              onDeleteUser={() => onDeleteUser(user.id)}
-              onChangeRoleToAdmin={() => onChangeRoleToAdmin(user.id)}
-            />
-          ))}
-    </div>
-  );
-};
+      : filteredUsers.map((user) => <UserItem key={user.id} user={user} />)}
+  </div>
+);
 
 UsersTable.propTypes = {
-  users: PropTypes.array.isRequired,
+  filteredUsers: PropTypes.array.isRequired,
 };
 
 export default UsersTable;

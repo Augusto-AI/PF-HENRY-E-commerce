@@ -41,7 +41,7 @@ import 'firebase/compat/functions';
   //     console.error("Error al llamar a la Cloud Function:", error);
   //   }
   // };
-  
+
   
 const PayPalButton = window.paypal.Buttons.driver("react", { React, ReactDOM });
 

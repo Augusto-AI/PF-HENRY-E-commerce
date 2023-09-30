@@ -6,6 +6,7 @@ import PropType from 'prop-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import DarkMode from "../../../darkMode"
 
 const UserProfile = (props) => {
   const profile = useSelector((state) => state.profile);
@@ -67,6 +68,7 @@ const UserProfile = (props) => {
             <h5 className="text-subtle text-italic">Not available</h5>
           )}
         </div>
+        <DarkMode />
       </div>
     </div>
   );

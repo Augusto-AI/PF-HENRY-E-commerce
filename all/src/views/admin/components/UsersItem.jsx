@@ -1,9 +1,11 @@
+import PropTypes from "prop-types";
 import React, { useRef } from "react";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useDispatch } from "react-redux";
 import { useHistory, withRouter } from "react-router-dom";
-import { deleteUser, changeUserRole } from "@/redux/actions/userActions"; // Import your user-related actions
-import { displayActionMessage } from "@/helpers/utils";
+import { deleteUser } from "@/redux/actions/userActions"; // Asegúrate de importar la acción correcta para eliminar usuarios
+import { displayActionMessage, displayDate } from "@/helpers/utils";
+import { ImageLoader } from "@/components/common";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const UserItem = ({ user }) => {
   const dispatch = useDispatch();
@@ -11,8 +13,8 @@ const UserItem = ({ user }) => {
   const userRef = useRef(null);
 
   const onClickEdit = () => {
-    // Implement navigation to edit user profile if needed
-    // history.push(`/edit-user/${user.id}`);
+    // Aquí debes definir la ruta correcta para editar un usuario si es necesario
+    // history.push(`/edit_user/${user.id}`);
   };
 
   const onDeleteUser = () => {
@@ -20,18 +22,13 @@ const UserItem = ({ user }) => {
   };
 
   const onConfirmDelete = () => {
-    dispatch(removeUser(user.id)); // Dispatch your remove user action
-    displayActionMessage("User successfully deleted");
+    dispatch(deleteUser(user.id)); // Asegúrate de utilizar la acción correcta para eliminar usuarios
+    displayActionMessage("Usuario eliminado con éxito");
     userRef.current.classList.remove("item-active");
   };
 
   const onCancelDelete = () => {
     userRef.current.classList.remove("item-active");
-  };
-
-  const onChangeRoleToAdmin = () => {
-    dispatch(changeUserRole(user.id)); // Dispatch your change user role action
-    displayActionMessage("User role changed to ADMIN");
   };
 
   return (
@@ -40,9 +37,18 @@ const UserItem = ({ user }) => {
         className={`item item-users ${!user.id && "item-loading"}`}
         ref={userRef}
       >
-        {/* Display user-related information similar to how you did with products */}
         <div className="grid grid-count-6">
-          {/* Modify this section to display user-specific fields */}
+          <div className="grid-col item-img-wrapper">
+            {user.image ? (
+              <ImageLoader
+                alt={user.name || "User Image"}
+                className="item-img"
+                src={user.image}
+              />
+            ) : (
+              <Skeleton width={50} height={30} />
+            )}
+          </div>
           <div className="grid-col">
             <span className="text-overflow-ellipsis">
               {user.name || <Skeleton width={50} />}
@@ -51,9 +57,22 @@ const UserItem = ({ user }) => {
           <div className="grid-col">
             <span>{user.email || <Skeleton width={50} />}</span>
           </div>
-          {/* Add more grid-cols for other user attributes */}
+          <div className="grid-col">
+            {/* Agrega más campos según los datos del usuario */}
+          </div>
+          <div className="grid-col">
+            <span>
+              {user.dateAdded ? (
+                displayDate(user.dateAdded)
+              ) : (
+                <Skeleton width={30} />
+              )}
+            </span>
+          </div>
+          <div className="grid-col">
+            {/* Agrega más campos según los datos del usuario */}
+          </div>
         </div>
-
         {user.id && (
           <div className="item-action">
             <button
@@ -61,7 +80,7 @@ const UserItem = ({ user }) => {
               onClick={onClickEdit}
               type="button"
             >
-              Edit
+              Editar
             </button>
             &nbsp;
             <button
@@ -69,18 +88,10 @@ const UserItem = ({ user }) => {
               onClick={onDeleteUser}
               type="button"
             >
-              Delete
-            </button>
-            &nbsp;
-            <button
-              className="button button-border button-small"
-              onClick={onChangeRoleToAdmin}
-              type="button"
-            >
-              Change to ADMIN
+              Eliminar
             </button>
             <div className="item-action-confirm">
-              <h5>Are you sure you want to delete this user?</h5>
+              <h5>¿Seguro que deseas eliminar esto?</h5>
               <button
                 className="button button-small button-border"
                 onClick={onCancelDelete}
@@ -94,7 +105,7 @@ const UserItem = ({ user }) => {
                 onClick={onConfirmDelete}
                 type="button"
               >
-                Yes
+                Sí
               </button>
             </div>
           </div>
@@ -102,6 +113,17 @@ const UserItem = ({ user }) => {
       </div>
     </SkeletonTheme>
   );
+};
+
+UserItem.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    // Agrega más propiedades según los datos del usuario
+    image: PropTypes.string,
+    dateAdded: PropTypes.number,
+  }).isRequired,
 };
 
 export default withRouter(UserItem);
