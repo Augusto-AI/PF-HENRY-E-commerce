@@ -3,7 +3,12 @@ const admin = require('firebase-admin');
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
-//push
+
+// import app from 'firebase/compat/app';
+// import 'firebase/compat/auth';
+// import 'firebase/compat/firestore';
+// import 'firebase/compat/storage';
+// import 'firebase/compat/functions';
 admin.initializeApp();
 
 const app = express();
@@ -50,3 +55,36 @@ app.post('/sendMail', async (req, res) => {
 });
 
 exports.api = functions.https.onRequest(app);
+
+// admin.initializeApp();
+
+// Nodemailer para enviar correos
+// const nodemailer = require('nodemailer');
+// let transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//         user: 'startvideogame11@gmail.com',
+//         pass: 'zstv spcv pzco rqff',
+//     }
+// });
+
+// exports.enviarCorreo = functions.firestore
+//     .document('orders/{orderId}')
+//     .onCreate((snap, context) => {
+//         const mailOptions = {
+//             from: 'startvideogame11@gmail.com',
+//             to: 'daniellopg@hotmail.com',
+//             subject: 'Detalles de pao',
+//             html: <><p>Se ha creado un nuevo documento en orders con los siguientes datos:</p>
+//             <p>${JSON.stringify(snap.data())}</p></>
+//         };
+//         return transporter.sendMail(mailOptions, (error, data) => {
+//             if (error) {
+//                 console.log(error);
+//                 return;
+//             }
+//             console.log("Correo enviado correctamente");
+//         });
+//     });
+
+//     exports.api = functions.https.onRequest(app);
