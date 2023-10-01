@@ -50,9 +50,7 @@ const SideNavigation = () => (
           activeClassName="sidenavigation-menu-active"
           className="sidenavigation-menu"
           to={ADMIN_USERS}
-        >
-          Users
-        </NavLink>
+        ></NavLink>
       </div>
     </div>
   </aside>

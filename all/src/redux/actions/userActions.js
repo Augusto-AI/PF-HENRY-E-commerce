@@ -5,9 +5,15 @@ import {
   GET_USERS,
   REGISTER_USER,
   PROMOTE_TO_ADMIN,
+  ADMIN_USERS,
 } from "@/constants/constants";
 
 // insert in profile array
+export const adminUsers = (user) => ({
+  type: ADMIN_USERS,
+  payload: user,
+});
+
 export const registerUser = (user) => ({
   type: REGISTER_USER,
   payload: user,

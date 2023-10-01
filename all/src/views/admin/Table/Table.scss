@@ -30,13 +30,16 @@ th {
   }
 }
 
-
 @media screen and (max-width: 768px) {
-  .Table{
+  .Table {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 23rem;
   }
+}
+
+.inactive-user {
+  background-color: #ffcccc; /* Puedes ajustar este color según tus preferencias */
 }

@@ -82,7 +82,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { selectFilter } from "@/selectors/selector";
-import { UsersNavbar } from "../components"; // Asegúrate de importar el componente Navbar correcto para usuarios
+// Asegúrate de importar el componente Navbar correcto para usuarios
 import UsersTable from "../components/UsersTable"; // Asegúrate de importar el componente de tabla de usuarios
 import UserList from "../../../components/user/UserList";
 
@@ -94,12 +94,10 @@ const Users = () => {
     users: state.users, // Asegúrate de obtener el estado de los usuarios desde tu store
   }));
 
+  console.log("Store:", store); // Agrega un console log para ver el contenido de la variable store
+
   return (
     <Boundary>
-      <UsersNavbar
-        usersCount={store.users.items.length}
-        totalUsersCount={store.users.total} // Asegúrate de utilizar la propiedad correcta para el total de usuarios
-      />
       <div className="user-admin-items">
         <UserList {...store}>
           <UsersTable filteredUsers={store.filteredUsers} />

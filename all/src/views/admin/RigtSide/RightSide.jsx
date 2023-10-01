@@ -10,10 +10,6 @@ const RightSide = () => {
         <h3>Customer Review</h3>
         <CustomerReview />
       </div>
-      <div className="right-section">
-        <h3>Updates</h3>
-        <Updates />
-      </div>
     </div>
   );
 };

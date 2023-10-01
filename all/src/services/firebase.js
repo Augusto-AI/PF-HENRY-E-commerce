@@ -116,6 +116,7 @@ class Firebase {
     
     
 
+<<<<<<< Updated upstream
     addOrder = async (userId, dataPayment) => {
       try {
         const orderId = this.db.collection("orders").doc().id;
@@ -140,6 +141,15 @@ class Firebase {
         isActive: false,
       });
     };
+=======
+      console.log("Email sent:", result.data);
+      return result.data;
+    } catch (error) {
+      console.error("Error sending email:", error);
+      throw error;
+    }
+  };
+>>>>>>> Stashed changes
 
   //*---------------------------------------------------------PRODCUTO FUNCTIONS
 

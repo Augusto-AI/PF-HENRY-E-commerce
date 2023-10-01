@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 
 const CustomerReview = () => {
+  const [reviewsData, setReviewsData] = useState([]);
+
+  useEffect(() => {
+    // Configura la referencia a la colección "reviews" en Firestore
+    const reviewsCollection = firebase.firestore().collection("reviews");
+
+    // Escucha cambios en la colección "reviews"
+    const unsubscribe = reviewsCollection.onSnapshot((snapshot) => {
+      const updatedReviews = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setReviewsData(updatedReviews);
+    });
+
+    // Detén la escucha cuando el componente se desmonte
+    return () => unsubscribe();
+  }, []);
+
+  // Procesa las fechas y calificaciones de Firestore
+  const formattedReviews = reviewsData.map((review) => ({
+    x: new Date(review.date).getTime(),
+    y: review.rating,
+  }));
+
   const data = {
     series: [
       {
-        name: "Review",
-        data: [10, 50, 30, 90, 40, 120, 100],
+        name: "Rating",
+        data: reviewsData.map((review) => review.rating), // Usamos las calificaciones de Firebase
       },
     ],
     options: {
@@ -15,7 +41,6 @@ const CustomerReview = () => {
         type: "area",
         height: "auto",
       },
-
       fill: {
         colors: ["#fff"],
         type: "gradient",
@@ -37,27 +62,22 @@ const CustomerReview = () => {
       },
       xaxis: {
         type: "datetime",
-        categories: [
-          "2018-09-19T00:00:00.000Z",
-          "2018-09-19T01:30:00.000Z",
-          "2018-09-19T02:30:00.000Z",
-          "2018-09-19T03:30:00.000Z",
-          "2018-09-19T04:30:00.000Z",
-          "2018-09-19T05:30:00.000Z",
-          "2018-09-19T06:30:00.000Z",
-        ],
+        categories: reviewsData.map((review) => new Date(review.date)), // Usamos las fechas de Firebase
       },
       yaxis: {
-        show: false
+        show: false,
       },
-      toolbar:{
-        show: false
-      }
+      toolbar: {
+        show: false,
+      },
     },
   };
-  return <div className="CustomerReview">
-        <Chart options={data.options} series={data.series} type="area" />
-  </div>;
+
+  return (
+    <div className="CustomerReview">
+      <Chart options={data.options} series={data.series} type="area" />
+    </div>
+  );
 };
 
 export default CustomerReview;

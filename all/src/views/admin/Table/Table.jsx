@@ -1,4 +1,6 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,37 +10,26 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./Table.scss";
 
-function createData(name, trackingId, date, status) {
-  return { name, trackingId, date, status };
-}
+export default function OrdersTable() {
+  const [orders, setOrders] = useState([]);
 
-const rows = [
-  createData("Lasania Chiken Fri", 18908424, "2 March 2022", "Approved"),
-  createData("Big Baza Bang ", 18908424, "2 March 2022", "Pending"),
-  createData("Mouth Freshner", 18908424, "2 March 2022", "Approved"),
-  createData("Cupcake", 18908421, "2 March 2022", "Delivered"),
-];
+  useEffect(() => {
+    // Configura la referencia a la colección "orders" en Firestore
+    const ordersCollection = firebase.firestore().collection("orders");
 
-const makeStyle = (status) => {
-  if (status === "Approved") {
-    return {
-      background: "rgb(145 254 159 / 47%)",
-      color: "green",
-    };
-  } else if (status === "Pending") {
-    return {
-      background: "#ffadad8f",
-      color: "red",
-    };
-  } else {
-    return {
-      background: "#59bfff",
-      color: "white",
-    };
-  }
-};
+    // Escucha cambios en la colección "orders"
+    const unsubscribe = ordersCollection.onSnapshot((snapshot) => {
+      const updatedOrders = [];
+      snapshot.forEach((doc) => {
+        updatedOrders.push({ id: doc.id, ...doc.data() });
+      });
+      setOrders(updatedOrders);
+    });
 
-export default function BasicTable() {
+    // Detén la escucha cuando el componente se desmonte
+    return () => unsubscribe();
+  }, []);
+
   return (
     <div className="Table">
       <h3>Recent Orders</h3>
@@ -49,32 +40,19 @@ export default function BasicTable() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell>UserId</TableCell>
+              <TableCell>Brand</TableCell>
               <TableCell>Product</TableCell>
-              <TableCell align="left">Tracking ID</TableCell>
-              <TableCell align="left">Date</TableCell>
-              <TableCell align="left">Status</TableCell>
-              <TableCell align="left"></TableCell>
+              <TableCell>Price</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody style={{ color: "white" }}>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="left">{row.trackingId}</TableCell>
-                <TableCell align="left">{row.date}</TableCell>
-                <TableCell align="left">
-                  <span className="status" style={makeStyle(row.status)}>
-                    {row.status}
-                  </span>
-                </TableCell>
-                <TableCell align="left" className="Details">
-                  Details
-                </TableCell>
+          <TableBody>
+            {orders.map((order) => (
+              <TableRow key={order.id}>
+                <TableCell>{order.UserId}</TableCell>
+                <TableCell>{order.brand}</TableCell>
+                <TableCell>{order.image}</TableCell>
+                <TableCell>{order.price}</TableCell>
               </TableRow>
             ))}
           </TableBody>
