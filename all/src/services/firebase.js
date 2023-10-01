@@ -1,17 +1,15 @@
-import app from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-import 'firebase/compat/storage';
-import 'firebase/compat/functions';
-
-
+import app from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import "firebase/compat/storage";
+import "firebase/compat/functions";
 
 import firebaseConfig from "./config";
 //push
 class Firebase {
   constructor() {
     app.initializeApp(firebaseConfig);
-     
+
     this.storage = app.storage();
     this.db = app.firestore();
     this.auth = app.auth();
@@ -19,8 +17,6 @@ class Firebase {
   }
 
   //*---------------------------------------------------------AUTH FUNCTIONS
-
-  
 
   createAccount = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
@@ -97,51 +93,15 @@ class Firebase {
       });
     });
 
-    sendMail = async (email, subject, text) => {
-      try {
-        const functions = app.functions();
-        const result = await this.functions.httpsCallable('sendMail')({
-          email,
-          subject,
-          text,
-        });
-    
-        console.log('Email sent:', result.data);
-        return result.data;
-      } catch (error) {
-        console.error('Error sending email:', error);
-        throw error;
-      }
-    };
-    
-    
-
-<<<<<<< Updated upstream
-    addOrder = async (userId, dataPayment) => {
-      try {
-        const orderId = this.db.collection("orders").doc().id;
-        const orderRef = this.db.collection("orders").doc(orderId);
-        
- 
-        await orderRef.set({ ...dataPayment, userId });
-        
-  
-        const userOrdersRef = this.db.collection("users").doc(userId).collection("userOrders");
-        await userOrdersRef.add({ orderId });
-        
-        return orderId;
-      } catch (error) {
-        console.error(error);
-        throw error;
-      }
-    };
-    
-    softDeleteOrder = (orderId) => {
-      return this.db.collection("orders").doc(orderId).update({
-        isActive: false,
+  sendMail = async (email, subject, text) => {
+    try {
+      const functions = app.functions();
+      const result = await this.functions.httpsCallable("sendMail")({
+        email,
+        subject,
+        text,
       });
-    };
-=======
+
       console.log("Email sent:", result.data);
       return result.data;
     } catch (error) {
@@ -149,7 +109,6 @@ class Firebase {
       throw error;
     }
   };
->>>>>>> Stashed changes
 
   //*---------------------------------------------------------PRODCUTO FUNCTIONS
 
@@ -443,7 +402,6 @@ class Firebase {
     }
   };
 }
-
 
 const firebaseInstance = new Firebase();
 

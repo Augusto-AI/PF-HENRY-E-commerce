@@ -45,9 +45,7 @@ const AppRouter = () => (
           exact
           path={ROUTES.ACCOUNT_EDIT}
         />
-           <ClientRoute
-       component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT}
-        />
+        <PublicRoute component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT} />
         <ClientRoute
           component={view.CheckOutStep1}
           path={ROUTES.CHECKOUT_STEP_1}
