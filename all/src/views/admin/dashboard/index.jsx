@@ -1,10 +1,8 @@
 import { useDocumentTitle, useScrollTop } from "@/hooks";
 import React from "react";
 import AddProduct from "../add_product/index";
-import UsersList from "../../../components/user/UserList";
 import Cards from "../Cards/Cards";
 import Table from "../Table/Table";
-import RightSide from "../RigtSide/RightSide";
 import UsersTable from "../Table/UsersTable";
 
 const Dashboard = () => {
@@ -17,10 +15,7 @@ const Dashboard = () => {
       <Cards />
 
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <div style={{ flex: "1", marginRight: "16px" }}>
-          <UsersTable />
-        </div>
-        <div style={{ flex: "1", marginRight: "16px" }}>
+        <div style={{ flex: "1", flexWrap: "wrap" }}>
           <Table />
         </div>
       </div>

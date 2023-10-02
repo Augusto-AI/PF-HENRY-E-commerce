@@ -1,63 +1,61 @@
-
 .light-mode {
-    background-color: white;
-  }
-  
-  /* Dark mode */
-  .dark-mode {
-    background-color: black;
-    color: black;
-  }
+  background-color: white;
+}
 
-  .dsa {
-    background-color: black;
-  }
-  
-  /* Dark mode butonu */
-  .dark-mode-button {
-    background-color: #4CAF50; /* Yeşil */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
+/* Dark mode */
+.dark-mode {
+  background-color: rgb(40, 40, 40);
+  color: rgb(40, 39, 39);
+}
 
-  .appBenzer {
+.dsa {
+  background-color: black;
+}
+
+/* Dark mode butonu */
+.dark-mode-button {
+  background-color: #4caf50; /* Yeşil */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.appBenzer {
   justify-content: center;
   display: flex;
-  
-  }
+}
 
-  .toggle {
+.toggle {
   background-color: rgb(116, 116, 211);
   height: 30px;
   width: 60px;
   border-radius: 30px;
   margin-top: -10px;
   display: flex;
-  }
+}
 
-  .toggle_left {
+.toggle_left {
   height: 20px;
   width: 20px;
-  background-image: url('./image/moon.png');
+  background-image: url("./image/moon.png");
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 20px;
   margin: 5px;
-  }
+}
 
-  .toggle_right {
+.toggle_right {
   height: 20px;
   width: 20px;
-  background-image: url('./image/sol.png');
+  background-image: url("./image/sol.png");
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 20px;
-  margin: 5px 2px 5px 35px
-  }
+  margin: 5px 2px 5px 35px;
+}

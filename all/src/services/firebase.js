@@ -403,6 +403,41 @@ class Firebase {
   };
 }
 
+//*--------------------------------------------DATA CHARTS DASH
+
+export const getTotalReviews = async () => {
+  try {
+    const reviewsCollection = app.firestore().collection("reviews");
+    const snapshot = await reviewsCollection.get();
+    return snapshot.size; // Retorna la cantidad total de documentos en la colección 'reviews'
+  } catch (error) {
+    console.error("Error al obtener la cantidad total de revisiones:", error);
+    throw error;
+  }
+};
+
+export const getTotalOrders = async () => {
+  try {
+    const ordersCollection = app.firestore().collection("orders");
+    const snapshot = await ordersCollection.get();
+    return snapshot.size; // Retorna la cantidad total de documentos en la colección 'orders'
+  } catch (error) {
+    console.error("Error al obtener la cantidad total de órdenes:", error);
+    throw error;
+  }
+};
+
+export const getTotalUsers = async () => {
+  try {
+    const usersCollection = app.firestore().collection("users");
+    const snapshot = await usersCollection.get();
+    return snapshot.size; // Retorna la cantidad total de documentos en la colección 'users'
+  } catch (error) {
+    console.error("Error al obtener la cantidad total de usuarios:", error);
+    throw error;
+  }
+};
+
 const firebaseInstance = new Firebase();
 
 export default firebaseInstance;
