@@ -143,8 +143,8 @@
                        const mailOptions = {
                            from: 'startvideogame11@gmail.com',
                            to: userEmail, // Envía el correo al usuario
-                           subject: 'Detalles de pago',
-                           html: `<p>Se ha creado un nuevo documento en orders con los siguientes datos:</p>
+                           subject: 'Payment details',
+                           html: `<p>A new document has been created in orders with the following data:</p>
                                 <p>${htmlTemplate}</p>`
                        };
        
