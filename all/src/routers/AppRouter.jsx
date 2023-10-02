@@ -21,11 +21,13 @@ const AppRouter = () => (
   <Router history={history}>
     <>
       <Navigation />
+      
       {/* {
         isChatBotVisible && <MyChatBot />
       } */}
       
       <Basket />
+      <MyChatBot />
       <Switch>
         <Route component={view.Shop} exact path={ROUTES.SHOP} />
         <Route component={view.Search} exact path={ROUTES.SEARCH} />
