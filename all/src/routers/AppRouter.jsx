@@ -8,15 +8,23 @@ import * as view from "@/views";
 import AdminRoute from "./AdminRoute";
 import ClientRoute from "./ClientRoute";
 import PublicRoute from "./PublicRoute";
+import MyChatBot from "../Chat";
+import { useState } from "react";
 
 // Revert back to history v4.10.0 because
 // v5.0 breaks navigation
 export const history = createBrowserHistory();
 
+// const [ isChatBotVisible, setChatBotVisible ] = useState(true);
+
 const AppRouter = () => (
   <Router history={history}>
     <>
       <Navigation />
+      {/* {
+        isChatBotVisible && <MyChatBot />
+      } */}
+      
       <Basket />
       <Switch>
         <Route component={view.Shop} exact path={ROUTES.SHOP} />
