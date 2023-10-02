@@ -99,7 +99,7 @@ const Navigation = () => {
         <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.ABOUT}>About Us</NavLink></li>
         {(pathname === ROUTE.SHOP || pathname === ROUTE.SEARCH) && (
           <FiltersToggle>
-            <button className={`button-muted button-small ${darkModelo ? 'dark-mode' : ''}`} style={{ marginLeft: "17em", bottom: "34px"}} type="button">
+            <button className={`button-muted button-small ${darkModelo ? 'dark-mode' : ''}`} style={{ display: 'flex'}} type="button">
               Filters &nbsp;
               <FilterOutlined />
             </button>

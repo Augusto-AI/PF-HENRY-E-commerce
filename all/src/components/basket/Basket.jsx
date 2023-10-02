@@ -37,6 +37,8 @@ const Basket = () => {
           console.log(e);
         });
     }
+    // document.body.classList.remove("is-basket-open");
+    // setChatBotVisible(false);
   }, [basket.length]);
 
   const onCheckOut = () => {

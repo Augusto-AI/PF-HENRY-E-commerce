@@ -24,6 +24,11 @@ const UserNav = () => {
   const userNav = useRef(null);
   const dispatch = useDispatch();
 
+  const isSignOut = () => {
+    window.location.reload();
+    dispatch(signOut());
+  }
+
   const toggleDropdown = (e) => {
     const closest = e.target.closest(".user-nav");
 
@@ -82,7 +87,7 @@ const UserNav = () => {
             )}
             <h6
               className="user-nav-sub-link margin-0 d-flex"
-              onClick={() => dispatch(signOut())}
+              onClick={() => isSignOut()}
               role="presentation"
             >
               Sign Out

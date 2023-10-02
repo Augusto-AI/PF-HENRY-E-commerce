@@ -112,18 +112,18 @@
                const htmlTemplate = `
                <html>
                  <body>
-                   <h1>Detalles de la Orden</h1>
-                   <p>Fecha: ${new Date(orderData.date._seconds * 1000).toLocaleString()}</p>
-                   <p>Activo: ${orderData.isActive ? 'Sí' : 'No'}</p>
-                   <h2>Productos:</h2>
+                   <h1>Order details</h1>
+                   <p>Date: ${new Date(orderData.date._seconds * 1000).toLocaleString()}</p>
+                   <p>Active: ${orderData.isActive ? 'Sí' : 'No'}</p>
+                   <h2>Products:</h2>
                    <ul>
                      ${orderData.product.map((product) => `
                        <li>
                          <img src="${product.image}" alt="${product.name}" />
-                         <p>Marca: ${product.brand}</p>
-                         <p>Descripción: ${product.description}</p>
-                         <p>Precio: $${product.price}</p>
-                         <p>Cantidad: ${product.quantity}</p>
+                         <p>Brand: ${product.brand}</p>
+                         <p>Description: ${product.description}</p>
+                         <p>Price: $${product.price}</p>
+                         <p>Amount: ${product.quantity}</p>
                        </li>
                      `).join('')}
                    </ul>
@@ -143,8 +143,8 @@
                        const mailOptions = {
                            from: 'startvideogame11@gmail.com',
                            to: userEmail, // Envía el correo al usuario
-                           subject: 'Detalles de pago',
-                           html: `<p>Se ha creado un nuevo documento en orders con los siguientes datos:</p>
+                           subject: 'Payment details',
+                           html: `<p>A new document has been created in orders with the following data:</p>
                                 <p>${htmlTemplate}</p>`
                        };
        
