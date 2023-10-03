@@ -3,31 +3,31 @@ import { SocialLogin } from "@/components/common";
 import { CustomInput } from "@/components/formik";
 import { SIGNIN } from "@/constants/routes";
 import { Field, Form, Formik } from "formik";
-import { useDocumentTitle, useScrollTop } from "@/hooks";
-import PropType from "prop-types";
+import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "@/redux/actions/authActions";
-import { setAuthenticating, setAuthStatus } from "@/redux/actions/miscActions";
+import {
+  setAuthenticating,
+  setAuthStatus,
+  clearAuthStatus,
+} from "@/redux/actions/miscActions";
 import * as Yup from "yup";
-// import firebase from 'firebase/app'; descomentar
-// import 'firebase/auth';                descomentar
-
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
-    .email("Email is not valid.")
-    .required("Email is required."),
+    .email("El correo electrónico no es válido.")
+    .required("El correo electrónico es obligatorio."),
   password: Yup.string()
-    .required("Password is required.")
-    .min(8, "Password length should be at least 8 characters.")
+    .required("La contraseña es obligatoria.")
+    .min(8, "La contraseña debe tener al menos 8 caracteres.")
     .matches(
       /[A-Z\W]/g,
-      "Password should contain at least 1 uppercase letter."
+      "La contraseña debe contener al menos 1 letra mayúscula."
     ),
   fullname: Yup.string()
-    .required("Full name is required.")
-    .min(4, "Name should be at least 4 characters."),
+    .required("El nombre completo es obligatorio.")
+    .min(4, "El nombre debe tener al menos 4 caracteres."),
 });
 
 const SignUp = ({ history }) => {
@@ -37,21 +37,18 @@ const SignUp = ({ history }) => {
   }));
   const dispatch = useDispatch();
 
-  useScrollTop();
-  useDocumentTitle("Sign Up | PF HENRY & CO.");
-
-  useEffect(
-    () => () => {
-      dispatch(setAuthStatus(null));
+  useEffect(() => {
+    // Limpiar el estado de autenticación al desmontar el componente
+    return () => {
+      dispatch(clearAuthStatus());
       dispatch(setAuthenticating(false));
-    },
-    []
-  );
+    };
+  }, [dispatch]);
 
-  const onClickSignIn = () => history.push(SIGNIN);
+  const onClickSignIn = () => {
+    history.push(SIGNIN);
+  };
 
-
-  //comentar para probar
   const onFormSubmit = (form) => {
     dispatch(
       signUp({
@@ -61,39 +58,6 @@ const SignUp = ({ history }) => {
       })
     );
   };
-
-// descomentar para probar 
-  // const onFormSubmit = async (form) => {
-  //   try {
-  //     const { fullname, email, password } = form;
-
-  //     // Registra al usuario en Firebase
-  //     const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-
-  //     // Envía un correo de confirmación al usuario registrado
-  //     const user = userCredential.user;                                                                      
-  //     await user.sendEmailVerification();
-
-  //     // Después de enviar el correo de confirmación, puedes mostrar un mensaje o redirigir al usuario
-  //     console.log('Correo de confirmación enviado');
-
-  //     // Ahora, dispara la acción de registro utilizando Redux
-  //     dispatch(
-  //       signUp({
-  //         fullname: fullname.trim(),
-  //         email: email.trim().toLowerCase(),
-  //         // Puedes omitir el trim() del password si no es necesario
-  //         password: password.trim(),
-  //       })
-  //     );
-
-  //     // Luego, puedes hacer cualquier otra lógica necesaria, como redirigir al usuario a otra página
-  //   } catch (error) {
-  //     console.error('Error al registrar al usuario:', error);
-  //     // Maneja el error según tus necesidades, muestra un mensaje de error, etc.
-  //   }
-  // };
-
 
   return (
     <div className="auth-content">
@@ -116,7 +80,7 @@ const SignUp = ({ history }) => {
             }`}
           >
             <div className="auth-main">
-              <h3>Sign up to PF HENRY & CO.</h3>
+              <h3>Regístrate en PF HENRY & CO.</h3>
               <Formik
                 initialValues={{
                   fullname: "",
@@ -134,8 +98,8 @@ const SignUp = ({ history }) => {
                         disabled={isAuthenticating}
                         name="fullname"
                         type="text"
-                        label="* Full Name"
-                        placeholder="John Doe"
+                        label="* Nombre completo"
+                        placeholder="Juan Pérez"
                         style={{ textTransform: "capitalize" }}
                         component={CustomInput}
                       />
@@ -145,8 +109,8 @@ const SignUp = ({ history }) => {
                         disabled={isAuthenticating}
                         name="email"
                         type="email"
-                        label="* Email"
-                        placeholder="test@example.com"
+                        label="* Correo electrónico"
+                        placeholder="ejemplo@correo.com"
                         component={CustomInput}
                       />
                     </div>
@@ -155,8 +119,8 @@ const SignUp = ({ history }) => {
                         disabled={isAuthenticating}
                         name="password"
                         type="password"
-                        label="* Password"
-                        placeholder="Your Password"
+                        label="* Contraseña"
+                        placeholder="Tu contraseña"
                         component={CustomInput}
                       />
                     </div>
@@ -167,7 +131,7 @@ const SignUp = ({ history }) => {
                         disabled={isAuthenticating}
                         type="submit"
                       >
-                        {isAuthenticating ? "Signing Up" : "Sign Up"}
+                        {isAuthenticating ? "Registrando" : "Registrarse"}
                         &nbsp;
                         {isAuthenticating ? (
                           <LoadingOutlined />
@@ -187,7 +151,7 @@ const SignUp = ({ history }) => {
           </div>
           <div className="auth-message">
             <span className="auth-info">
-              <strong>Already have an account?</strong>
+              <strong>¿Ya tienes una cuenta?</strong>
             </span>
             <button
               className="button button-small button-border button-border-gray"
@@ -195,7 +159,7 @@ const SignUp = ({ history }) => {
               onClick={onClickSignIn}
               type="button"
             >
-              Sign In
+              Iniciar sesión
             </button>
           </div>
         </>
@@ -205,8 +169,8 @@ const SignUp = ({ history }) => {
 };
 
 SignUp.propTypes = {
-  history: PropType.shape({
-    push: PropType.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
   }).isRequired,
 };
 
