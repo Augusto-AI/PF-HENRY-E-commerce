@@ -24,6 +24,13 @@ const Card = (props) => {
 // Compact Card
 function CompactCard({ param, setExpanded }) {
   const Png = param.png;
+
+  // Elimina el símbolo "$" del valor
+  const formattedValue = param.value.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
   return (
     <motion.div
       className="CompactCard"
@@ -43,7 +50,7 @@ function CompactCard({ param, setExpanded }) {
       </div>
       <div className="detail">
         <Png />
-        <span>${param.value}</span>
+        <span>{formattedValue}</span>
         <span>Last 24 hours</span>
       </div>
     </motion.div>

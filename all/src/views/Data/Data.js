@@ -1,4 +1,7 @@
 // Sidebar imports
+import { UilUsdSquare, UilMoneyWithdrawal } from "@iconscout/react-unicons";
+import React, { useEffect, useState } from "react";
+
 import {
   UilEstate,
   UilClipboardAlt,
@@ -9,7 +12,12 @@ import {
 } from "@iconscout/react-unicons";
 
 // Analytics Cards imports
-import { UilUsdSquare, UilMoneyWithdrawal } from "@iconscout/react-unicons";
+import {
+  getTotalUsers,
+  getTotalOrders,
+  getTotalReviews,
+} from "../../services/firebase";
+// Importa las funciones que obtienen los datos de Firebase
 
 // Recent Card Imports
 import img1 from "../imgs/img1.png";
@@ -41,6 +49,8 @@ export const SidebarData = [
 ];
 
 // Analytics Cards Data
+
+// Actualiza cardsData con los valores obtenidos de Firebase
 export const cardsData = [
   {
     title: "Orders",
@@ -48,14 +58,13 @@ export const cardsData = [
       backGround: "linear-gradient(180deg, #bb67ff 0%, #c484f3 100%)",
       boxShadow: "0px 10px 20px 0px #e0c6f5",
     },
-    barValue: 70,
-    value: "3100",
+    barValue: 0, // Inicializado en 0, se actualizará en el useEffect
+    value: 0, // Inicializado en 0, se actualizará en el useEffect
     png: UilUsdSquare,
     series: [
       {
         name: "Orders",
-
-        data: [31, 40, 28, 51, 42, 109, 100], //*conectar con firebase y traerse del data completa de orders hechas
+        data: [], // Mantén o actualiza estos datos según tus necesidades
       },
     ],
   },
@@ -65,13 +74,13 @@ export const cardsData = [
       backGround: "linear-gradient(180deg, #FF919D 0%, #FC929D 100%)",
       boxShadow: "0px 10px 20px 0px #FDC0C7",
     },
-    barValue: 80,
-    value: "27",
+    barValue: 0, // Inicializado en 0, se actualizará en el useEffect
+    value: 0, // Inicializado en 0, se actualizará en el useEffect
     png: UilMoneyWithdrawal,
     series: [
       {
         name: "Users",
-        data: [10, 100, 50, 70, 80, 30, 40], //*--------------------conectar con firebase
+        data: [], // Mantén o actualiza estos datos según tus necesidades
       },
     ],
   },
@@ -82,13 +91,13 @@ export const cardsData = [
         "linear-gradient(rgb(248, 212, 154) -146.42%, rgb(255 202 113) -46.42%)",
       boxShadow: "0px 10px 20px 0px #F9D59B",
     },
-    barValue: 60,
-    value: "16",
+    barValue: 0, // Inicializado en 0, se actualizará en el useEffect
+    value: 0, // Inicializado en 0, se actualizará en el useEffect
     png: UilClipboardAlt,
     series: [
       {
         name: "Reviews",
-        data: [10, 25, 15, 30, 12, 15, 20], //*--------------------conectar con firebase
+        data: [], // Mantén o actualiza estos datos según tus necesidades
       },
     ],
   },

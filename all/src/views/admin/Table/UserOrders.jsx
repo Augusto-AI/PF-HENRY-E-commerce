@@ -69,6 +69,7 @@ export default function UsersTable() {
           <TableBody>
             {users.map((user) => (
               <TableRow key={user.id}>
+                <TableCell>{user.id}</TableCell>
                 <TableCell>{user.fullname}</TableCell>{" "}
                 {/* Mostrar el nombre en lugar del ID */}
                 <TableCell>{user.email}</TableCell>
