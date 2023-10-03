@@ -114,7 +114,7 @@
                  <body>
                    <h1>Order details</h1>
                    <p>Date: ${new Date(orderData.date._seconds * 1000).toLocaleString()}</p>
-                   <p>Active: ${orderData.isActive ? 'Sí' : 'No'}</p>
+                   <p>Active: ${orderData.isActive ? 'Yes' : 'No'}</p>
                    <h2>Products:</h2>
                    <ul>
                      ${orderData.product.map((product) => `
