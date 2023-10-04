@@ -10,15 +10,22 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import "./Table.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { setOrderStatus } from "../../../redux/actions/orderActions";
 
 export default function OrdersTable() {
   const [orders, setOrders] = useState([]);
+  const [orderStatus, setOrderStatus] = useState({});
+  
+  const orderArrive = useSelector((state) => state.orderArrive);
+  const orderes = useSelector((state) => state.orderActive);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const ordersCollection = firebase.firestore().collection("orders");
     const unsubscribe = ordersCollection.onSnapshot(async (snapshot) => {
       const updatedOrders = [];
-
+  
       for (const doc of snapshot.docs) {
         const orderData = doc.data();
         const products = orderData.product.map((productItem) => {
@@ -28,50 +35,68 @@ export default function OrdersTable() {
             quantity: productItem.quantity,
           };
         });
+        
+        const isArrive = orderData.isArrive;
+        const isActive = orderData.isActive;
 
-        // Obtén los datos del usuario a partir del UserId
+
         const userData = await getUserData(orderData.UserId);
-
         updatedOrders.push({
           id: doc.id,
           UserId: orderData.UserId,
-          UserName: userData.fullname, // Agrega el nombre del usuario
-          Email: userData.email, // Agrega el correo electrónico del usuario
-          Rol: userData.role, // Agrega el rol del usuario
+          UserName: userData.fullname,
+          Email: userData.email,
+          Rol: userData.role,
           products: products,
+          isArrive: isArrive,
+          isActive: isActive,
         });
       }
-
+  console.log(updatedOrders)
       setOrders(updatedOrders);
     });
-
+  
     return () => {
       unsubscribe();
     };
   }, []);
-
+  
   const deleteUser = async (orderId) => {
     try {
-      // Aquí debes implementar la lógica para dar de baja una orden
       console.log("Orden desactivada:", orderId);
     } catch (error) {
       console.error("Error al desactivar la orden:", error);
     }
   };
 
+
+  const markOrderAsArrived = (orderId) => {
+    try {
+      const orderRef = firebase.firestore().collection("orders").doc(orderId);
+  
+      orderRef.update({
+        isArrive: true,
+      });
+      console.log(orderId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  const setOrderId = (orderId) => {
+    dispatch(setOrderStatus(orderId));
+  }
+  
+
   // Función para obtener los datos del usuario
   const getUserData = async (userId) => {
-    const userDoc = await firebase
-      .firestore()
-      .collection("users")
-      .doc(userId)
-      .get();
+    const userDoc = await firebase.firestore().collection("users").doc(userId).get();
     return userDoc.data();
   };
 
   return (
     <div className="Table">
-      <h3>Órdenes Recientes</h3>
+      <h3>Recent Orders</h3>
       <TableContainer
         component={Paper}
         style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
@@ -85,7 +110,8 @@ export default function OrdersTable() {
               <TableCell>Brand</TableCell>
               <TableCell>Product</TableCell>
               <TableCell>Quantity</TableCell>
-              <TableCell>Activate</TableCell>
+              <TableCell>Has it been canceled?</TableCell>
+              <TableCell>Product arrival information</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -99,13 +125,39 @@ export default function OrdersTable() {
                   <TableCell>{product.product}</TableCell>
                   <TableCell>{product.quantity}</TableCell>
                   <TableCell>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => deleteUser(order.id)}
-                    >
-                      Desactivate
-                    </Button>
+                  <span
+
+               style={{
+               color: order.isActive ? "green" : "red",
+               fontWeight: "bold",
+               }}
+               >
+                {order.isActive ? "No" : "Yes"}
+             </span>
+             </TableCell>
+
+                  <TableCell>
+                  <Button
+  variant="contained"
+  color={order.isArrive ? "success" : (order.isActive ? "primary" : "error")}
+  onClick={async () => {
+    if (!order.isArrive && order.isActive) {
+      await markOrderAsArrived(order.id);
+      const updatedOrders = orders.map((o) => {
+        if (o.id === order.id) {
+          return { ...o, isArrive: true };
+        }
+        return o;
+      });
+
+      setOrders(updatedOrders);
+    }
+  }}
+  disabled={order.isArrive || !order.isActive}
+>
+  {order.isArrive ? "Arrived" : (order.isActive ? "Has Arrived?" : "Canceled")}
+</Button>
+
                   </TableCell>
                 </TableRow>
               ))

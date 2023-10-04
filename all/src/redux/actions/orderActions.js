@@ -16,6 +16,8 @@ import {
   CANCEL_ORDER,
   EDIT_ORDER,
   ADD_ORDER,
+  SET_ORDER_STATUS,
+  SET_ORDER_CANCELED
 } from "@/constants/constants";
 
 //*---------------------------------ORDERS ACTIONS
@@ -138,3 +140,14 @@ export const completePaypalPaymentFailure = (error) => {
     payload: error,
   };
 };
+
+
+export const setOrderStatus = (orderId) => ({
+  type: SET_ORDER_STATUS,
+  payload: orderId
+});
+
+export const setOrderCanceled = (orderId) => ({
+  type: SET_ORDER_CANCELED,
+  payload: orderId
+});

@@ -3,28 +3,43 @@ import { useSelector } from "react-redux";
 import { setPurchasedItems } from "../../../redux/actions/paypalActions";
 import ReviewForm from "@/views/view_product/ReviewForm";
 import firebaseInstance from "@/services/firebase";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 import { Link } from 'react-router-dom';
 import "./OrdersTab.css";
 
 const UserOrdersTab = () => {
-  const purchasedItems = useSelector((state) => state.purchasedItems);
-  const array = Object.values(purchasedItems);
-  let filteredItems = [];
-
-  
-
-  if (array && array[0]) {
-    for (let i = 0; i < array.length; i++) {
-      const purch = array[i];
-      for (let j = 0; j < purch.length; j++) {
-        if (Array.isArray(purch[j])) {
-          filteredItems = [...filteredItems, ...purch[j]];
-          console.log(filteredItems);
+  const [userOrders, setUserOrders] = useState([]);
+  const { auth, profile } = useSelector((state) => ({
+    auth: state.auth,
+    profile: state.profile,
+  }));
+  useEffect(() => {
+    if (auth.id) {
+      const fetchUserOrders = async () => {
+        try {
+          const ordersRef = firebaseInstance.db.collection("orders");
+          const snapshot = await ordersRef.where("UserId", "==", auth.id).get();
+          const userOrdersData = [];
+          snapshot.forEach((doc) => {
+            const orderData = doc.data();
+            const orderId = doc.id;
+            userOrdersData.push({
+              ...orderData,
+              id: orderId,
+            });
+          });
+          
+          console.log(userOrdersData)
+          setUserOrders(userOrdersData);
+        } catch (error) {
+          console.error("Error fetching user orders:", error);
         }
-      }
-    }
-  }
+      };
 
+      fetchUserOrders();
+    }
+  }, [auth.id]);
   // Estado para controlar si se muestra el formulario de revisión
   const [showReviewForm, setShowReviewForm] = useState(false);
 
@@ -38,8 +53,7 @@ const UserOrdersTab = () => {
     setSelectedProduct(product);
     setShowReviewForm(true);
     setProductId(product.id);
-    console.log(product)
-    console.log(filteredItems)
+
   };
 
   // Función para manejar el cierre del formulario de revisión
@@ -69,10 +83,7 @@ const UserOrdersTab = () => {
     return userReviews;
   };
 
-  const { auth, profile } = useSelector((state) => ({
-    auth: state.auth,
-    profile: state.profile,
-  }));
+
   
   const [userReviews, setUserReviews] = useState([]);
   
@@ -85,6 +96,19 @@ const UserOrdersTab = () => {
     }
   }, [auth.id]);
 
+
+  const markOrderAsActive = (orderId) => {
+    try {
+      const orderRef = firebase.firestore().collection("orders").doc(orderId);
+  
+      orderRef.update({
+        isActive: false,
+      });
+      console.log(orderId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   
   return (
@@ -137,59 +161,83 @@ const UserOrdersTab = () => {
             font-weight: bold;
             font-style: italic;
           }
+
+          .cancelar {
+            font-weight: bold;
+            font-style: italic;
+          }
+
+          .cancelar-boton {
+            background-color: red;
+            color: white;
+            border-radius: 2em;
+          }
         `}
       </style>
 
       <h3>My Orders</h3>
-      {filteredItems.length === 0 ? (
+      {userOrders.length === 0 ? (
         <strong>
           <span className="no-orders">You don't have any orders</span>
         </strong>
       ) : (
-        filteredItems.map((item) => {
-    // Verificar si el usuario actual ya dejó una revisión para este producto
-    const hasReview = userReviews.some(
-      (review) => review.productId === item.id
-    );
+        userOrders.map((order) => (
+          <div className="order-item" key={order.id}>      
+            {!order.isArrive ? (
+      order.isActive ? (
+        <div>
+          <button className="cancelar-boton" onClick={() => markOrderAsActive(order.id)}>Cancel</button>
+          <div>You can only cancel your order before it arrives!</div>
+        </div>
+      ) : (
+        <div>Cancelled  (Your payment will be refunded within 3 business days.)</div>
+      )
+    ) : (
+      <div>You cannot cancel your order anymore(You had an order.)</div>
+    )}
+            {order.product.map((item) => {
+              const hasReview = userReviews.some(
+                (review) => review.productId === item.id
+              );
 
-    return (
-          <div className="order-item" key={item.id}>
-            <p className="order-item n">{item.name}</p>
-            <img src={item.image} alt={item.name} />
-            <p>{item.description}</p>
-            <p>Brand: {item.brand}</p>
-            <p className="price">Price: {item.price * item.quantity} $</p>
-            <p>Quantity purchased: {item.quantity}</p>
-            {hasReview ? (
-  <div className="review-successful">
-    
-    <div>Review Successful! 
-      <Link to={`/product/${item.id}`} className="review-submit-button">
-        View Product
-      </Link>
-    </div>
-  </div>
-) : (
-  <button
-    onClick={() => openReviewForm(item)}
-    disabled={item.reviewed}
-  >
-    Leave Review
-  </button>
-)}
+              return (
+                <div className="order-item" key={item.id}>
+                  <p className="order-item n">{item.name}</p>
+                  <img src={item.image} alt={item.name} />
+                  <p>Brand: {item.brand}</p>
+                  <p className="price">Price: {item.price * item.quantity} $</p>
+                  <p>Quantity purchased: {item.quantity}</p>
+                  {hasReview ? (
+                    <div className="review-successful">
+                      <div>Review Successful!
+                        <Link to={`/product/${item.id}`} className="review-submit-button">
+                          View Product
+                        </Link>
+                      </div>
+                    </div>
+                  ) : (
+                    <button
+                    className="review-submit-button"
+                      onClick={() => openReviewForm(item)}
+                      disabled={item.reviewed}
+                    >
+                      Leave Review
+                    </button>
+                  )}
+                </div>
+              );
+            })}
           </div>
-        );
-        })
+        ))
       )}
       {showReviewForm && (
         <div className="review-modal">
           <div className="review-modal-content">
             <button className="close-button" onClick={closeReviewForm}>
-              Close
+              X
             </button>
             <ReviewForm
               productId={productId}
-              
               onClose={closeReviewForm}
             />
           </div>

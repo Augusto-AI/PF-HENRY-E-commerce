@@ -5,6 +5,7 @@ import {
 import { persistCombineReducers, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
+import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import rootSaga from '../sagas/rootSaga';
 
@@ -14,13 +15,13 @@ const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const authPersistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'profile', 'basket', 'checkout', 'purchasedItems', 'darkMode']
+  whitelist: ['auth', 'profile', 'basket', 'checkout', 'purchasedItems', 'darkMode', 'orderArrive', 'orderActive']
 };
 
 export default () => {
   const store = createStore(
     persistCombineReducers(authPersistConfig, rootReducer),
-    composeEnhancer(applyMiddleware(sagaMiddleware))
+    composeEnhancer(applyMiddleware(sagaMiddleware, thunk)) 
   );
   const persistor = persistStore(store);
   sagaMiddleware.run(rootSaga);

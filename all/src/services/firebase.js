@@ -322,9 +322,16 @@ class Firebase {
     }
   };
 
+  isArriveOrder = (orderId) => {
+    return this.db.collection("orders").doc(orderId).update({
+      isArrive: true,
+    });
+  };
+
+
   softDeleteOrder = (orderId) => {
     return this.db.collection("orders").doc(orderId).update({
-      isActive: false,
+      isArrive: true,
     });
   };
 

@@ -16,6 +16,8 @@ import bannerImg from "@/images/banner-girl.png";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import DarkMode from "../../darkMode"
+
 
 const Home = () => {
   useDocumentTitle("PF HENRY & CO. | Home");
@@ -98,6 +100,8 @@ const Home = () => {
             />
           )}
         </div>
+        <DarkMode />
+
       </div>
     </main>
   );

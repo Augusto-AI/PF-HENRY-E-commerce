@@ -8,7 +8,8 @@ import profileReducer from './profileReducer';
 import userReducer from './userReducer';
 import paypalReducer from './paypalReducer';
 import darkModeReducer from './darkModeReducer';
-
+import orderReducerArrive from './orderReducerArrive';
+import orderReducerActive from './orderReducerActive';
 
 const rootReducer = {
   products: productReducer,
@@ -21,6 +22,10 @@ const rootReducer = {
   app: miscReducer,
   purchasedItems: paypalReducer,
   darkMode: darkModeReducer,
+  orderArrive: orderReducerArrive,
+  orderActive: orderReducerActive,
+
+
 
 };
 

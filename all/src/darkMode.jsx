@@ -12,7 +12,6 @@ const DarkModeToggle = () => {
     setToggleButton(!toggleButton);
 
   };
-  console.log(setToggleButton)
 
   return (
     <div className='appBenzer'>

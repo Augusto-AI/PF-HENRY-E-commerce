@@ -17,6 +17,8 @@ export const SET_LAST_REF_KEY = "SET_LAST_REF_KEY";
 //*--------------------------------------------DARKMODE
 
 export const TOGGLE_DARK_MODE = "TOGGLE_DARK_MODE";
+export const SET_ORDER_STATUS = "SET_ORDER_STATUS";
+export const SET_ORDER_CANCELED = "SET_ORDER_CANCELED"
 
 //*----------------------------------------------BASKET
 

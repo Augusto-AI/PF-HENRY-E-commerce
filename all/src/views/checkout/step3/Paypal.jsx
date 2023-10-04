@@ -99,6 +99,7 @@ export default function PaypalPayment({ subtotal }) {
     const userId = auth.id;
     const dataPayment = {
       isActive: true,
+      isArrive: false,
       UserId: userId,
       product: basket,
       total: subtotal,
