@@ -9,11 +9,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { signIn } from "@/redux/actions/authActions";
-import {
-  setAuthenticating,
-  setAuthStatus,
-  clearAuthStatus,
-} from "@/redux/actions/miscActions";
+import { setAuthenticating, setAuthStatus } from "@/redux/actions/miscActions";
 import * as Yup from "yup";
 
 const SignInSchema = Yup.object().shape({
@@ -32,7 +28,7 @@ const SignIn = ({ history }) => {
   const dispatch = useDispatch();
 
   useScrollTop();
-  useDocumentTitle("Sign In | PF HENRY & CO.");
+  useDocumentTitle("Sign In | HENRY&CO");
 
   useEffect(
     () => () => {
@@ -73,7 +69,7 @@ const SignIn = ({ history }) => {
             }`}
           >
             <div className="auth-main">
-              <h3>Sign in to PF HENRY & CO.</h3>
+              <h3>Sign in to HENRY&CO</h3>
               <br />
               <div className="auth-wrapper">
                 <Formik

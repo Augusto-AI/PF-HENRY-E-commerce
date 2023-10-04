@@ -3,31 +3,28 @@ import { SocialLogin } from "@/components/common";
 import { CustomInput } from "@/components/formik";
 import { SIGNIN } from "@/constants/routes";
 import { Field, Form, Formik } from "formik";
-import PropTypes from "prop-types";
+import { useDocumentTitle, useScrollTop } from "@/hooks";
+import PropType from "prop-types";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "@/redux/actions/authActions";
-import {
-  setAuthenticating,
-  setAuthStatus,
-  clearAuthStatus,
-} from "@/redux/actions/miscActions";
+import { setAuthenticating, setAuthStatus } from "@/redux/actions/miscActions";
 import * as Yup from "yup";
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string()
-    .email("El correo electrónico no es válido.")
-    .required("El correo electrónico es obligatorio."),
+    .email("Email is not valid.")
+    .required("Email is required."),
   password: Yup.string()
-    .required("La contraseña es obligatoria.")
-    .min(8, "La contraseña debe tener al menos 8 caracteres.")
+    .required("Password is required.")
+    .min(8, "Password length should be at least 8 characters.")
     .matches(
       /[A-Z\W]/g,
-      "La contraseña debe contener al menos 1 letra mayúscula."
+      "Password should contain at least 1 uppercase letter."
     ),
   fullname: Yup.string()
-    .required("El nombre completo es obligatorio.")
-    .min(4, "El nombre debe tener al menos 4 caracteres."),
+    .required("Full name is required.")
+    .min(4, "Name should be at least 4 characters."),
 });
 
 const SignUp = ({ history }) => {
@@ -37,17 +34,18 @@ const SignUp = ({ history }) => {
   }));
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // Limpiar el estado de autenticación al desmontar el componente
-    return () => {
-      dispatch(clearAuthStatus());
-      dispatch(setAuthenticating(false));
-    };
-  }, [dispatch]);
+  useScrollTop();
+  useDocumentTitle("Sign Up | HENRY&CO");
 
-  const onClickSignIn = () => {
-    history.push(SIGNIN);
-  };
+  useEffect(
+    () => () => {
+      dispatch(setAuthStatus(null));
+      dispatch(setAuthenticating(false));
+    },
+    []
+  );
+
+  const onClickSignIn = () => history.push(SIGNIN);
 
   const onFormSubmit = (form) => {
     dispatch(
@@ -80,7 +78,7 @@ const SignUp = ({ history }) => {
             }`}
           >
             <div className="auth-main">
-              <h3>Regístrate en PF HENRY & CO.</h3>
+              <h3>Sign up to HENRY&CO</h3>
               <Formik
                 initialValues={{
                   fullname: "",
@@ -98,8 +96,8 @@ const SignUp = ({ history }) => {
                         disabled={isAuthenticating}
                         name="fullname"
                         type="text"
-                        label="* Nombre completo"
-                        placeholder="Juan Pérez"
+                        label="* Full Name"
+                        placeholder="John Doe"
                         style={{ textTransform: "capitalize" }}
                         component={CustomInput}
                       />
@@ -109,8 +107,8 @@ const SignUp = ({ history }) => {
                         disabled={isAuthenticating}
                         name="email"
                         type="email"
-                        label="* Correo electrónico"
-                        placeholder="ejemplo@correo.com"
+                        label="* Email"
+                        placeholder="test@example.com"
                         component={CustomInput}
                       />
                     </div>
@@ -119,8 +117,8 @@ const SignUp = ({ history }) => {
                         disabled={isAuthenticating}
                         name="password"
                         type="password"
-                        label="* Contraseña"
-                        placeholder="Tu contraseña"
+                        label="* Password"
+                        placeholder="Your Password"
                         component={CustomInput}
                       />
                     </div>
@@ -131,7 +129,7 @@ const SignUp = ({ history }) => {
                         disabled={isAuthenticating}
                         type="submit"
                       >
-                        {isAuthenticating ? "Registrando" : "Registrarse"}
+                        {isAuthenticating ? "Signing Up" : "Sign Up"}
                         &nbsp;
                         {isAuthenticating ? (
                           <LoadingOutlined />
@@ -151,7 +149,7 @@ const SignUp = ({ history }) => {
           </div>
           <div className="auth-message">
             <span className="auth-info">
-              <strong>¿Ya tienes una cuenta?</strong>
+              <strong>Already have an account?</strong>
             </span>
             <button
               className="button button-small button-border button-border-gray"
@@ -159,7 +157,7 @@ const SignUp = ({ history }) => {
               onClick={onClickSignIn}
               type="button"
             >
-              Iniciar sesión
+              Sign In
             </button>
           </div>
         </>
@@ -169,8 +167,8 @@ const SignUp = ({ history }) => {
 };
 
 SignUp.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
+  history: PropType.shape({
+    push: PropType.func,
   }).isRequired,
 };
 

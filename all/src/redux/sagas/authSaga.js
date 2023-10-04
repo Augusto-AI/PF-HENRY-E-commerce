@@ -23,57 +23,43 @@ import { clearProfile, setProfile } from "@/redux/actions/profileActions";
 import { history } from "@/routers/AppRouter";
 import firebase from "@/services/firebase";
 
+// Handle errors consistently
 function* handleError(e) {
   const obj = { success: false, type: "auth", isError: true };
   yield put(setAuthenticating(false));
 
+  let errorMessage = "An unknown error occurred.";
+
   switch (e.code) {
     case "auth/network-request-failed":
-      yield put(
-        setAuthStatus({
-          ...obj,
-          message: "Network error has occured. Please try again.",
-        })
-      );
+      errorMessage = "Network error has occurred. Please try again.";
       break;
     case "auth/email-already-in-use":
-      yield put(
-        setAuthStatus({
-          ...obj,
-          message: "Email is already in use. Please use another email",
-        })
-      );
+      errorMessage = "Email is already in use. Please use another email.";
       break;
     case "auth/wrong-password":
-      yield put(
-        setAuthStatus({ ...obj, message: "Incorrect email or password" })
-      );
-      break;
     case "auth/user-not-found":
-      yield put(
-        setAuthStatus({ ...obj, message: "Incorrect email or password" })
-      );
+      errorMessage = "Incorrect email or password.";
       break;
     case "auth/reset-password-error":
-      yield put(
-        setAuthStatus({
-          ...obj,
-          message:
-            "Failed to send password reset email. Did you type your email correctly?",
-        })
-      );
+      errorMessage =
+        "Failed to send the password reset email. Please check your email address.";
       break;
+    // Add more specific error cases as needed
     default:
-      yield put(setAuthStatus({ ...obj, message: e.message }));
-      break;
+      errorMessage = e.message || errorMessage;
   }
+
+  yield put(setAuthStatus({ ...obj, message: errorMessage }));
 }
 
+// Initialize authentication request
 function* initRequest() {
   yield put(setAuthenticating());
   yield put(setAuthStatus({}));
 }
 
+// Authentication Saga
 function* authSaga({ type, payload }) {
   switch (type) {
     case SIGNIN:
@@ -119,7 +105,7 @@ function* authSaga({ type, payload }) {
         );
         const fullname = payload.fullname
           .split(" ")
-          .map((name) => name[0].toUpperCase().concat(name.substring(1)))
+          .map((name) => name[0].toUpperCase() + name.substring(1))
           .join(" ");
         const user = {
           fullname,
@@ -140,7 +126,7 @@ function* authSaga({ type, payload }) {
         yield handleError(e);
       }
       break;
-    case SIGNOUT: {
+    case SIGNOUT:
       try {
         yield initRequest();
         yield call(firebase.signOut);
@@ -152,11 +138,10 @@ function* authSaga({ type, payload }) {
         yield put(setAuthenticating(false));
         yield call(history.push, ROUTE_SIGNIN);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
       break;
-    }
-    case RESET_PASSWORD: {
+    case RESET_PASSWORD:
       try {
         yield initRequest();
         yield call(firebase.passwordReset, payload);
@@ -173,16 +158,12 @@ function* authSaga({ type, payload }) {
         handleError({ code: "auth/reset-password-error" });
       }
       break;
-    }
-    case ON_AUTHSTATE_SUCCESS: {
+    case ON_AUTHSTATE_SUCCESS:
       const snapshot = yield call(firebase.getUser, payload.uid);
 
       if (snapshot.data()) {
-        // if user exists in database
         const user = snapshot.data();
-
         yield put(setProfile(user));
-        yield put(setBasketItems(user.basket));
         yield put(setBasketItems(user.basket));
         yield put(
           signInSuccess({
@@ -195,7 +176,6 @@ function* authSaga({ type, payload }) {
         payload.providerData[0].providerId !== "password" &&
         !snapshot.data()
       ) {
-        // add the user if auth provider is not password
         const user = {
           fullname: payload.displayName ? payload.displayName : "User",
           avatar: payload.photoURL ? payload.photoURL : defaultAvatar,
@@ -227,25 +207,20 @@ function* authSaga({ type, payload }) {
         })
       );
       yield put(setAuthenticating(false));
-      yield call(history.push, "/"); //*---- Redirige al usuario a la página de inicio
       break;
-    }
-    case ON_AUTHSTATE_FAIL: {
+    case ON_AUTHSTATE_FAIL:
       yield put(clearProfile());
       yield put(signOutSuccess());
       break;
-    }
-    case SET_AUTH_PERSISTENCE: {
+    case SET_AUTH_PERSISTENCE:
       try {
         yield call(firebase.setAuthPersistence);
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
       break;
-    }
-    default: {
+    default:
       throw new Error("Unexpected Action Type.");
-    }
   }
 }
 
