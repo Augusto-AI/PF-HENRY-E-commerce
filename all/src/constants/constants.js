@@ -21,6 +21,7 @@ export const SET_ORDER_STATUS = "SET_ORDER_STATUS";
 export const SET_ORDER_CANCELED = "SET_ORDER_CANCELED"
 
 //*----------------------------------------------BASKET
+export const SUBTRACT_PIECES = "SUBTRACT_PIECES"
 
 export const SET_BASKET_ITEMS = "SET_BASKET_ITEMS";
 export const ADD_TO_BASKET = "ADD_TO_BASKET";

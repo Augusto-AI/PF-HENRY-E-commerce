@@ -10,7 +10,8 @@ import {
   REMOVE_PRODUCT,
   REMOVE_PRODUCT_SUCCESS,
   SEARCH_PRODUCT,
-  SEARCH_PRODUCT_SUCCESS
+  SEARCH_PRODUCT_SUCCESS,
+  SUBTRACT_PIECES
 } from '@/constants/constants';
 
 export const getProducts = (lastRef) => ({
@@ -74,4 +75,10 @@ export const editProduct = (id, updates) => ({
 export const editProductSuccess = (updates) => ({
   type: EDIT_PRODUCT_SUCCESS,
   payload: updates
+});
+
+
+export const subtractPieces = (productId, piecesToSubtract) => ({
+  type: SUBTRACT_PIECES,
+  payload: { productId, piecesToSubtract }
 });

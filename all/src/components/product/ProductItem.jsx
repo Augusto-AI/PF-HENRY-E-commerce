@@ -27,6 +27,7 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
   const handleAddToBasket = () => {
     if (addToBasket) addToBasket({ ...product, selectedSize: product.sizes[0] });
   };
+  const isOutOfStock = product.maxQuantity <= 0;
 
   return (
     <SkeletonTheme color="#e1e1e1" highlightColor="#f2f2f2">
@@ -51,6 +52,11 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
                 src={product.image}
               />
             ) : <Skeleton width="100%" height="90%" />}
+                            {isOutOfStock && (
+                <div className="out-of-stock-message">
+            <p style={{ color: "red", display: "inline"}}>We are so sorry, this item is out of stock.</p>
+           </div>
+            )}
           </div>
           <div className={`product-details ${darkModelo ? 'dark-mode' : ''}`}>
             <h5 className="product-card-name text-overflow-ellipsis margin-auto">
@@ -70,7 +76,8 @@ const ProductItem = ({ product, isItemOnBasket, addToBasket }) => {
             onClick={handleAddToBasket}
             type="button"
           >
-            {itemOnBasket ? 'Remove from basket' : 'Add to basket'}
+            {!isOutOfStock ? itemOnBasket ? 'Remove from basket' : 'Add to basket': ":("}
+          
           </button>
         )}
 

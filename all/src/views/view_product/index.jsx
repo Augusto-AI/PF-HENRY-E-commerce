@@ -81,9 +81,11 @@ const ViewProduct = () => {
       selectedSize: selectedSize || product.sizes[0],
     });
   };
-
+  const isOutOfStock = product.maxQuantity <= 0;
+console.log(product)
   return (
     <main className="content">
+
       {isLoading && (
         <div className="loader">
           <h4>Loading Product...</h4>
@@ -156,6 +158,11 @@ const ViewProduct = () => {
                 />
               </div>
               <br />
+              {isOutOfStock && (
+  <div className="out-of-stock-message">
+    <p style={{ color: "red", display: "inline"}}>We are so sorry, this item is out of stock.</p>
+  </div>
+)}
               {product.availableColors.length >= 1 && (
                 <div>
                   <span className="text-subtle">Choose Color</span>
@@ -169,19 +176,21 @@ const ViewProduct = () => {
               )}
               <h1>{displayMoney(product.price)}</h1>
               <div className="product-modal-action">
-                <button
-                  className={`button button-small ${
-                    isItemOnBasket(product.id)
-                      ? "button-border button-border-gray"
-                      : ""
-                  }`}
-                  onClick={handleAddToBasket}
-                  type="button"
-                >
-                  {isItemOnBasket(product.id)
-                    ? "Remove From Basket"
-                    : "Add To Basket"}
-                </button>
+              <button
+  className={`button button-small ${
+    isItemOnBasket(product.id)
+      ? "button-border button-border-gray"
+      : ""
+  }`}
+  onClick={handleAddToBasket}
+  type="button"
+  disabled={isOutOfStock}
+>
+  {isItemOnBasket(product.id)
+    ? "Remove From Basket"
+    : "Add To Basket"}
+</button>
+
               </div>
             </div>
           </div>

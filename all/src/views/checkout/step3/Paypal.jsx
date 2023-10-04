@@ -7,8 +7,9 @@ import { setPurchasedItems } from '../../../redux/actions/paypalActions';
 import { setBasketItems } from "../../../redux/actions/basketActions"
 import { BasketItem } from "@/components/basket";
 import { useFormikContext } from 'formik';
-import firebase from '@/services/firebase';
-import 'firebase/compat/functions';
+import firebaseIn from '@/services/firebase';
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 
 
   // const [currentUserEmail, setCurrentUserEmail] = useState(""); // Estado para el correo electrónico del usuario
@@ -54,7 +55,6 @@ export default function PaypalPayment({ subtotal }) {
 
   const { basket, purchasedItems, profile, auth } = useSelector((state) => ({
     basket: state.basket,
-    purchasedItems: state.purchasedItems,
     profile: state.profile,
     auth: state.auth
   }));
@@ -77,8 +77,6 @@ export default function PaypalPayment({ subtotal }) {
   };
   
 
-  
-  
 
   const onApprove = (data, actions) => {
     return actions.order.capture(handlePay());
@@ -94,7 +92,6 @@ export default function PaypalPayment({ subtotal }) {
 
   //const subject = "holla";
   //const text = "paymentt"
-
   async function handlePay() {
     const userId = auth.id;
     const dataPayment = {
@@ -105,11 +102,30 @@ export default function PaypalPayment({ subtotal }) {
       total: subtotal,
       date: new Date(),
     };
-    dispatch(setBasketItems([]))
-    dispatch(setPurchasedItems([basket]));
-    await firebase.addOrder(userId, dataPayment);
-    //await firebase.sendMail(profile.email, subject, text)
-
+  
+    for (const item of basket) {
+      const productId = item.id;
+      const quantityToReduce = item.quantity;
+  
+      try {
+        const productRef = firebase.firestore().collection('products').doc(productId);
+        const productDoc = await productRef.get();
+  
+        if (productDoc.exists) {
+          const productData = productDoc.data();
+          const updatedMaxQuantity = productData.maxQuantity - quantityToReduce;
+          await productRef.update({ maxQuantity: updatedMaxQuantity });
+             console.log(productRef)
+        } else {
+          console.error(productId);
+        }
+      } catch (error) {
+        console.error(`Error, ${error}`);
+      }
+    }
+  
+    dispatch(setBasketItems());
+    await firebaseIn.addOrder(userId, dataPayment);
     history.push(SUCCESS);
   }
 

@@ -2,7 +2,8 @@ import {
   ADD_PRODUCT_SUCCESS,
   CLEAR_SEARCH_STATE, EDIT_PRODUCT_SUCCESS,
   GET_PRODUCTS_SUCCESS, REMOVE_PRODUCT_SUCCESS,
-  SEARCH_PRODUCT_SUCCESS
+  SEARCH_PRODUCT_SUCCESS,
+  SUBTRACT_PIECES
 } from '@/constants/constants';
 
 const initState = {
@@ -30,6 +31,21 @@ export default (state = {
         ...state,
         items: [...state.items, action.payload]
       };
+      case SUBTRACT_PIECES:
+        const { productId, piecesToSubtract } = action.payload;
+        return {
+          ...state,
+          items: state.items.map((product) => {
+            if (product.id === productId) {
+              const updatedProduct = {
+                ...product,
+                maxQuantity: product.maxQuantity - piecesToSubtract
+              };
+              return updatedProduct;
+            }
+            return product;
+       })
+     };
     case SEARCH_PRODUCT_SUCCESS:
       return {
         ...state,
