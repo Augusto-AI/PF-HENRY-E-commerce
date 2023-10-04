@@ -328,7 +328,6 @@ class Firebase {
     });
   };
 
-
   softDeleteOrder = (orderId) => {
     return this.db.collection("orders").doc(orderId).update({
       isArrive: true,

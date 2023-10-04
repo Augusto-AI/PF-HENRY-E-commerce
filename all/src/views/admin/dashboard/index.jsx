@@ -12,14 +12,13 @@ const Dashboard = () => {
   return (
     <div className="loader">
       <h2>Admin</h2>
-      <Cards />
 
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <div style={{ flex: "1", marginRight: "16px" }}>
-          <UsersTable />
-        </div>
-        <div style={{ flex: "1", marginRight: "16px" }}>
+      <div>
+        <div>
           <Table />
+        </div>
+        <div>
+          <UsersTable />
         </div>
       </div>
     </div>

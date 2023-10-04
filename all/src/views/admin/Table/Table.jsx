@@ -9,23 +9,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import "./Table.scss";
-import { useSelector, useDispatch } from "react-redux";
-import { setOrderStatus } from "../../../redux/actions/orderActions";
+import InputBase from "@mui/material/InputBase";
+import TablePagination from "@mui/material/TablePagination";
 
 export default function OrdersTable() {
   const [orders, setOrders] = useState([]);
   const [orderStatus, setOrderStatus] = useState({});
-  
-  const orderArrive = useSelector((state) => state.orderArrive);
-  const orderes = useSelector((state) => state.orderActive);
-  const dispatch = useDispatch();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [filterText, setFilterText] = useState("");
 
   useEffect(() => {
     const ordersCollection = firebase.firestore().collection("orders");
     const unsubscribe = ordersCollection.onSnapshot(async (snapshot) => {
       const updatedOrders = [];
-  
+
       for (const doc of snapshot.docs) {
         const orderData = doc.data();
         const products = orderData.product.map((productItem) => {
@@ -35,10 +33,6 @@ export default function OrdersTable() {
             quantity: productItem.quantity,
           };
         });
-        
-        const isArrive = orderData.isArrive;
-        const isActive = orderData.isActive;
-
 
         const userData = await getUserData(orderData.UserId);
         updatedOrders.push({
@@ -48,19 +42,19 @@ export default function OrdersTable() {
           Email: userData.email,
           Rol: userData.role,
           products: products,
-          isArrive: isArrive,
-          isActive: isActive,
+          isArrive: orderData.isArrive,
+          isActive: orderData.isActive,
         });
       }
-  console.log(updatedOrders)
+
       setOrders(updatedOrders);
     });
-  
+
     return () => {
       unsubscribe();
     };
   }, []);
-  
+
   const deleteUser = async (orderId) => {
     try {
       console.log("Orden desactivada:", orderId);
@@ -69,11 +63,10 @@ export default function OrdersTable() {
     }
   };
 
-
   const markOrderAsArrived = (orderId) => {
     try {
       const orderRef = firebase.firestore().collection("orders").doc(orderId);
-  
+
       orderRef.update({
         isArrive: true,
       });
@@ -82,26 +75,45 @@ export default function OrdersTable() {
       console.error(error);
     }
   };
-  
+
   const setOrderId = (orderId) => {
     dispatch(setOrderStatus(orderId));
-  }
-  
+  };
 
   // Función para obtener los datos del usuario
   const getUserData = async (userId) => {
-    const userDoc = await firebase.firestore().collection("users").doc(userId).get();
+    const userDoc = await firebase
+      .firestore()
+      .collection("users")
+      .doc(userId)
+      .get();
     return userDoc.data();
+  };
+
+  const filteredOrders = orders.filter((order) =>
+    order.UserName.toLowerCase().includes(filterText.toLowerCase())
+  );
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   return (
     <div className="Table">
       <h3>Recent Orders</h3>
-      <TableContainer
-        component={Paper}
-        style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
-      >
-        <Table sx={{ minWidth: 650 }} aria-label="tabla simple">
+      <InputBase
+        placeholder="Search by Name"
+        value={filterText}
+        onChange={(e) => setFilterText(e.target.value)}
+        style={{ marginBottom: 20 }}
+      />
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>User Name</TableCell>
@@ -115,56 +127,74 @@ export default function OrdersTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) =>
-              order.products.map((product, index) => (
-                <TableRow key={order.id + "_" + index}>
-                  <TableCell>{order.UserName}</TableCell>
-                  <TableCell>{order.Email}</TableCell>
-                  <TableCell>{order.Rol}</TableCell>
-                  <TableCell>{product.brand}</TableCell>
-                  <TableCell>{product.product}</TableCell>
-                  <TableCell>{product.quantity}</TableCell>
-                  <TableCell>
-                  <span
+            {filteredOrders
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((order) =>
+                order.products.map((product, index) => (
+                  <TableRow key={order.id + "_" + index}>
+                    <TableCell>{order.UserName}</TableCell>
+                    <TableCell>{order.Email}</TableCell>
+                    <TableCell>{order.Rol}</TableCell>
+                    <TableCell>{product.brand}</TableCell>
+                    <TableCell>{product.product}</TableCell>
+                    <TableCell>{product.quantity}</TableCell>
+                    <TableCell>
+                      <span
+                        style={{
+                          color: order.isActive ? "green" : "red",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {order.isActive ? "No" : "Yes"}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        color={
+                          order.isArrive
+                            ? "success"
+                            : order.isActive
+                            ? "primary"
+                            : "error"
+                        }
+                        onClick={async () => {
+                          if (!order.isArrive && order.isActive) {
+                            await markOrderAsArrived(order.id);
+                            const updatedOrders = orders.map((o) => {
+                              if (o.id === order.id) {
+                                return { ...o, isArrive: true };
+                              }
+                              return o;
+                            });
 
-               style={{
-               color: order.isActive ? "green" : "red",
-               fontWeight: "bold",
-               }}
-               >
-                {order.isActive ? "No" : "Yes"}
-             </span>
-             </TableCell>
-
-                  <TableCell>
-                  <Button
-  variant="contained"
-  color={order.isArrive ? "success" : (order.isActive ? "primary" : "error")}
-  onClick={async () => {
-    if (!order.isArrive && order.isActive) {
-      await markOrderAsArrived(order.id);
-      const updatedOrders = orders.map((o) => {
-        if (o.id === order.id) {
-          return { ...o, isArrive: true };
-        }
-        return o;
-      });
-
-      setOrders(updatedOrders);
-    }
-  }}
-  disabled={order.isArrive || !order.isActive}
->
-  {order.isArrive ? "Arrived" : (order.isActive ? "Has Arrived?" : "Canceled")}
-</Button>
-
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
+                            setOrders(updatedOrders);
+                          }
+                        }}
+                        disabled={order.isArrive || !order.isActive}
+                      >
+                        {order.isArrive
+                          ? "Arrived"
+                          : order.isActive
+                          ? "Has Arrived?"
+                          : "Canceled"}
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 50]}
+        component="div"
+        count={filteredOrders.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </div>
   );
 }
