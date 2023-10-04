@@ -54,6 +54,7 @@ export const SET_AUTH_PERSISTENCE = "SET_AUTH_PERSISTENCE";
 export const ON_AUTHSTATE_SUCCESS = "ON_AUTHSTATE_SUCCESS";
 export const ON_AUTHSTATE_FAIL = "ON_AUTHSTATE_FAIL";
 export const RESET_PASSWORD = "RESET_PASSWORD";
+export const CLEAR_AUTH_STATUS = "CLEAR_AUTH_STATUS";
 
 //*------------------------------------------PROFILE
 

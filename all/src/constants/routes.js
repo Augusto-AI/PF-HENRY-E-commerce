@@ -9,7 +9,7 @@ export const RECOMMENDED_PRODUCTS = "/recommended";
 
 export const ACCOUNT = "/account";
 export const ACCOUNT_EDIT = "/account/edit";
-export const ADMIN_DASHBOARD = "/admin/dashboard";
+export const ADMIN_DASHBOARD = "/dashboard/admin";
 
 //*-----------------------------------------DASHBOARD/PRODUCT
 
@@ -47,6 +47,10 @@ export const SIGNIN = "/signin";
 export const SIGNOUT = "/signout";
 export const SIGNUP = "/signup";
 export const FORGOT_PASSWORD = "/forgot_password";
+// En tus constantes
+export const ROUTE_SIGNIN = "/signin";
+
+// Luego, puedes usar ROUTE_SIGNIN donde lo necesites en tu aplicación
 
 //*------------------------------------------CHECKOUT
 

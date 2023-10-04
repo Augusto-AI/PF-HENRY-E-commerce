@@ -15,7 +15,10 @@ const Dashboard = () => {
       <Cards />
 
       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        <div style={{ flex: "1", flexWrap: "wrap" }}>
+        <div style={{ flex: "1", marginRight: "16px" }}>
+          <UsersTable />
+        </div>
+        <div style={{ flex: "1", marginRight: "16px" }}>
           <Table />
         </div>
       </div>
