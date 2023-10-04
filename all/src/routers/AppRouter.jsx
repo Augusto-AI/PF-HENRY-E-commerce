@@ -21,11 +21,11 @@ const AppRouter = () => (
   <Router history={history}>
     <>
       <Navigation />
-      
+
       {/* {
         isChatBotVisible && <MyChatBot />
       } */}
-      
+
       <Basket />
       <MyChatBot />
       <Switch>
@@ -43,25 +43,28 @@ const AppRouter = () => (
           exact
           path={ROUTES.RECOMMENDED_PRODUCTS}
         />
+        <Route component={view.AboutUs} path={ROUTES.ABOUT} />
+
         <PublicRoute component={view.SignUp} path={ROUTES.SIGNUP} />
         <PublicRoute component={view.SignIn} exact path={ROUTES.SIGNIN} />
         <PublicRoute
           component={view.ForgotPassword}
           path={ROUTES.FORGOT_PASSWORD}
         />
+        <PublicRoute component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT} />
+
         <ClientRoute component={view.UserAccount} exact path={ROUTES.ACCOUNT} />
         <ClientRoute
           component={view.EditAccount}
           exact
           path={ROUTES.ACCOUNT_EDIT}
         />
-        <PublicRoute component={view.ViewProduct} path={ROUTES.VIEW_PRODUCT} />
+
         <ClientRoute
           component={view.CheckOutStep1}
           path={ROUTES.CHECKOUT_STEP_1}
         />
         <ClientRoute component={view.CheckOutSuccess} path={ROUTES.SUCCESS} />
-        <Route component={view.AboutUs} path={ROUTES.ABOUT} />
         <ClientRoute
           component={view.CheckOutStep2}
           path={ROUTES.CHECKOUT_STEP_2}
