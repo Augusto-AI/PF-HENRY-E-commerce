@@ -1,4 +1,8 @@
-import { SIGNIN_SUCCESS, SIGNOUT_SUCCESS } from '@/constants/constants';
+import {
+  SIGNIN_SUCCESS,
+  SIGNOUT_SUCCESS,
+  SET_SUSPENDED_MESSAGE,
+} from "@/constants/constants";
 
 const initState = null;
 // {
@@ -13,10 +17,19 @@ export default (state = initState, action) => {
       return {
         id: action.payload.id,
         role: action.payload.role,
-        provider: action.payload.provider
+        provider: action.payload.provider,
       };
     case SIGNOUT_SUCCESS:
       return null;
+
+    case SET_SUSPENDED_MESSAGE:
+      return {
+        ...state,
+        authStatus: {
+          ...state.authStatus,
+          message: action.message,
+        },
+      };
     default:
       return state;
   }

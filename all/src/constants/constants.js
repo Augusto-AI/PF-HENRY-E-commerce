@@ -18,10 +18,10 @@ export const SET_LAST_REF_KEY = "SET_LAST_REF_KEY";
 
 export const TOGGLE_DARK_MODE = "TOGGLE_DARK_MODE";
 export const SET_ORDER_STATUS = "SET_ORDER_STATUS";
-export const SET_ORDER_CANCELED = "SET_ORDER_CANCELED"
+export const SET_ORDER_CANCELED = "SET_ORDER_CANCELED";
 
 //*----------------------------------------------BASKET
-export const SUBTRACT_PIECES = "SUBTRACT_PIECES"
+export const SUBTRACT_PIECES = "SUBTRACT_PIECES";
 
 export const SET_BASKET_ITEMS = "SET_BASKET_ITEMS";
 export const ADD_TO_BASKET = "ADD_TO_BASKET";
@@ -56,6 +56,7 @@ export const ON_AUTHSTATE_SUCCESS = "ON_AUTHSTATE_SUCCESS";
 export const ON_AUTHSTATE_FAIL = "ON_AUTHSTATE_FAIL";
 export const RESET_PASSWORD = "RESET_PASSWORD";
 export const CLEAR_AUTH_STATUS = "CLEAR_AUTH_STATUS";
+export const SET_SUSPENDED_MESSAGE = "SET_SUSPENDED_MESSAGE";
 
 //*------------------------------------------PROFILE
 

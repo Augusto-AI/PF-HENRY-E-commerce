@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -23,6 +24,8 @@ export default function UsersTable() {
   const [isEnableDialogOpen, setIsEnableDialogOpen] = useState(false);
   const [userToEnable, setUserToEnable] = useState(null);
   const [filterText, setFilterText] = useState("");
+  const [loading, setLoading] = useState(true); // Track loading state
+  const currentUser = firebase.auth().currentUser; // Get the currently logged-in user
 
   useEffect(() => {
     // Configure the reference to the "users" collection in Firestore
@@ -35,6 +38,7 @@ export default function UsersTable() {
         updatedUsers.push({ id: doc.id, ...doc.data() });
       });
       setUsers(updatedUsers);
+      setLoading(false); // Set loading to false when data is loaded
     });
 
     // Stop listening when the component unmounts
@@ -42,8 +46,15 @@ export default function UsersTable() {
   }, []);
 
   const deleteUser = (userId) => {
-    // Set the user to disable and open the dialog
-    openDialog(userId);
+    // Check if the user being acted upon is the currentUser
+    if (currentUser && userId === currentUser.uid) {
+      // Handle actions specific to the currentUser
+      console.log("Current user cannot be deleted.");
+    } else {
+      // Delete other users
+      // Set the user to delete and open the dialog
+      openDialog(userId);
+    }
   };
 
   const openDialog = (userId) => {
@@ -58,18 +69,23 @@ export default function UsersTable() {
 
   const disableUserAccount = async (userId) => {
     try {
-      // Update the user's account status to disabled in Firestore
-      await firebase.firestore().collection("users").doc(userId).update({
-        disabled: true,
-      });
-      console.log("User disabled:", userId);
-
-      // Mark the button as clicked
-      setClickedButtons((prevState) => ({
-        ...prevState,
-        [userId]: true,
-      }));
-
+      // Check if the user being acted upon is the currentUser
+      if (currentUser && userId === currentUser.uid) {
+        // Handle actions specific to the currentUser
+        console.log("Current user cannot be disabled.");
+      } else {
+        // Disable other users
+        // Update the user's account status to disabled in Firestore
+        await firebase.firestore().collection("users").doc(userId).update({
+          disabled: true,
+        });
+        console.log("User disabled:", userId);
+        // Mark the button as clicked
+        setClickedButtons((prevState) => ({
+          ...prevState,
+          [userId]: true,
+        }));
+      }
       // Close the dialog after disabling the user
       closeDialog();
     } catch (error) {
@@ -89,18 +105,23 @@ export default function UsersTable() {
 
   const enableUserAccount = async (userId) => {
     try {
-      // Update the user's account status to enabled in Firestore
-      await firebase.firestore().collection("users").doc(userId).update({
-        disabled: false,
-      });
-      console.log("User enabled:", userId);
-
-      // Mark the button as not clicked
-      setClickedButtons((prevState) => ({
-        ...prevState,
-        [userId]: false,
-      }));
-
+      // Check if the user being acted upon is the currentUser
+      if (currentUser && userId === currentUser.uid) {
+        // Handle actions specific to the currentUser
+        console.log("Current user cannot be enabled.");
+      } else {
+        // Enable other users
+        // Update the user's account status to enabled in Firestore
+        await firebase.firestore().collection("users").doc(userId).update({
+          disabled: false,
+        });
+        console.log("User enabled:", userId);
+        // Mark the button as not clicked
+        setClickedButtons((prevState) => ({
+          ...prevState,
+          [userId]: false,
+        }));
+      }
       // Close the dialog after enabling the user
       closeEnableDialog();
     } catch (error) {
@@ -121,45 +142,55 @@ export default function UsersTable() {
         onChange={(e) => setFilterText(e.target.value)}
         style={{ marginBottom: 20 }}
       />
-      <div style={{ maxHeight: "400px", overflowY: "auto" }}>
-        {/* Set a maximum height and enable vertical scrolling */}
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="user table">
-            <TableHead>
-              <TableRow>
-                <TableCell>User Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Role</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredUsers.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.fullname}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="contained"
-                      color={clickedButtons[user.id] ? "secondary" : "primary"}
-                      onClick={() => {
-                        if (user.disabled) {
-                          openEnableDialog(user.id);
-                        } else {
-                          deleteUser(user.id);
-                        }
-                      }}
-                    >
-                      {user.disabled ? "ENABLE" : "DISABLE"}
-                    </Button>
-                  </TableCell>
+      {loading ? ( // Render loading indicator while loading
+        <div>Loading...</div>
+      ) : (
+        <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+          {/* Set a maximum height and enable vertical scrolling */}
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="user table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>User Name</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Role</TableCell>
+                  <TableCell>Actions</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+              </TableHead>
+              <TableBody>
+                {filteredUsers.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.fullname}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.role}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        color={
+                          clickedButtons[user.id] ? "secondary" : "primary"
+                        }
+                        onClick={() => {
+                          if (user.disabled) {
+                            openEnableDialog(user.id);
+                          } else {
+                            deleteUser(user.id);
+                          }
+                        }}
+                      >
+                        {currentUser && user.id === currentUser.uid
+                          ? "Current User"
+                          : user.disabled
+                          ? "ENABLE"
+                          : "DISABLE"}
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      )}
       <Dialog open={isDialogOpen} onClose={closeDialog}>
         <DialogTitle>Confirm Deactivation</DialogTitle>
         <DialogContent>
