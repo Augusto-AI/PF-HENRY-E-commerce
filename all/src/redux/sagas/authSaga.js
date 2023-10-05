@@ -7,6 +7,7 @@ import {
   SIGNIN_WITH_FACEBOOK,
   SIGNIN_WITH_GITHUB,
   SIGNIN_WITH_GOOGLE,
+  SIGNIN_WITH_MICROSOFT,
   SIGNOUT,
   SIGNUP,
 } from "@/constants/constants";
@@ -103,6 +104,15 @@ function* authSaga({ type, payload }) {
       try {
         yield initRequest();
         yield call(firebase.signInWithGithub);
+      } catch (e) {
+        yield handleError(e);
+      }
+      break;
+    case SIGNIN_WITH_MICROSOFT:
+      try {
+        yield initRequest();
+        // Call the appropriate Firebase method for signing in with Microsoft
+        yield call(firebase.signInWithMicrosoft);
       } catch (e) {
         yield handleError(e);
       }

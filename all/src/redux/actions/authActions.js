@@ -20,6 +20,10 @@ export const signInWithGithub = () => ({
   type: type.SIGNIN_WITH_GITHUB,
 });
 
+export const signInWithMicrosoft = () => ({
+  type: type.SIGNIN_WITH_MICROSOFT,
+});
+
 export const signUp = (user) => ({
   type: type.SIGNUP,
   payload: user,

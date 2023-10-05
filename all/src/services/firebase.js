@@ -110,6 +110,24 @@ class Firebase {
     }
   };
 
+  signInWithMicrosoft = () => {
+    const provider = new firebase.auth.OAuthProvider("microsoft.com");
+
+    // Add any additional scopes you need (e.g., 'user.read')
+    provider.addScope("user.read");
+
+    return async (dispatch) => {
+      try {
+        const result = await firebase.auth().signInWithPopup(provider);
+        // Handle successful Microsoft sign-in
+        console.log("Microsoft Sign-In Result:", result);
+      } catch (error) {
+        // Handle Microsoft sign-in error
+        console.error("Microsoft Sign-In Error:", error);
+      }
+    };
+  };
+
   //*---------------------------------------------------------PRODCUTO FUNCTIONS
 
   getSingleProduct = (id) => this.db.collection("products").doc(id).get();
