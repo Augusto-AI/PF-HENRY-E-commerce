@@ -1,22 +1,26 @@
-import { ArrowLeftOutlined, CheckOutlined, LoadingOutlined } from '@ant-design/icons';
-import { CustomInput, CustomMobileInput } from '@/components/formik';
-import { ACCOUNT } from '@/constants/routes';
-import { Field, useFormikContext } from 'formik';
-import PropType from 'prop-types';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import {
+  ArrowLeftOutlined,
+  CheckOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
+import { CustomInput, CustomMobileInput } from "@/components/formik";
+import { ACCOUNT } from "@/constants/routes";
+import { Field, useFormikContext } from "formik";
+import PropType from "prop-types";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const EditForm = ({ isLoading, authProvider }) => {
   const history = useHistory();
   const { values, submitForm } = useFormikContext();
   const darkMode = useSelector((state) => state.darkMode);
-  
-  const array = Object.values(darkMode)
-  const darkModelo = array[0]
+
+  const array = Object.values(darkMode);
+  const darkModelo = array[0];
 
   return (
-    <div className={`user-profile-details ${darkModelo ? 'dark-mode' : ''}`}>
+    <div className={`user-profile-details ${darkModelo ? "dark-mode" : ""}`}>
       <Field
         disabled={isLoading}
         name="fullname"
@@ -24,16 +28,17 @@ const EditForm = ({ isLoading, authProvider }) => {
         label="* Full Name"
         placeholder="Enter your full name"
         component={CustomInput}
-        style={{ textTransform: 'capitalize' }}
+        style={{ textTransform: "capitalize" }}
       />
       <Field
-        disabled={authProvider !== 'password' || isLoading}
+        disabled={isLoading}
         name="email"
         type="email"
         label="* Email Address"
         placeholder="test@example.com"
         component={CustomInput}
       />
+
       <Field
         disabled={isLoading}
         name="address"
@@ -41,7 +46,7 @@ const EditForm = ({ isLoading, authProvider }) => {
         label="Address (Will be used for checkout)"
         placeholder="#245 Brgy. Maligalig, Arayat Pampanga, Philippines"
         component={CustomInput}
-        style={{ textTransform: 'capitalize' }}
+        style={{ textTransform: "capitalize" }}
       />
       <CustomMobileInput
         defaultValue={values.mobile}
@@ -58,8 +63,7 @@ const EditForm = ({ isLoading, authProvider }) => {
           type="button"
         >
           <ArrowLeftOutlined />
-          &nbsp;
-          Back to Profile
+          &nbsp; Back to Profile
         </button>
         <button
           className="button w-100-mobile"
@@ -68,8 +72,8 @@ const EditForm = ({ isLoading, authProvider }) => {
           type="button"
         >
           {isLoading ? <LoadingOutlined /> : <CheckOutlined />}
-                    &nbsp;
-          {isLoading ? 'Updating Profile' : 'Update Profile'}
+          &nbsp;
+          {isLoading ? "Updating Profile" : "Update Profile"}
         </button>
       </div>
     </div>
@@ -78,7 +82,7 @@ const EditForm = ({ isLoading, authProvider }) => {
 
 EditForm.propTypes = {
   isLoading: PropType.bool.isRequired,
-  authProvider: PropType.string.isRequired
+  authProvider: PropType.string.isRequired,
 };
 
 export default EditForm;
