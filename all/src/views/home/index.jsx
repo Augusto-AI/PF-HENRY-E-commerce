@@ -69,9 +69,8 @@ const Home = () => {
         </div>
         <div className={`display ${darkModelo ? "text-thin-darkmode" : ""}`}>
           <div
-            className={`display-header ${
-              darkModelo ? "text-thin-darkmode" : ""
-            }`}
+            className={`display-header ${darkModelo ? "text-thin-darkmode" : ""
+              }`}
           >
             <h1
               className={`text-thin ${darkModelo ? "text-thin-darkmode" : ""}`}

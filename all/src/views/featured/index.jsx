@@ -10,10 +10,10 @@ const FeaturedProducts = () => {
 
   const { featuredProducts, fetchFeaturedProducts, isLoading, error } =
     useFeaturedProducts();
-    const darkMode = useSelector((state) => state.darkMode);
-  
-    const array = Object.values(darkMode)
-    const darkModelo = array[0]
+  const darkMode = useSelector((state) => state.darkMode);
+
+  const array = Object.values(darkMode)
+  const darkModelo = array[0]
 
   return (
     <main className={`content ${darkModelo ? 'dark-mode' : ''}`}>

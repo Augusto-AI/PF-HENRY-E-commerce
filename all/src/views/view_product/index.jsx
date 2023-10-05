@@ -18,6 +18,7 @@ import ReviewForm from "./ReviewForm";
 import firebaseInstance from "@/services/firebase";
 import ReviewProduct from "./ReviewProduct";
 import "./Review.css";
+import { useSelector } from "react-redux";
 
 const ViewProduct = () => {
   const { id } = useParams();
@@ -25,6 +26,11 @@ const ViewProduct = () => {
   const { addToBasket, isItemOnBasket } = useBasket(id);
   useScrollTop();
   useDocumentTitle(`View ${product?.name || "Item"}`);
+
+  const darkMode = useSelector((state) => state.darkMode);
+
+  const array = Object.values(darkMode);
+  const darkModelo = array[0];
 
   const [selectedImage, setSelectedImage] = useState(product?.image || "");
   const [selectedSize, setSelectedSize] = useState("");
@@ -82,9 +88,9 @@ const ViewProduct = () => {
     });
   };
   const isOutOfStock = product.maxQuantity <= 0;
-console.log(product)
+  console.log(product)
   return (
-    <main className="content">
+    <main className={`content ${darkModelo ? "dark-mode" : ""}`}>
 
       {isLoading && (
         <div className="loader">
@@ -159,10 +165,10 @@ console.log(product)
               </div>
               <br />
               {isOutOfStock && (
-  <div className="out-of-stock-message">
-    <p style={{ color: "red", display: "inline"}}>We are so sorry, this item is out of stock.</p>
-  </div>
-)}
+                <div className="out-of-stock-message">
+                  <p style={{ color: "red", display: "inline" }}>We are so sorry, this item is out of stock.</p>
+                </div>
+              )}
               {product.availableColors.length >= 1 && (
                 <div>
                   <span className="text-subtle">Choose Color</span>
@@ -176,35 +182,34 @@ console.log(product)
               )}
               <h1>{displayMoney(product.price)}</h1>
               <div className="product-modal-action">
-              <button
-  className={`button button-small ${
-    isItemOnBasket(product.id)
-      ? "button-border button-border-gray"
-      : ""
-  }`}
-  onClick={handleAddToBasket}
-  type="button"
-  disabled={isOutOfStock}
->
-  {isItemOnBasket(product.id)
-    ? "Remove From Basket"
-    : "Add To Basket"}
-</button>
+                <button
+                  className={`button button-small ${isItemOnBasket(product.id)
+                    ? "button-border button-border-gray"
+                    : ""
+                    }`}
+                  onClick={handleAddToBasket}
+                  type="button"
+                  disabled={isOutOfStock}
+                >
+                  {isItemOnBasket(product.id)
+                    ? "Remove From Basket"
+                    : "Add To Basket"}
+                </button>
 
               </div>
             </div>
           </div>
           <div className="app-container">
-          <div>
-        {/* < ReviewForm productId={product.id} /> */}
-        
-      </div>
-      {/* Renderiza el componente ReviewProduct y pasa las reseñas y el email del usuario */}
-      <ReviewProduct productId={product.id}/>
-      <div style={{ marginTop: "10rem" }}>
-        {/* ... (otro código de tu componente) */}
-      </div>
-      </div>
+            <div>
+              {/* < ReviewForm productId={product.id} /> */}
+
+            </div>
+            {/* Renderiza el componente ReviewProduct y pasa las reseñas y el email del usuario */}
+            <ReviewProduct productId={product.id} />
+            <div style={{ marginTop: "10rem" }}>
+              {/* ... (otro código de tu componente) */}
+            </div>
+          </div>
           <div style={{ marginTop: "10rem" }}>
             <div className="display-header">
               <h1>Recommended</h1>
