@@ -61,7 +61,7 @@ const UserNav = () => {
       ref={userNav}
       role="button"
       tabIndex={0}
-      style={{ borderRadius: "2em"}}
+      style={{ borderRadius: "1em", marginBottom: "12px"}}
     >
       {isAuthenticating ? (
         <>

@@ -13,14 +13,14 @@ const ProductFeatured = ({ product }) => {
     history.push(`/product/${product.id}`);
   };
   const darkMode = useSelector((state) => state.darkMode);
-  
+
   const array = Object.values(darkMode)
   const darkModelo = array[0]
 
   return (
     <SkeletonTheme color="#e1e1e1" highlightColor="#f2f2f2">
       <div className={`product-display ${darkModelo ? 'dark-mode' : ''}`} onClick={onClickItem} role="presentation">
-        <div className="product-display-img" style={darkModelo ? { backgroundColor: 'black', borderRadius: "50em" } : {}}>
+        <div className="product-display-img" style={darkModelo ? { backgroundColor: 'black' } : {}}>
           {product.image ? (
             <ImageLoader
               className={`product-card-img${darkModelo ? 'dark-mode' : ''}`}

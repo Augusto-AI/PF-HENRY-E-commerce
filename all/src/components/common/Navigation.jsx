@@ -90,23 +90,23 @@ const Navigation = () => {
         <Link onClick={onClickLink} to="/"><img alt="Logo" src={darkModelo ? logoBlanco : logo} /></Link>
 
       </div>
-      <DarkMode/>
+      <DarkMode />
 
-      <ul className={`navigation-menu-main ${darkModelo ? 'dark-mode' : ''}`}>
-        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} exact to={ROUTE.HOME}>Home</NavLink></li>
-        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.SHOP}>Shop</NavLink></li>
-        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.FEATURED_PRODUCTS}>Featured</NavLink></li>
-        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.RECOMMENDED_PRODUCTS}>Recommended</NavLink></li>
-        <li><NavLink style={darkModelo ? { color: 'white'} : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.ABOUT}>About Us</NavLink></li>
+      <ul className={`navigation-menu-main ${darkModelo ? 'dark-mode' : ''}`} style={{ marginBottom: "20px" }}>
+        <li><NavLink style={darkModelo ? { color: 'white' } : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} exact to={ROUTE.HOME}>Home</NavLink></li>
+        <li><NavLink style={darkModelo ? { color: 'white' } : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.SHOP}>Shop</NavLink></li>
+        <li><NavLink style={darkModelo ? { color: 'white' } : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.FEATURED_PRODUCTS}>Featured</NavLink></li>
+        <li><NavLink style={darkModelo ? { color: 'white' } : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.RECOMMENDED_PRODUCTS}>Recommended</NavLink></li>
+        <li><NavLink style={darkModelo ? { color: 'white' } : {}} activeClassName={`navigation-menu-active ${darkModelo ? 'dark-mode' : ''}`} to={ROUTE.ABOUT}>About Us</NavLink></li>
 
       </ul>
       <div>
-          <FiltersToggle>
-            <button className={`button-muted button-small ${darkModelo ? 'dark-mode' : ''}`} style={{ padding: "1.1rem 1.8rem"}} type="button">
+        <FiltersToggle>
+          <button className={`button-muted button-small ${darkModelo ? 'dark-mode' : ''}`} style={{ padding: "1.1rem 1.8rem" }} type="button">
             &nbsp;
-              <FilterOutlined />
-            </button>
-          </FiltersToggle>
+            <FilterOutlined />
+          </button>
+        </FiltersToggle>
       </div>
       <div className={` ${darkModelo ? 'dark-mode' : ''}`}>
 
@@ -118,10 +118,10 @@ const Navigation = () => {
           <BasketToggle>
             {({ onClickToggle }) => (
               <button
-              className={`button-link navigation-menu-link basket-toggle ${darkModelo ? 'dark-mode' : ''}`}
-              disabled={basketDisabledpathnames.includes(pathname)}
-              onClick={onClickToggle}
-              type="button"
+                className={`button-link navigation-menu-link basket-toggle ${darkModelo ? 'dark-mode' : ''}`}
+                disabled={basketDisabledpathnames.includes(pathname)}
+                onClick={onClickToggle}
+                type="button"
               >
 
                 <Badge count={store.basketLength}>
