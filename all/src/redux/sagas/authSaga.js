@@ -7,7 +7,6 @@ import {
   SIGNIN_WITH_FACEBOOK,
   SIGNIN_WITH_GITHUB,
   SIGNIN_WITH_GOOGLE,
-  SIGNIN_WITH_MICROSOFT,
   SIGNOUT,
   SIGNUP,
 } from "@/constants/constants";
@@ -66,28 +65,15 @@ function* authSaga({ type, payload }) {
     case SIGNIN:
       try {
         yield initRequest();
-        const userCredential = yield call(
-          firebase.signIn,
-          payload.email,
-          payload.password
-        );
-        const user = userCredential.user;
-
-        // Check if the user is disabled
-        if (user.disabled) {
-          yield call(firebase.signOut); // Sign out the user
-          yield put(
-            setAuthStatus({
-              success: false,
-              type: "auth",
-              isError: true,
-              message: "Sorry! Account suspended",
-            })
-          );
-        } else {
-          // The user is not disabled, proceed with normal login logic
-          // ...
-        }
+        yield call(firebase.signIn, payload.email, payload.password);
+      } catch (e) {
+        yield handleError(e);
+      }
+      break;
+    case SIGNIN_WITH_GOOGLE:
+      try {
+        yield initRequest();
+        yield call(firebase.signInWithGoogle);
       } catch (e) {
         yield handleError(e);
       }
@@ -104,15 +90,6 @@ function* authSaga({ type, payload }) {
       try {
         yield initRequest();
         yield call(firebase.signInWithGithub);
-      } catch (e) {
-        yield handleError(e);
-      }
-      break;
-    case SIGNIN_WITH_MICROSOFT:
-      try {
-        yield initRequest();
-        // Call the appropriate Firebase method for signing in with Microsoft
-        yield call(firebase.signInWithMicrosoft);
       } catch (e) {
         yield handleError(e);
       }
@@ -186,23 +163,6 @@ function* authSaga({ type, payload }) {
 
       if (snapshot.data()) {
         const user = snapshot.data();
-
-        if (user.disabled) {
-          // Check if the user is disabled
-          yield call(firebase.signOut); // Sign out the user
-          yield put(
-            setAuthStatus({
-              success: false,
-              type: "auth",
-              isError: true,
-              message: "Sorry! Your account is suspended.",
-            })
-          );
-          yield put(signOutSuccess()); // Clear the user data
-          return; // Exit the function to prevent further execution
-        }
-
-        // Rest of the code to handle an active user
         yield put(setProfile(user));
         yield put(setBasketItems(user.basket));
         yield put(
@@ -210,14 +170,6 @@ function* authSaga({ type, payload }) {
             id: payload.uid,
             role: user.role,
             provider: payload.providerData[0].providerId,
-          })
-        );
-        yield put(
-          setAuthStatus({
-            success: true,
-            type: "auth",
-            isError: false,
-            message: "Successfully signed in. Redirecting...",
           })
         );
       } else if (
@@ -244,18 +196,18 @@ function* authSaga({ type, payload }) {
             provider: payload.providerData[0].providerId,
           })
         );
-        yield put(
-          setAuthStatus({
-            success: true,
-            type: "auth",
-            isError: false,
-            message: "Successfully signed in. Redirecting...",
-          })
-        );
       }
+
+      yield put(
+        setAuthStatus({
+          success: true,
+          type: "auth",
+          isError: false,
+          message: "Successfully signed in. Redirecting...",
+        })
+      );
       yield put(setAuthenticating(false));
       break;
-
     case ON_AUTHSTATE_FAIL:
       yield put(clearProfile());
       yield put(signOutSuccess());
