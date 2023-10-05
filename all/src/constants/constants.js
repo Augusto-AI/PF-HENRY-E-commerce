@@ -30,6 +30,8 @@ export const CLEAR_BASKET = "CLEAR_BASKET";
 export const ADD_QTY_ITEM = "ADD_QTY_ITEM";
 export const MINUS_QTY_ITEM = "MINUS_QTY_ITEM";
 export const DECREASE_ITEM_QUANTITY = "DECREASE_ITEM_QUANTITY";
+export const LOAD_BASKET_SUCCESS = "LOAD_BASKET_SUCCESS";
+export const LOAD_BASKET_FAILURE = "LOAD_BASKET_FAILURE";
 
 //*------------------------------------------SHIPPING
 
